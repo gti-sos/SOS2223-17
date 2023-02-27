@@ -88,7 +88,7 @@ app.get(BASE_API_URL+"/docs", (req,res)=>{
     res.redirect(API_DOC_PORTAL);
 });
 
-app.get(BASE_API_URL+"/samples/YYY", (req,res)=>{
+app.get(BASE_API_URL+"/samples/salcha2", (req,res)=>{
     res.send(JSON.stringify(array, null, 2));
 });
 
