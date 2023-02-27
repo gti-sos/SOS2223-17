@@ -55,12 +55,11 @@ console.log(myArray);
 function mediaActivacionesPorTelefono(province,ls){
     var ac = 0;
     var cont = 0;
-    for(var i=0;i<ls.length;i++){
-        if(ls[i].province==province){
-            ac = ac + ls[i].phone_call_activatin_organization;
+    var x = ls.filter((n)=>{return province===n.province;});
+    for(var i=0;i<x.length;i++){
+            ac = ac + x[i].phone_call_activatin_organization;
             cont++;
         }
-    }
     return ac/cont;
 }
 var sol = mediaActivacionesPorTelefono("Cádiz",myArray);
