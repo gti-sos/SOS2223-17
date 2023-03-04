@@ -1,4 +1,22 @@
 {
+  "name": "nodejs",
+  "version": "0.0.0",
+  "description": "paquete nodejs para SOS-F04",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gti-sos/SOS2223-17.git"
+  },
+  "author": "josgaroro",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gti-sos/SOS2223-17/issues"
+  },
+  "homepage": "https://github.com/gti-sos/SOS2223-17#readme",
   "dependencies": {
     "cool-ascii-faces": "^1.3.4",
     "express": "^4.18.2"
