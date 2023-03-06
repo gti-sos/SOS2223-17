@@ -1,11 +1,9 @@
 const cool = require("cool-ascii-faces");
 const express = require("express");
-const bodyParser = require("body-parser")
+const bodyParser = require("body-parser");
 
 
-const app = express();
-
-const BASE_API_URL = "/api/v1"; 
+const app = express(); 
 
 const port = process.env.PORT || 8080;
 
@@ -14,8 +12,8 @@ const API_DOC_PORTAL = "https://documenter.getpostman.com/view/25746364/2s935rL3
 
 app.use(bodyParser.json());
 
-//código caras
-app.get(BASE_API_URL+"/cool", (req,res)=>{
+//código caras /////////////////////////////////////////////////////////////
+app.get("/cool", (req,res)=>{
     res.send(JSON.stringify(cool(), null, 2));
 });
 
@@ -203,7 +201,7 @@ suma = i.reduce((a,n)=>{
 var arraySalcha2 = suma/i.length;
 
 
-app.get(BASE_API_URL+"/samples/salcha2", (req,res)=>{
+app.get("/samples/SAL", (req,res)=>{
     res.send(JSON.stringify(arraySalcha2, null, 2));
 });
 
@@ -239,7 +237,7 @@ datosFichero.forEach(elemento=>{
 
 let arrayJosgaroro1 = "Media empleados en Almería: "+ ac /contador;
 
-app.get(BASE_API_URL+"/samples/josgaroro1", (req,res)=>{
+app.get("/samples/JGO", (req,res)=>{
     res.send(JSON.stringify(arrayJosgaroro1, null, 2));
 });
 
@@ -314,7 +312,7 @@ var sol = mediaActivacionesPorTelefono("Cádiz",myArray);
 
 let arraySanpinand = "Media activaciones organizaciones de emergencia por telefono en Cádiz: "+ sol;
 
-app.get(BASE_API_URL+"/samples/spa", (req,res)=>{
+app.get("/samples/SPA", (req,res)=>{
     res.send(JSON.stringify(arraySanpinand, null, 2));
 });
 
