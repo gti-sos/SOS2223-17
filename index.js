@@ -3,7 +3,8 @@ const express = require("express");
 const bodyParser = require("body-parser");
 
 
-const app = express(); 
+const app = express(); //constructor
+const BASE_API_URL = "api/v1";
 
 const port = process.env.PORT || 8080;
 
@@ -249,65 +250,218 @@ function makeRow(province, month, phone_call_activatin_organization,year){
     this.phone_call_activatin_organization = phone_call_activatin_organization;
     this.year = year;
 }
-var row1  = new makeRow("Almería","january",3520,2019);
-var row2  = new makeRow("Cádiz","january",1016,2019);
-var row3  = new makeRow("Cordoba","january",997,2019);
-var row4  = new makeRow("Granada","january",4067,2019);
-var row5  = new makeRow("Huelva","january",837,2019);
-var row6  = new makeRow("Jaén","january",2191,2019);
-var row7  = new makeRow("Malaga","january",1871,2019);
-var row8  = new makeRow("Sevilla","january",3203,2019);
-
-var row9   = new makeRow("Almería","february",3171,2019);
-var row10  = new makeRow("Cádiz","february",848,2019);
-var row11  = new makeRow("Cordoba","february",988,2019);
-var row12  = new makeRow("Granada","february",4267,2019);
-var row13  = new makeRow("Huelva","february",749,2019);
-var row14  = new makeRow("Jaén","february",2070,2019);
-var row15  = new makeRow("Malaga","february",1777,2019);
-var row16  = new makeRow("Sevilla","february",3270,2019); 
-
-var row17  = new makeRow("Almería","march",3613,2019);
-var row18  = new makeRow("Cádiz","march",937,2019); 
-var row19  = new makeRow("Cordoba","march",1184,2019);
-var row20 = new makeRow("Granada","march",4622,2019);
-var row21  = new makeRow("Huelva","march",840,2019); 
-var row22  = new makeRow("Jaén","march",2181,2019);
-var row23  = new makeRow("Malaga","march",2274,2019 );
-var row24  = new makeRow("Sevilla","march",3642,2019);
-  
-var row25 = new makeRow("Almería","april",3549,2019);
-var row26 = new makeRow("Cádiz","april",1044,2019);
-var row27 = new makeRow("Cordoba","april",955,2019);
-var row28 = new makeRow("Granada","april",4625,2019);
-var row29 = new makeRow("Huelva","april",848,2019);
-var row30 = new makeRow("Jaén","april",2225,2019);
-var row31 = new makeRow("Malaga","april",2281,2019);
-var row32 = new makeRow("Sevilla","april",3499,2019);
-
-var row33 = new makeRow("Almería","may",3594,2019);
-var row34 = new makeRow("Cádiz","may",1166,2019);
-var row35 = new makeRow("Cordoba","may",1122,2019);
-var row36 = new makeRow("Granada","may",5254,2019);
-var row37 = new makeRow("Huelva","may",1092,2019);
-var row38 = new makeRow("Jaén","may",2278,2019);
-var row39 = new makeRow("Malaga","may",2509,2019);
-var row40 = new makeRow("Sevilla","may",4028,2019);
-
-var myArray = new Array(row1,row2,row3,row4,row5,row6,row7,row8,row9,row10,row11,row12,row13,row14,row15,row16,row17,row18,row19,row20,row21,row22,row23,row24,row25,row26,row27,row28,row29,row30,row31,row32,row33,row34,row35,row36,row37,row38,row39,row40);
-
-
-function mediaActivacionesPorTelefono(province,ls){
-    var ac = 0;
-    var cont = 0;
-    var x = ls.filter((n)=>{return province===n.province;});
-    for(var i=0;i<x.length;i++){
-            ac = ac + x[i].phone_call_activatin_organization;
-            cont++;
-        }
-    return ac/cont;
+var datosLlamadas = [{
+    province : "Almería",
+    month : "january",
+    phone_call_activation_organization : 3520,
+    telematic_activation_organization : 4826,
+    emergency_call : 3786,
+    year : 2019
+},
+{
+    province : "Cádiz",
+    month : "january",
+    phone_call_activation_organization : 1016,
+    telematic_activation_organization : 8605,
+    emergency_call : 6009,
+    year : 2019
+},
+{
+    province : "Cordoba",
+    month : "january",
+    phone_call_activation_organization : 997,
+    telematic_activation_organization : 5174,
+    emergency_call : 3965,
+    year : 2019
+},
+{
+    province : "Granada",
+    month : "january",
+    phone_call_activation_organization : 4067,
+    telematic_activation_organization : 9577,
+    emergency_call : 6693,
+    year : 2019
+},
+{
+    province : "Huelva",
+    month : "january",
+    phone_call_activation_organization : 837,
+    telematic_activation_organization : 3555,
+    emergency_call : 2830,
+    year : 2019
+},
+{
+    province : "Jaén",
+    month : "january",
+    phone_call_activation_organization : 2191,
+    telematic_activation_organization : 5469,
+    emergency_call : 3578,
+    year : 2019
+},
+{
+    province : "Málaga",
+    month : "january",
+    phone_call_activation_organization : 1871,
+    telematic_activation_organization : 13735,
+    emergency_call : 9897,
+    year : 2019
+},
+{
+    province : "Sevilla",
+    month : "january",
+    phone_call_activation_organization : 3203,
+    telematic_activation_organization : 24597,
+    emergency_call : 14903,
+    year : 2019
+},
+{
+    province : "Almería",
+    month : "february",
+    phone_call_activation_organization : 3171,
+    telematic_activation_organization : 4052,
+    emergency_call : 3352,
+    year : 2019
+},
+{
+    province : "Cádiz",
+    month : "february",
+    phone_call_activation_organization : 848,
+    telematic_activation_organization : 7763,
+    emergency_call : 5506,
+    year : 2019
+},
+{
+    province : "Cordoba",
+    month : "february",
+    phone_call_activation_organization : 988,
+    telematic_activation_organization : 4564,
+    emergency_call : 3689,
+    year : 2019
+},
+{
+    province : "Granada",
+    month : "february",
+    phone_call_activation_organization : 4267,
+    telematic_activation_organization : 8416,
+    emergency_call : 5967,
+    year : 2019
+},
+{
+    province : "Huelva",
+    month : "february",
+    phone_call_activation_organization : 749,
+    telematic_activation_organization : 3263,
+    emergency_call : 2586,
+    year : 2019
+},
+{
+    province : "Jaén",
+    month : "february",
+    phone_call_activation_organization : 2070,
+    telematic_activation_organization : 4902,
+    emergency_call : 3208,
+    year : 2019
+},
+{
+    province : "Málaga",
+    month : "february",
+    phone_call_activation_organization : 1777,
+    telematic_activation_organization : 12482,
+    emergency_call : 9218,
+    year : 2019
+},
+{
+    province : "Sevilla",
+    month : "february",
+    phone_call_activation_organization : 3270,
+    telematic_activation_organization : 22247,
+    emergency_call : 13529,
+    year : 2019
+},
+{
+    province : "Almería",
+    month : "march",
+    phone_call_activation_organization : 3613,
+    telematic_activation_organization : 4714,
+    emergency_call : 3666,
+    year : 2019
+},
+{
+    province : "Cádiz",
+    month : "march",
+    phone_call_activation_organization : 937,
+    telematic_activation_organization : 8952,
+    emergency_call : 6201,
+    year : 2019
+},
+{
+    province : "Cordoba",
+    month : "march",
+    phone_call_activation_organization : 1184,
+    telematic_activation_organization : 5121,
+    emergency_call : 3859,
+    year : 2019
+},
+{
+    province : "Granada",
+    month : "march",
+    phone_call_activation_organization : 4622,
+    telematic_activation_organization : 9437,
+    emergency_call : 6499,
+    year : 2019
+},
+{
+    province : "Huelva",
+    month : "march",
+    phone_call_activation_organization : 840,
+    telematic_activation_organization : 3769,
+    emergency_call : 2887,
+    year : 2019
+},
+{
+    province : "Jaén",
+    month : "march",
+    phone_call_activation_organization : 2181,
+    telematic_activation_organization : 5238,
+    emergency_call : 3436,
+    year : 2019
+},
+{
+    province : "Málaga",
+    month : "march",
+    phone_call_activation_organization : 2274,
+    telematic_activation_organization : 15129,
+    emergency_call : 10487,
+    year : 2019
+},
+{
+    province : "Sevilla",
+    month : "march",
+    phone_call_activation_organization : 3642,
+    telematic_activation_organization : 25339,
+    emergency_call : 14691,
+    year : 2019
 }
-var sol = mediaActivacionesPorTelefono("Cádiz",myArray);
+
+];
+
+
+
+
+
+var ls = datosLlamadas
+            .filter((n)=>{
+            return n.province==="Cádiz";
+            }).map((n)=>{
+                return n.phone_call_activation_organization;
+           });
+
+ac = ls.reduce((a,n)=>{
+    return a+n;
+});
+
+var sol = ac/ls.length;
+
 
 
 let arraySanpinand = "Media activaciones organizaciones de emergencia por telefono en Cádiz: "+ sol;
