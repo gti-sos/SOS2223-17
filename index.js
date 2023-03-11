@@ -555,35 +555,23 @@ app.get('/api/v1/andalusian-bicycle-plans', (req, res) => {
   
   
 
-  app.put('/api/v1/andalusian-bicycle-plans/:province/:year', (req, res) => {
-    const { province, year } = req.params;
-    const { information } = req.body;
-  
-    if (req.method !== 'PUT') {
-      return res.status(405).json({ error: 'Método no permitido' });
-    }
-  
-    // Aquí se podría validar la información del cuerpo de la solicitud
-  
-    // Aquí se podría buscar el plan por su ID en una base de datos o en un arreglo
-    const planIndex = contacts.findIndex(plan => plan.province === province && plan.year === year);
-  
-    if (planIndex === -1) {
-      return res.status(404).json({ error: 'Plan no encontrado' });
-    }
-  
-    const plan = contacts[planIndex];
-  
-    // Aquí se actualizaría la información del plan
-    if (information !== undefined) {
-      plan.information = information;
-    }
-    // Aquí se podrían actualizar más campos relevantes
-  
-    // Aquí se podría guardar el plan actualizado en una base de datos o en un arreglo
-    contacts[planIndex] = plan;
-  
-    res.json(plan);
+    app.put('/api/v1/andalusian-bicycle-plans/:province/:year', (req, res) => {
+      const contactProvince = req.params.province;
+      const contactYear = parseInt(req.params.year);
+      const newContactData = req.body; // asumiendo que los nuevos datos del contacto se envían en el cuerpo de la solicitud
+      const index = contacts.findIndex(contact => contact.province === contactProvince && contact.year === contactYear);
+      if (index !== -1) {
+          // actualizar el contacto con los nuevos datos
+          contacts[index] = {
+              ...contacts[index], // operador spread para copiar las propiedades existentes del contacto
+              ...newContactData, // operador spread para actualizar con los nuevos datos
+              province: contactProvince, // asegurar que la provincia y el año no se actualicen
+              year: contactYear
+          };
+          res.status(200).json(contacts[index]);
+      } else {
+          res.sendStatus(404);
+      }
   });
   
   
@@ -597,24 +585,16 @@ app.get('/api/v1/andalusian-bicycle-plans', (req, res) => {
   
 
   app.delete('/api/v1/andalusian-bicycle-plans/:province/:year', (req, res) => {
-    const { province, year } = req.params;
-  
-    // Aquí se podría buscar el plan por su ID en una base de datos o en un arreglo
-    const planIndex = contacts.findIndex(plan => plan.province === province && plan.year === year);
-  
-    if (planIndex === -1) {
-      return res.status(404).json({ error: 'Plan no encontrado' });
-    }
-  
-    // Aquí se podría eliminar el plan de una base de datos o de un arreglo
-    contacts.splice(planIndex, 1);
-  
-    res.status(204).end();
-  });
-  
+    const contactProvince = req.params.province;
+    const contactYear = parseInt(req.params.year); // parseInt is used to convert the year parameter to an integer
+    contacts = contacts.filter((contact) => {
+        return (contact.province !== contactProvince || contact.year !== contactYear);
+    });
+    res.sendStatus(200);
+});
 
-
-
+  
+  
 
 // codigo josgaroro1 /////////////////////////////////////////////////////////////////////
 
