@@ -549,34 +549,50 @@ app.get('/api/v1/andalusian-bicycle-plans', (req, res) => {
   app.post('/api/v1/andalusian-bicycle-plans', (req, res) => {
     const { province, municipality, population, all_displacement, walking, car_driver, accompanying_car, motorcycle, bicycle, public_transport, other_transportation, year, motorized_percentage } = req.body;
   
-    // Se podría validar la información del cuerpo de la solicitud aquí
+    // Verificar si ya existe un plan con la misma información
+    const existingPlan = plans.find(plan => 
+      plan.province === province && 
+      plan.municipality === municipality && 
+      plan.year === year
+    );
   
-    const newPlan = {
-      province,
-      municipality,
-      population,
-      all_displacement,
-      walking,
-      car_driver,
-      accompanying_car,
-      motorcycle,
-      bicycle,
-      public_transport,
-      other_transportation,
-      year,
-      motorized_percentage
-    };
+    if (existingPlan) {
+      res.status(409).json({ error: 'A plan with the same information already exists.' });
+    } else {
+      // Crear el nuevo plan
+      const newPlan = {
+        province,
+        municipality,
+        population,
+        all_displacement,
+        walking,
+        car_driver,
+        accompanying_car,
+        motorcycle,
+        bicycle,
+        public_transport,
+        other_transportation,
+        year,
+        motorized_percentage
+      };
   
-    // Se podría guardar el nuevo plan en una base de datos o en un arreglo aquí
+      // Guardar el nuevo plan en la base de datos o arreglo
+      plans.push(newPlan);
   
-    res.status(201).json(newPlan);
+      res.status(201).json(newPlan);
+    }
   });
   
   
+  
 
-   app.put('/api/v1/andalusian-bicycle-plans/:province/:year', (req, res) => {
+  app.put('/api/v1/andalusian-bicycle-plans/:province/:year', (req, res) => {
     const { province, year } = req.params;
     const { information } = req.body;
+  
+    if (req.method !== 'PUT') {
+      return res.status(405).json({ error: 'Método no permitido' });
+    }
   
     // Aquí se podría validar la información del cuerpo de la solicitud
   
