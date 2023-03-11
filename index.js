@@ -4,12 +4,13 @@ const bodyParser = require("body-parser");
 
 
 const app = express(); //constructor
-const BASE_API_URL = "api/v1";
+const BASE_API_URL = "/api/v1";
 
 const port = process.env.PORT || 8080;
 
 const API_DOC_PORTAL = "https://documenter.getpostman.com/view/25746364/2s935rL3kj"
 
+const jose = require("./index-josgaroro1");
 
 app.use(bodyParser.json());
 
@@ -618,40 +619,22 @@ app.get('/api/v1/andalusian-bicycle-plans', (req, res) => {
 
 // codigo josgaroro1 /////////////////////////////////////////////////////////////////////
 
-//Variables
-let datosFichero = new Array();
-let ac = 0;
-let contador = 0;
 
-datosFichero = [["Hombres", 1, "Almería", 5, 6850, 2019], ["Hombres", 1, "Cádiz", 5, 8325, 2019], 
-["Hombres", 1, "Córdoba", 5, 4375, 2018], ["Hombres", 1, "Granada", 5, 9650, 2018], 
-["Hombres", 1, "Huelva", 3, 4425, 2016], ["Hombres", 1, "Jaén", 3, 4525, 2016], 
-["Hombres", 1, "Málaga", 3, 14525, 2016], ["Hombres", 1, "Sevilla", 3, 10175, 2018], 
-["Hombres", 1, "Cádiz", 3, 63250, 2018], ["Hombres", 1, "Almería", 3, 8050, 2019]];
-
-function contains(a, obj) {
-    for (var i = 0; i < a.length; i++) {
-        if (a[i] === obj) {
-            return true;
-        }
-    }
-    return false;
-}
-
-
-datosFichero.forEach(elemento=>{
-    if(contains(elemento, "Almería")){
-        ac += elemento[3];
-        contador++;
-    }
-});
-
-let arrayJosgaroro1 = "Media empleados en Almería: "+ ac /contador;
 
 app.get("/samples/JGO", (req,res)=>{
-    res.send(JSON.stringify(arrayJosgaroro1, null, 2));
+    res.send(JSON.stringify(jose.datosJGO, null, 2));
 });
 
+app.get(BASE_API_URL+"/self-employed-stats", (request,response) => {
+    response.json(jose.datosJGO);
+    console.log("New GET to /contacts");
+});
+
+app.get(BASE_API_URL+"/self-employed-stats/loadInitialData", (request,response) => {
+    //
+    response.json(jose.datosJGO);
+    console.log("New GET to /contacts");
+});
 
 // código sanpinand /////////////////////////////////////////////////////////////////////
 function makeRow(province, month, phone_call_activatin_organization,year){
