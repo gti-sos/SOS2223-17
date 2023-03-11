@@ -22,190 +22,604 @@ app.get("/cool", (req,res)=>{
 //codigo salim /////////////////////////////////////////////////////////////
 
 var contacts = [
-    {
-        province: "Sevilla",
-        municipality: 50,
-        population: 1543901,
-        all_displacement:3405252,	
-        walking:24.0,	
-        car_driver:48.1,
-        accompanying_car:13.6,
-        motorcycle:3.3,
-        bicycle:1.9,
-        public_transport:9.2,
-        other_transportation:0.4,	
-        year:2016,	
-        motorized_percentage:65.0
+  {
+      "province":"Almeria",
+      "municipality":19,
+      "population":508657,
+      "all_displacement":1099878,
+      "walking":"32,1",
+      "car_driver":"47,2",
+      "accompanying_car":"14,7",
+      "motorcycle":"5,4",
+      "bicycle":"2,2",
+      "public_transport":"7,6",
+      "other_ transportation":"1,5",
+      "year":2015,
+      "motorized_percentage":"53,1"
+  },
+  {
+      "province":"Cadiz",
+      "municipality":12,
+      "population":807793,
+      "all_displacement":2176140,
+      "walking":"28,6",
+      "car_driver":"42,4",
+      "accompanying_car":"14,7",
+      "motorcycle":"6,5",
+      "bicycle":"1,6",
+      "public_transport":4,
+      "other_ transportation":"0,8",
+      "year":2015,
+      "motorized_percentage":"65,0"
+  },
+  {
+      "province":"Cordoba",
+      "municipality":16,
+      "population":398762,
+      "all_displacement":902612,
+      "walking":"33,3",
+      "car_driver":"40,9",
+      "accompanying_car":"13,8",
+      "motorcycle":"2,9",
+      "bicycle":"2,1",
+      "public_transport":"6,2",
+      "other_ transportation":"0,5",
+      "year":2015,
+      "motorized_percentage":"65,2"
+  },
+  {
+      "province":"Granada",
+      "municipality":50,
+      "population":566830,
+      "all_displacement":1382297,
+      "walking":"31,8",
+      "car_driver":"48,1",
+      "accompanying_car":"10,5",
+      "motorcycle":"3,5",
+      "bicycle":"2,2",
+      "public_transport":"9,3",
+      "other_ transportation":"0,8",
+      "year":2015,
+      "motorized_percentage":"62,8"
+  },
+  {
+      "province":"Huelva",
+      "municipality":21,
+      "population":398584,
+      "all_displacement":959108,
+      "walking":"30,1",
+      "car_driver":"48,1",
+      "accompanying_car":"10,6",
+      "motorcycle":"5,2",
+      "bicycle":"2,1",
+      "public_transport":4,
+      "other_ transportation":"0,4",
+      "year":2015,
+      "motorized_percentage":"57,4"
+  },
+  {
+      "province":"Jaen",
+      "municipality":14,
+      "population":218264,
+      "all_displacement":439574,
+      "walking":"38,4",
+      "car_driver":"47,2",
+      "accompanying_car":"10,6",
+      "motorcycle":"5,2",
+      "bicycle":"0,8",
+      "public_transport":"9,3",
+      "other_ transportation":"0,4",
+      "year":2015,
+      "motorized_percentage":"62,6"
+  },
+  {
+      "province":"Malaga",
+      "municipality":32,
+      "population":1294982,
+      "all_displacement":2775480,
+      "walking":"30,4",
+      "car_driver":"48,2",
+      "accompanying_car":"13,5",
+      "motorcycle":"3,5",
+      "bicycle":"2,5",
+      "public_transport":4,
+      "other_ transportation":"0,4",
+      "year":2015,
+      "motorized_percentage":"62,8"
+  },
+  {
+      "province":"Sevilla",
+      "municipality":50,
+      "population":1543901,
+      "all_displacement":3405252,
+      "walking":"24,0",
+      "car_driver":"39,6",
+      "accompanying_car":"13,7",
+      "motorcycle":"1,7",
+      "bicycle":"0,8",
+      "public_transport":"8,2",
+      "other_ transportation":"1,5",
+      "year":2015,
+      "motorized_percentage":"57,4"
+  },
+  
 
+  {
+      "province":"Almeria",
+      "municipality":18,
+      "population":508658,
+      "all_displacement":1099878,
+      "walking":"32,1",
+      "car_driver":"48,2",
+      "accompanying_car":"13,5",
+      "motorcycle":"3,3",
+      "bicycle":"2,5",
+      "public_transport":"8,2",
+      "other_ transportation":"0,1",
+      "year":2016,
+      "motorized_percentage":"64,1"
+  },
+  {
+      "province":"Cadiz",
+      "municipality":11,
+      "population":807792,
+      "all_displacement":2176140,
+      "walking":"28,6",
+      "car_driver":"42,4",
+      "accompanying_car":"11,8",
+      "motorcycle":"3,1",
+      "bicycle":"1,3",
+      "public_transport":"9,2",
+      "other_ transportation":"0,4",
+      "year":2016,
+      "motorized_percentage":"57,4"
+  },
+  {
+      "province":"Cordoba",
+      "municipality":15,
+      "population":398763,
+      "all_displacement":902612,
+      "walking":"33,3",
+      "car_driver":"47,2",
+      "accompanying_car":"13,8",
+      "motorcycle":"3,4",
+      "bicycle":"2,1",
+      "public_transport":"9,2",
+      "other_ transportation":"0,4",
+      "year":2016,
+      "motorized_percentage":"53,1"
+  },
+  {
+      "province":"Granada",
+      "municipality":49,
+      "population":566831,
+      "all_displacement":1382297,
+      "walking":"31,8",
+      "car_driver":"45,8",
+      "accompanying_car":"13,8",
+      "motorcycle":"1,7",
+      "bicycle":"2,5",
+      "public_transport":"4,8",
+      "other_ transportation":"0,1",
+      "year":2016,
+      "motorized_percentage":"62,6"
+  },
+  {
+      "province":"Huelva",
+      "municipality":50,
+      "population":398584,
+      "all_displacement":959108,
+      "walking":"30,1",
+      "car_driver":"45,8",
+      "accompanying_car":"9,2",
+      "motorcycle":"5,4",
+      "bicycle":"1,9",
+      "public_transport":"9,4",
+      "other_ transportation":"0,4",
+      "year":2016,
+      "motorized_percentage":"65,0"
+  },
+  {
+      "province":"Jaen",
+      "municipality":51,
+      "population":218264,
+      "all_displacement":439574,
+      "walking":"38,4",
+      "car_driver":"40,9",
+      "accompanying_car":"10,5",
+      "motorcycle":"2,9",
+      "bicycle":"1,5",
+      "public_transport":"5,6",
+      "other_ transportation":"0,5",
+      "year":2016,
+      "motorized_percentage":"62,8"
+  },
+  {
+      "province":"Malaga",
+      "municipality":32,
+      "population":1294986,
+      "all_displacement":2775480,
+      "walking":"30,4",
+      "car_driver":"48,1",
+      "accompanying_car":"13,6",
+      "motorcycle":"6,5",
+      "bicycle":"1,6",
+      "public_transport":"9,4",
+      "other_ transportation":"0,5",
+      "year":2016,
+      "motorized_percentage":"57,4"
+  },
+  {
+      "province":"Sevilla",
+      "municipality":50,
+      "population":1543900,
+      "all_displacement":3405252,
+      "walking":"24,0",
+      "car_driver":"48,1",
+      "accompanying_car":"9,2",
+      "motorcycle":"3,4",
+      "bicycle":"2,2",
+      "public_transport":"7,2",
+      "other_ transportation":"0,4",
+      "year":2016,
+      "motorized_percentage":"64,1"
+  },
+  
+  {
+      "province":"Alameda",
+      "municipality":11,
+      "population":398765,
+      "all_displacement":1099878,
+      "walking":"32,1",
+      "car_driver":"48,2",
+      "accompanying_car":"10,6",
+      "motorcycle":"3,1",
+      "bicycle":"1,5",
+      "public_transport":"4,8",
+      "other_ transportation":"0,6",
+      "year":2017,
+      "motorized_percentage":"60,8"
+  },
+  {
+      "province":"Cadiz",
+      "municipality":15,
+      "population":566833,
+      "all_displacement":2176140,
+      "walking":"28,6",
+      "car_driver":"43,0",
+      "accompanying_car":"13,7",
+      "motorcycle":"3,3",
+      "bicycle":"2,1",
+      "public_transport":"5,6",
+      "other_ transportation":"0,8",
+      "year":2017,
+      "motorized_percentage":"65,1"
+  },
+  {
+      "province":"Cordoba",
+      "municipality":49,
+      "population":398586,
+      "all_displacement":902612,
+      "walking":"33,3",
+      "car_driver":"44,8",
+      "accompanying_car":"11,0",
+      "motorcycle":"3,5",
+      "bicycle":"0,8",
+      "public_transport":"5,6",
+      "other_ transportation":"0,1",
+      "year":2017,
+      "motorized_percentage":"57,4"
+  },
+  {
+      "province":"Granada",
+      "municipality":50,
+      "population":218269,
+      "all_displacement":1382297,
+      "walking":"31,8",
+      "car_driver":"39,6",
+      "accompanying_car":"13,7",
+      "motorcycle":"6,5",
+      "bicycle":"1,9",
+      "public_transport":"7,2",
+      "other_ transportation":"0,4",
+      "year":2017,
+      "motorized_percentage":"60,8"
+  },
+  {
+      "province":"Huelva",
+      "municipality":51,
+      "population":1294987,
+      "all_displacement":959108,
+      "walking":"30,1",
+      "car_driver":"43,0",
+      "accompanying_car":"13,6",
+      "motorcycle":"5,4",
+      "bicycle":"2,1",
+      "public_transport":"9,4",
+      "other_ transportation":"0,6",
+      "year":2017,
+      "motorized_percentage":"64,1"
+  },
+  {
+      "province":"Jaen",
+      "municipality":32,
+      "population":1543901,
+      "all_displacement":439574,
+      "walking":"38,4",
+      "car_driver":"48,1",
+      "accompanying_car":"10,5",
+      "motorcycle":"8,1",
+      "bicycle":"1,6",
+      "public_transport":"7,2",
+      "other_ transportation":"0,6",
+      "year":2017,
+      "motorized_percentage":"65,1"
+  },
+  {
+      "province":"Malaga",
+      "municipality":50,
+      "population":1543908,
+      "all_displacement":2775480,
+      "walking":"30,4",
+      "car_driver":"39,6",
+      "accompanying_car":"11,0",
+      "motorcycle":"8,1",
+      "bicycle":"1,9",
+      "public_transport":"9,2",
+      "other_ transportation":"1,1",
+      "year":2017,
+      "motorized_percentage":"65,2"
+  },
+  {
+      "province":"Sevilla",
+      "municipality":52,
+      "population":1543905,
+      "all_displacement":3405252,
+      "walking":"24,0",
+      "car_driver":"48,1",
+      "accompanying_car":"11,8",
+      "motorcycle":"3,1",
+      "bicycle":"1,3",
+      "public_transport":"8,2",
+      "other_ transportation":"0,4",
+      "year":2017,
+      "motorized_percentage":"65,1"
+  },
+  
 
-    },
-    {
-        province: "Málaga",
-        municipality: 32,
-        population: 1294982,
-        all_displacement:2775480,	
-        walking:30.4,	
-        car_driver:45.8,
-        accompanying_car:10.5,
-        motorcycle:6.5,
-        bicycle:0.5,
-        public_transport:6.2,
-        other_transportation:0.4,	
-        year:2016,	
-        motorized_percentage:62.8
+]
 
-
-    },
-    
-
-    {
-        province: "Sevilla",
-        municipality: 52,
-        population: 1543902,
-        all_displacement:3405253,	
-        walking:25.0,	
-        car_driver:48.1,
-        accompanying_car:13.7,
-        motorcycle:3.4,
-        bicycle:2.1,
-        public_transport:9.3,
-        other_transportation:0.5,	
-        year:2016,	
-        motorized_percentage:65.1
-    },
-
-    {
-        province: "Sevilla",
-        municipality: 53,
-        population: 1543903,
-        all_displacement:3405254,	
-        walking:25.1,	
-        car_driver:48.2,
-        accompanying_car:13.8,
-        motorcycle:3.5,
-        bicycle:2.2,
-        public_transport:9.4,
-        other_transportation:0.6,	
-        year:2015,	
-        motorized_percentage:65.2
-    },
-
-
-    {
-        province: "Jaén",
-        municipality: 14,
-        population: 218264,
-        all_displacement:439574,	
-        walking:38.4,	
-        car_driver:39.6,
-        accompanying_car:10.6,
-        motorcycle:2.9,
-        bicycle:0.8,
-        public_transport:7.6,
-        other_transportation:0.1,	
-        year:2017,	
-        motorized_percentage:53.1
-    },
-
-    {
-        province: "Huelva",
-        municipality: 21,
-        population: 398584,
-        all_displacement:959108,	
-        walking:30.1,	
-        car_driver:44.8,
-        accompanying_car:14.7,
-        motorcycle:3.1,
-        bicycle:2.5,
-        public_transport:4.8,
-        other_transportation:0.1,	
-        year:2017,	
-        motorized_percentage:62.6
-    },
-
-    {
-        province: "Granada",
-        municipality: 50,
-        population: 566830,
-        all_displacement:1382297,	
-        walking:31.8,	
-        car_driver:43.0,
-        accompanying_car:9.2,
-        motorcycle:5.2,
-        bicycle:1.5,
-        public_transport:8.2,
-        other_transportation:1.1,	
-        year:2018,	
-        motorized_percentage:57.4
-    },
-
-    {
-        province: "Córdoba",
-        municipality: 16,
-        population: 398762,
-        all_displacement:902612,	
-        walking:33.3,	
-        car_driver:40.9,
-        accompanying_car:11.0,
-        motorcycle:5.4,
-        bicycle:2.1,
-        public_transport:7.2,
-        other_transportation:0.8,	
-        year:2018,	
-        motorized_percentage:57.4
-    },
-
-    {
-        province: "Cádiz",
-        municipality: 12,
-        population: 807793,
-        all_displacement:2176140,	
-        walking:28.6,	
-        car_driver:42.4,
-        accompanying_car:13.5,
-        motorcycle:8.1,
-        bicycle:1.3,
-        public_transport:5.6,
-        other_transportation:0.4,	
-        year:2019,	
-        motorized_percentage:64.1
-    },
-
-    {
-        province: "Almería",
-        municipality: 19,
-        population: 508657,
-        all_displacement:1099878,	
-        walking:32.1,	
-        car_driver:47.2,
-        accompanying_car:11.8,
-        motorcycle:1.7,
-        bicycle:1.6,
-        public_transport:4.0,
-        other_transportation:1.5,	
-        year:2019,	
-        motorized_percentage:60.8
-    },
-];
 
 
 var i = contacts
             .filter((n)=>{
-            return n.province==="Sevilla";
+                return n.province === "Sevilla";
             }).map((n)=>{
                 return n.population;
-           });
+            });
 
-suma = i.reduce((a,n)=>{
-    return a+n;
+var suma = i.reduce((a, n)=>{
+    return a + n;
 });
 
-var arraySalcha2 = suma/i.length;
+var media = suma / i.length;
+
+var arraySalcha2 = "Media de la población de Sevilla en los diferentes periodos: " + media;
 
 
-app.get("/samples/SAL", (req,res)=>{
+app.get("/samples/SCC", (req, res)=>{
     res.send(JSON.stringify(arraySalcha2, null, 2));
 });
+
+app.get('/api/v1/andalusian-bicycle-plans/loadInitialData', (req, res) => {
+    const contacts = [];
+    for (let i = 0; i < 10; i++) {
+      const newContact = {
+        province: "Galicia",
+        municipality: "Municipio " + (i + 1),
+        population: 10000 * (i + 1),
+        all_displacement: 5000 * (i + 1),
+        walking: 1000 * (i + 1),
+        car_driver: 2000 * (i + 1),
+        accompanying_car: 500 * (i + 1),
+        motorcycle: 500 * (i + 1),
+        bicycle: 1000 * (i + 1),
+        public_transport: 500 * (i + 1),
+        other_transportation: 250 * (i + 1),
+        year: 2021 - i,
+        motorized_percentage: ((2000 * (i + 1)) / (5000 * (i + 1))) * 100 //calculating motorized transportation percentage
+      };
+      contacts.push(newContact);
+    }
+    res.json(contacts);
+  });
+  
+  
+
+// app.get(BASE_API_URL + "/andalusian-bicycle-plans", (req, res)=>{
+//     res.send(JSON.stringify(contacts, null, 2));
+// });
+
+
+app.get('/api/v1/andalusian-bicycle-plans', (req, res) => {
+    const { province, year, from, to } = req.query;
+  
+    // Filtramos por provincia, si se especificó
+    let planesFiltrados = contacts;
+    if (province) {
+      planesFiltrados = planesFiltrados.filter(plan => plan.province === province);
+    }
+  
+    // Filtramos por año, si se especificó
+    if (year) {
+      const parsedYear = Number(year); // Parseamos el año a número
+      if (isNaN(parsedYear)) {
+        // Si el año no es un número válido, devolvemos un código de estado 400
+        return res.status(400).json({ error: 'Año inválido' });
+      }
+      planesFiltrados = planesFiltrados.filter(plan => plan.year === parsedYear);
+    }
+  
+    // Filtramos por rango de años, si se especificó
+    if (from && to) {
+      const parsedFrom = Number(from); // Parseamos el año de inicio a número
+      const parsedTo = Number(to); // Parseamos el año de fin a número
+      if (isNaN(parsedFrom) || isNaN(parsedTo)) {
+        // Si alguno de los años no es un número válido, devolvemos un código de estado 400
+        return res.status(400).json({ error: 'Rango de años inválido' });
+      }
+      planesFiltrados = planesFiltrados.filter(plan => plan.year >= parsedFrom && plan.year <= parsedTo);
+    }
+  
+    // Si se especificó provincia o rango de años y no se encontraron planes, devolvemos un código de estado 404
+    if ((province || (from && to)) && planesFiltrados.length === 0) {
+      return res.status(404).json({ error: 'No se encontraron planes para los parámetros especificados' });
+    }
+  
+    // Devolvemos los planes filtrados con un código de estado 200
+    res.status(200).json(planesFiltrados);
+  });
+  
+  app.get('/api/v1/andalusian-bicycle-plans/:province', (req, res) => {
+    const { province } = req.params;
+    const { from, to } = req.query;
+  
+    let planesFiltrados = contacts.filter(plan => plan.province === province);
+  
+    if (from !== undefined && to !== undefined) {
+      const parsedFrom = Number(from);
+      const parsedTo = Number(to);
+      if (isNaN(parsedFrom) || isNaN(parsedTo)) {
+        return res.status(400).json({ error: 'Rango de años inválido' });
+      }
+      planesFiltrados = planesFiltrados.filter(plan => plan.year >= parsedFrom && plan.year <= parsedTo);
+    }
+  
+    if (planesFiltrados.length === 0) {
+      return res.status(404).json({ error: 'No se encontraron planes para los parámetros especificados' });
+    }
+  
+    res.json(planesFiltrados);
+  });
+  
+  app.get('/api/v1/andalusian-bicycle-plans/:province/:year', (req, res) => {
+    const { province, year } = req.params;
+    const { from, to } = req.query;
+  
+    let planesFiltrados = contacts.filter(plan => plan.province === province && plan.year == year);
+  
+    if (from !== undefined && to !== undefined) {
+      const parsedFrom = Number(from);
+      const parsedTo = Number(to);
+      if (isNaN(parsedFrom) || isNaN(parsedTo)) {
+        return res.status(400).json({ error: 'Rango de años inválido' });
+      }
+      planesFiltrados = planesFiltrados.filter(plan => plan.year >= parsedFrom && plan.year <= parsedTo);
+    }
+  
+    if (planesFiltrados.length === 0) {
+      return res.status(404).json({ error: 'No se encontraron planes para los parámetros especificados' });
+    }
+  
+    res.json(planesFiltrados);
+  });
+  
+  app.get('/api/v1/andalusian-bicycle-plans', (req, res) => {
+    const { from, to } = req.query;
+  
+    let planesFiltrados = contacts;
+  
+    if (from !== undefined && to !== undefined) {
+      const parsedFrom = Number(from);
+      const parsedTo = Number(to);
+      if (isNaN(parsedFrom) || isNaN(parsedTo)) {
+        return res.status(400).json({ error: 'Rango de años inválido' });
+      }
+      planesFiltrados = planesFiltrados.filter(plan => plan.year >= parsedFrom && plan.year <= parsedTo);
+    }
+  
+    if (planesFiltrados.length === 0) {
+      return res.status(404).json({ error: 'No se encontraron planes para los parámetros especificados' });
+    }
+  
+    res.json(planesFiltrados);
+  });
+  
+  
+
+  app.post('/api/v1/andalusian-bicycle-plans', (req, res) => {
+    const { province, municipality, population, all_displacement, walking, car_driver, accompanying_car, motorcycle, bicycle, public_transport, other_transportation, year, motorized_percentage } = req.body;
+  
+    // Verificar si ya existe un plan con la misma información
+    const existingPlan = plans.find(plan => 
+      plan.province === province && 
+      plan.municipality === municipality && 
+      plan.year === year
+    );
+  
+    if (existingPlan) {
+      res.status(409).json({ error: 'A plan with the same information already exists.' });
+    } else {
+      // Crear el nuevo plan
+      const newPlan = {
+        province,
+        municipality,
+        population,
+        all_displacement,
+        walking,
+        car_driver,
+        accompanying_car,
+        motorcycle,
+        bicycle,
+        public_transport,
+        other_transportation,
+        year,
+        motorized_percentage
+      };
+  
+      // Guardar el nuevo plan en la base de datos o arreglo
+      plans.push(newPlan);
+  
+      res.status(201).json(newPlan);
+    }
+  });
+  
+  
+  
+
+  app.put('/api/v1/andalusian-bicycle-plans/:province/:year', (req, res) => {
+    const { province, year } = req.params;
+    const { information } = req.body;
+  
+    if (req.method !== 'PUT') {
+      return res.status(405).json({ error: 'Método no permitido' });
+    }
+  
+    // Aquí se podría validar la información del cuerpo de la solicitud
+  
+    // Aquí se podría buscar el plan por su ID en una base de datos o en un arreglo
+    const planIndex = contacts.findIndex(plan => plan.province === province && plan.year === year);
+  
+    if (planIndex === -1) {
+      return res.status(404).json({ error: 'Plan no encontrado' });
+    }
+  
+    const plan = contacts[planIndex];
+  
+    // Aquí se actualizaría la información del plan
+    if (information !== undefined) {
+      plan.information = information;
+    }
+    // Aquí se podrían actualizar más campos relevantes
+  
+    // Aquí se podría guardar el plan actualizado en una base de datos o en un arreglo
+    contacts[planIndex] = plan;
+  
+    res.json(plan);
+  });
+  
+  
+
 
 // codigo josgaroro1 /////////////////////////////////////////////////////////////////////
 
