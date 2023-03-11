@@ -549,9 +549,19 @@ app.get('/api/v1/andalusian-bicycle-plans', (req, res) => {
   
 
   app.post('/api/v1/andalusian-bicycle-plans', (req, res) => {
-      contacts.push(req.body);
-      res.sendStatus(201, "CREATED")
-    });
+    const newContact = req.body;
+    
+    // Check if the contact already exists in the array
+    const existingContact = contacts.find(contact => contact.id === newContact.id);
+    if (existingContact) {
+      return res.status(409).json({ message: "The contact already exists" });
+    }
+    
+    // If the contact doesn't exist, add it to the array
+    contacts.push(newContact);
+    res.status(201).json({ message: "Contact added successfully" });
+  });
+  
  
   
   
