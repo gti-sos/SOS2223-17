@@ -547,41 +547,10 @@ app.get('/api/v1/andalusian-bicycle-plans', (req, res) => {
   
 
   app.post('/api/v1/andalusian-bicycle-plans', (req, res) => {
-    const { province, municipality, population, all_displacement, walking, car_driver, accompanying_car, motorcycle, bicycle, public_transport, other_transportation, year, motorized_percentage } = req.body;
-  
-    // Verificar si ya existe un plan con la misma información
-    const existingPlan = plans.find(plan => 
-      plan.province === province && 
-      plan.municipality === municipality && 
-      plan.year === year
-    );
-  
-    if (existingPlan) {
-      res.status(409).json({ error: 'A plan with the same information already exists.' });
-    } else {
-      // Crear el nuevo plan
-      const newPlan = {
-        province,
-        municipality,
-        population,
-        all_displacement,
-        walking,
-        car_driver,
-        accompanying_car,
-        motorcycle,
-        bicycle,
-        public_transport,
-        other_transportation,
-        year,
-        motorized_percentage
-      };
-  
-      // Guardar el nuevo plan en la base de datos o arreglo
-      plans.push(newPlan);
-  
-      res.status(201).json(newPlan);
-    }
-  });
+      contacts.push(req.body);
+      res.sendStatus(201, "CREATED")
+    });
+ 
   
   
   
@@ -618,6 +587,33 @@ app.get('/api/v1/andalusian-bicycle-plans', (req, res) => {
   });
   
   
+  app.delete('/api/v1/andalusian-bicycle-plans', (req, res) => {
+    // Aquí se podría eliminar todos los datos de una base de datos o de un arreglo
+    contacts = [];
+  
+    res.status(204).end();
+  });
+
+  
+
+  app.delete('/api/v1/andalusian-bicycle-plans/:province/:year', (req, res) => {
+    const { province, year } = req.params;
+  
+    // Aquí se podría buscar el plan por su ID en una base de datos o en un arreglo
+    const planIndex = contacts.findIndex(plan => plan.province === province && plan.year === year);
+  
+    if (planIndex === -1) {
+      return res.status(404).json({ error: 'Plan no encontrado' });
+    }
+  
+    // Aquí se podría eliminar el plan de una base de datos o de un arreglo
+    contacts.splice(planIndex, 1);
+  
+    res.status(204).end();
+  });
+  
+
+
 
 
 // codigo josgaroro1 /////////////////////////////////////////////////////////////////////
