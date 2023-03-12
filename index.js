@@ -670,14 +670,63 @@ app.get("/samples/JGO", (req,res)=>{
 
 app.get(BASE_API_URL+"/self-employed-stats", (request,response) => {
     response.json(jose.datosJGO);
-    console.log("New GET to /contacts");
+    console.log("New GET to /self-employed-stats");
+    response.sendStatus(200);
 });
 
-app.get(BASE_API_URL+"/self-employed-stats/loadInitialData", (request,response) => {
-    //
-    response.json(jose.datosJGO);
-    console.log("New GET to /contacts");
+app.get(BASE_API_URL+"/self-employed-stats/:name", (request,response) => {
+    var name = request.params.name;
+    if (jose.datosJGO.filter((dato=>dato.territory === name)).length>0){
+        response.json(jose.datosJGO.filter(dato=>dato.territory === name));
+        response.sendStatus(200);
+    }else{
+        response.sendStatus(404);
+    }
 });
+
+app.get(BASE_API_URL+"/self-employed-stats/loadInitialData", (req,res) => {
+    const autonomo = [];
+    const provincias = ["Sevilla", "Huelva", "Córdoba", "Granada", "Almería", "Málaga", "Jaén", "Cádiz", "Sevilla", "Huelva"];
+    for (let i = 0; i < 10; i++) {
+        const autonomo_iesimo = {
+            genre: "Mujeres",
+            live_with: 1 + (i + 1),
+            territory: provincias[i],
+            employee: 50 * (i + 1),
+            value: 1000 * (i + 1),
+            year: 2013 + (i + 1),
+        };
+        autonomo.push(autonomo_iesimo);
+    }
+    res.json(autonomo);
+      
+});
+
+app.post(BASE_API_URL+"/self-employed-stats",(req,res)=>{
+    var inputPost = req.body;
+    if(inputPost.length!==6){//campos igual a 6 sino err400
+        res.sendStatus(400);
+    }
+    else if (jose.datosJGO.find(autonomo => (autonomo.value !== inputPost.value)&(autonomo.year !== inputPost.year)&
+            (autonomo.genre !== inputPost.genre)&(autonomo.territory !== inputPost.territory))){
+        res.sendStatus(409);
+    }else{
+        jose.datosJGO.push(inputPost);
+        res.sendStatus(201);
+    }
+
+
+    console.log("New POST to /self-employed")
+});
+
+app.post(BASE_API_URL+"/self-employed-stats/huelva", (req,res)=>{
+    res.sendStatus(405);
+});
+
+app.put(BASE_API_URL+"/self-employed-stats", (req,res)=>{
+    res.sendStatus(405);
+});
+
 
 // código sanpinand /////////////////////////////////////////////////////////////////////
 function makeRow(province, month, phone_call_activatin_organization,year){
