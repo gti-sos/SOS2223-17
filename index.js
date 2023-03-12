@@ -507,23 +507,37 @@ app.get('/api/v1/andalusian-bicycle-plans', (req, res) => {
     const { province, year } = req.params;
     const { from, to } = req.query;
   
+    // Verificar si se proporcionan los parámetros de ruta necesarios
+    if (!province || !year) {
+      return res.status(400).json({ error: 'Faltan parámetros de ruta' });
+    }
+  
+    // Validar que los valores de los parámetros sean correctos
+    const validProvinces = ['sevilla', 'malaga', 'cadiz', 'huelva', 'cordoba', 'jaen', 'almeria'];
+    if (!validProvinces.includes(province.toLowerCase())) {
+      return res.status(400).json({ error: 'Provincia inválida' });
+    }
+  
+    if (isNaN(year) || year < 2000 || year > 2023) {
+      return res.status(400).json({ error: 'Año inválido' });
+    }
+  
     let planesFiltrados = contacts.filter(plan => plan.province === province && plan.year == year);
   
     if (from !== undefined && to !== undefined) {
       const parsedFrom = Number(from);
       const parsedTo = Number(to);
-      if (isNaN(parsedFrom) || isNaN(parsedTo)) {
+      if (isNaN(parsedFrom) || isNaN(parsedTo) || parsedFrom < 2000 || parsedTo > 2023 || parsedFrom > parsedTo) {
         return res.status(400).json({ error: 'Rango de años inválido' });
       }
       planesFiltrados = planesFiltrados.filter(plan => plan.year >= parsedFrom && plan.year <= parsedTo);
     }
   
-    if (planesFiltrados.length === 0) {
-      return res.status(404).json({ error: 'No se encontraron planes para los parámetros especificados' });
-    }
-  
     res.json(planesFiltrados);
   });
+  
+  
+  
   
   app.get('/api/v1/andalusian-bicycle-plans', (req, res) => {
     const { from, to } = req.query;
@@ -548,50 +562,88 @@ app.get('/api/v1/andalusian-bicycle-plans', (req, res) => {
   
   
 
-  app.post('/api/v1/andalusian-bicycle-plans', (req, res) => {
-    const newContact = req.body;
-    
-    // Check if the contact already exists in the array
-    const existingContact = contacts.find(contact => contact.id === newContact.id);
-    if (existingContact) {
-      return res.status(409).json({ message: "The contact already exists" });
+  app.post('/api/v1/andalusian-bicycle-plans/:id?', (req, res) => {
+    const id = req.params.id;
+    const url = req.originalUrl.split('?')[0];
+  
+    // Verificar si el método es POST y si la URL es la correcta
+    if (req.method !== 'POST' || id || url !== '/api/v1/andalusian-bicycle-plans') {
+      return res.status(405).json({ message: "Método no permitido para el recurso solicitado" });
     }
-    
-    // If the contact doesn't exist, add it to the array
+  
+    const newContact = req.body;
+  
+    // Verificar si el contacto ya existe en el arreglo
+    const existingContact = contacts.find(contact => (contact.name !== newContact.name)&(contact.year !== newContact.year));
+    if (existingContact) {
+      return res.status(409).json({ message: "El contacto ya existe" });
+    }
+  
+    // Si el contacto no existe, agregarlo al arreglo
     contacts.push(newContact);
-    res.status(201).json({ message: "Contact added successfully" });
+    res.status(201).json({ message: "Contacto agregado exitosamente" });
   });
   
+  
+  
+  
+  
+  
+  
+  
+
  
   
   
   
 
-    app.put('/api/v1/andalusian-bicycle-plans/:province/:year', (req, res) => {
-      const contactProvince = req.params.province;
-      const contactYear = parseInt(req.params.year);
-      const newContactData = req.body; // asumiendo que los nuevos datos del contacto se envían en el cuerpo de la solicitud
-      const index = contacts.findIndex(contact => contact.province === contactProvince && contact.year === contactYear);
-      if (index !== -1) {
-          // actualizar el contacto con los nuevos datos
-          contacts[index] = {
-              ...contacts[index], // operador spread para copiar las propiedades existentes del contacto
-              ...newContactData, // operador spread para actualizar con los nuevos datos
-              province: contactProvince, // asegurar que la provincia y el año no se actualicen
-              year: contactYear
-          };
-          res.status(200).json(contacts[index]);
-      } else {
-          res.sendStatus(404);
+  app.put('/api/v1/andalusian-bicycle-plans/:province/:year', (req, res) => {
+    const { province, year } = req.params;
+    const expectedId = `${province}/${year}`;
+    if (parseInt(year) >= 2020) {
+      return res.sendStatus(400);
+    }
+
+
+    if (req.params.province && req.params.year) {
+      if (req.params.province !== province || req.params.year !== year.toString()) {
+        return res.sendStatus(400);
       }
+    } else if (req.body.id !== expectedId) {
+      return res.sendStatus(400);
+    }
+  
+    const index = contacts.findIndex(contact => contact.province === province && contact.year === parseInt(year));
+    if (index === -1) {
+      return res.sendStatus(404);
+    }
+  
+    contacts[index] = {
+      ...contacts[index],
+      ...req.body,
+      province,
+      year: parseInt(year),
+    };
+  
+    res.status(200).json(contacts[index]);
   });
+  
+  
+
+  
+  
+
+  app.put('/api/v1/andalusian-bicycle-plans', (req, res) => {
+    res.sendStatus(405);
+  });
+
   
   
   app.delete('/api/v1/andalusian-bicycle-plans', (req, res) => {
     // Aquí se podría eliminar todos los datos de una base de datos o de un arreglo
     contacts = [];
   
-    res.status(204).end();
+    res.status(200).end();
   });
 
   
