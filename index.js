@@ -1,7 +1,8 @@
 const cool = require("cool-ascii-faces");
 const express = require("express");
 const bodyParser = require("body-parser");
-
+var Datastore = require('nedb');
+var db = new Datastore();
 
 const app = express(); //constructor
 const BASE_API_URL = "/api/v1";
@@ -11,6 +12,7 @@ const port = process.env.PORT || 8080;
 
 const API_DOC_PORTAL = "https://documenter.getpostman.com/view/25746364/2s935rL3kj"
 
+const jose = require("./index-josgaroro1");
 
 app.use(bodyParser.json());
 
@@ -411,29 +413,380 @@ app.get("/samples/SCC", (req, res)=>{
     res.send(JSON.stringify(arraySalcha2, null, 2));
 });
 
-app.get('/api/v1/andalusian-bicycle-plans/loadInitialData', (req, res) => {
-    const contacts = [];
-    for (let i = 0; i < 10; i++) {
-      const newContact = {
-        province: "Galicia",
-        municipality: "Municipio " + (i + 1),
-        population: 10000 * (i + 1),
-        all_displacement: 5000 * (i + 1),
-        walking: 1000 * (i + 1),
-        car_driver: 2000 * (i + 1),
-        accompanying_car: 500 * (i + 1),
-        motorcycle: 500 * (i + 1),
-        bicycle: 1000 * (i + 1),
-        public_transport: 500 * (i + 1),
-        other_transportation: 250 * (i + 1),
-        year: 2021 - i,
-        motorized_percentage: ((2000 * (i + 1)) / (5000 * (i + 1))) * 100 //calculating motorized transportation percentage
-      };
-      contacts.push(newContact);
-    }
-    res.json(contacts);
-  });
+app.get(BASE_API_URL + "/andalusian-bicycle-plans/loadInitialData", (req, res) => {
+  if (contacts.length==0){
+    contacts.push({
+      "province":"Almeria",
+      "municipality":19,
+      "population":508657,
+      "all_displacement":1099878,
+      "walking":"32,1",
+      "car_driver":"47,2",
+      "accompanying_car":"14,7",
+      "motorcycle":"5,4",
+      "bicycle":"2,2",
+      "public_transport":"7,6",
+      "other_ transportation":"1,5",
+      "year":2015,
+      "motorized_percentage":"53,1"
+  },
+  {
+      "province":"Cadiz",
+      "municipality":12,
+      "population":807793,
+      "all_displacement":2176140,
+      "walking":"28,6",
+      "car_driver":"42,4",
+      "accompanying_car":"14,7",
+      "motorcycle":"6,5",
+      "bicycle":"1,6",
+      "public_transport":4,
+      "other_ transportation":"0,8",
+      "year":2015,
+      "motorized_percentage":"65,0"
+  },
+  {
+      "province":"Cordoba",
+      "municipality":16,
+      "population":398762,
+      "all_displacement":902612,
+      "walking":"33,3",
+      "car_driver":"40,9",
+      "accompanying_car":"13,8",
+      "motorcycle":"2,9",
+      "bicycle":"2,1",
+      "public_transport":"6,2",
+      "other_ transportation":"0,5",
+      "year":2015,
+      "motorized_percentage":"65,2"
+  },
+  {
+      "province":"Granada",
+      "municipality":50,
+      "population":566830,
+      "all_displacement":1382297,
+      "walking":"31,8",
+      "car_driver":"48,1",
+      "accompanying_car":"10,5",
+      "motorcycle":"3,5",
+      "bicycle":"2,2",
+      "public_transport":"9,3",
+      "other_ transportation":"0,8",
+      "year":2015,
+      "motorized_percentage":"62,8"
+  },
+  {
+      "province":"Huelva",
+      "municipality":21,
+      "population":398584,
+      "all_displacement":959108,
+      "walking":"30,1",
+      "car_driver":"48,1",
+      "accompanying_car":"10,6",
+      "motorcycle":"5,2",
+      "bicycle":"2,1",
+      "public_transport":4,
+      "other_ transportation":"0,4",
+      "year":2015,
+      "motorized_percentage":"57,4"
+  },
+  {
+      "province":"Jaen",
+      "municipality":14,
+      "population":218264,
+      "all_displacement":439574,
+      "walking":"38,4",
+      "car_driver":"47,2",
+      "accompanying_car":"10,6",
+      "motorcycle":"5,2",
+      "bicycle":"0,8",
+      "public_transport":"9,3",
+      "other_ transportation":"0,4",
+      "year":2015,
+      "motorized_percentage":"62,6"
+  },
+  {
+      "province":"Malaga",
+      "municipality":32,
+      "population":1294982,
+      "all_displacement":2775480,
+      "walking":"30,4",
+      "car_driver":"48,2",
+      "accompanying_car":"13,5",
+      "motorcycle":"3,5",
+      "bicycle":"2,5",
+      "public_transport":4,
+      "other_ transportation":"0,4",
+      "year":2015,
+      "motorized_percentage":"62,8"
+  },
+  {
+      "province":"Sevilla",
+      "municipality":50,
+      "population":1543901,
+      "all_displacement":3405252,
+      "walking":"24,0",
+      "car_driver":"39,6",
+      "accompanying_car":"13,7",
+      "motorcycle":"1,7",
+      "bicycle":"0,8",
+      "public_transport":"8,2",
+      "other_ transportation":"1,5",
+      "year":2015,
+      "motorized_percentage":"57,4"
+  },
   
+
+  {
+      "province":"Almeria",
+      "municipality":18,
+      "population":508658,
+      "all_displacement":1099878,
+      "walking":"32,1",
+      "car_driver":"48,2",
+      "accompanying_car":"13,5",
+      "motorcycle":"3,3",
+      "bicycle":"2,5",
+      "public_transport":"8,2",
+      "other_ transportation":"0,1",
+      "year":2016,
+      "motorized_percentage":"64,1"
+  },
+  {
+      "province":"Cadiz",
+      "municipality":11,
+      "population":807792,
+      "all_displacement":2176140,
+      "walking":"28,6",
+      "car_driver":"42,4",
+      "accompanying_car":"11,8",
+      "motorcycle":"3,1",
+      "bicycle":"1,3",
+      "public_transport":"9,2",
+      "other_ transportation":"0,4",
+      "year":2016,
+      "motorized_percentage":"57,4"
+  },
+  {
+      "province":"Cordoba",
+      "municipality":15,
+      "population":398763,
+      "all_displacement":902612,
+      "walking":"33,3",
+      "car_driver":"47,2",
+      "accompanying_car":"13,8",
+      "motorcycle":"3,4",
+      "bicycle":"2,1",
+      "public_transport":"9,2",
+      "other_ transportation":"0,4",
+      "year":2016,
+      "motorized_percentage":"53,1"
+  },
+  {
+      "province":"Granada",
+      "municipality":49,
+      "population":566831,
+      "all_displacement":1382297,
+      "walking":"31,8",
+      "car_driver":"45,8",
+      "accompanying_car":"13,8",
+      "motorcycle":"1,7",
+      "bicycle":"2,5",
+      "public_transport":"4,8",
+      "other_ transportation":"0,1",
+      "year":2016,
+      "motorized_percentage":"62,6"
+  },
+  {
+      "province":"Huelva",
+      "municipality":50,
+      "population":398584,
+      "all_displacement":959108,
+      "walking":"30,1",
+      "car_driver":"45,8",
+      "accompanying_car":"9,2",
+      "motorcycle":"5,4",
+      "bicycle":"1,9",
+      "public_transport":"9,4",
+      "other_ transportation":"0,4",
+      "year":2016,
+      "motorized_percentage":"65,0"
+  },
+  {
+      "province":"Jaen",
+      "municipality":51,
+      "population":218264,
+      "all_displacement":439574,
+      "walking":"38,4",
+      "car_driver":"40,9",
+      "accompanying_car":"10,5",
+      "motorcycle":"2,9",
+      "bicycle":"1,5",
+      "public_transport":"5,6",
+      "other_ transportation":"0,5",
+      "year":2016,
+      "motorized_percentage":"62,8"
+  },
+  {
+      "province":"Malaga",
+      "municipality":32,
+      "population":1294986,
+      "all_displacement":2775480,
+      "walking":"30,4",
+      "car_driver":"48,1",
+      "accompanying_car":"13,6",
+      "motorcycle":"6,5",
+      "bicycle":"1,6",
+      "public_transport":"9,4",
+      "other_ transportation":"0,5",
+      "year":2016,
+      "motorized_percentage":"57,4"
+  },
+  {
+      "province":"Sevilla",
+      "municipality":50,
+      "population":1543900,
+      "all_displacement":3405252,
+      "walking":"24,0",
+      "car_driver":"48,1",
+      "accompanying_car":"9,2",
+      "motorcycle":"3,4",
+      "bicycle":"2,2",
+      "public_transport":"7,2",
+      "other_ transportation":"0,4",
+      "year":2016,
+      "motorized_percentage":"64,1"
+  },
+  
+  {
+      "province":"Alameda",
+      "municipality":11,
+      "population":398765,
+      "all_displacement":1099878,
+      "walking":"32,1",
+      "car_driver":"48,2",
+      "accompanying_car":"10,6",
+      "motorcycle":"3,1",
+      "bicycle":"1,5",
+      "public_transport":"4,8",
+      "other_ transportation":"0,6",
+      "year":2017,
+      "motorized_percentage":"60,8"
+  },
+  {
+      "province":"Cadiz",
+      "municipality":15,
+      "population":566833,
+      "all_displacement":2176140,
+      "walking":"28,6",
+      "car_driver":"43,0",
+      "accompanying_car":"13,7",
+      "motorcycle":"3,3",
+      "bicycle":"2,1",
+      "public_transport":"5,6",
+      "other_ transportation":"0,8",
+      "year":2017,
+      "motorized_percentage":"65,1"
+  },
+  {
+      "province":"Cordoba",
+      "municipality":49,
+      "population":398586,
+      "all_displacement":902612,
+      "walking":"33,3",
+      "car_driver":"44,8",
+      "accompanying_car":"11,0",
+      "motorcycle":"3,5",
+      "bicycle":"0,8",
+      "public_transport":"5,6",
+      "other_ transportation":"0,1",
+      "year":2017,
+      "motorized_percentage":"57,4"
+  },
+  {
+      "province":"Granada",
+      "municipality":50,
+      "population":218269,
+      "all_displacement":1382297,
+      "walking":"31,8",
+      "car_driver":"39,6",
+      "accompanying_car":"13,7",
+      "motorcycle":"6,5",
+      "bicycle":"1,9",
+      "public_transport":"7,2",
+      "other_ transportation":"0,4",
+      "year":2017,
+      "motorized_percentage":"60,8"
+  },
+  {
+      "province":"Huelva",
+      "municipality":51,
+      "population":1294987,
+      "all_displacement":959108,
+      "walking":"30,1",
+      "car_driver":"43,0",
+      "accompanying_car":"13,6",
+      "motorcycle":"5,4",
+      "bicycle":"2,1",
+      "public_transport":"9,4",
+      "other_ transportation":"0,6",
+      "year":2017,
+      "motorized_percentage":"64,1"
+  },
+  {
+      "province":"Jaen",
+      "municipality":32,
+      "population":1543901,
+      "all_displacement":439574,
+      "walking":"38,4",
+      "car_driver":"48,1",
+      "accompanying_car":"10,5",
+      "motorcycle":"8,1",
+      "bicycle":"1,6",
+      "public_transport":"7,2",
+      "other_ transportation":"0,6",
+      "year":2017,
+      "motorized_percentage":"65,1"
+  },
+  {
+      "province":"Malaga",
+      "municipality":50,
+      "population":1543908,
+      "all_displacement":2775480,
+      "walking":"30,4",
+      "car_driver":"39,6",
+      "accompanying_car":"11,0",
+      "motorcycle":"8,1",
+      "bicycle":"1,9",
+      "public_transport":"9,2",
+      "other_ transportation":"1,1",
+      "year":2017,
+      "motorized_percentage":"65,2"
+  },
+  {
+      "province":"Sevilla",
+      "municipality":52,
+      "population":1543905,
+      "all_displacement":3405252,
+      "walking":"24,0",
+      "car_driver":"48,1",
+      "accompanying_car":"11,8",
+      "motorcycle":"3,1",
+      "bicycle":"1,3",
+      "public_transport":"8,2",
+      "other_ transportation":"0,4",
+      "year":2017,
+      "motorized_percentage":"65,1"
+  },
+    );
+    res.json(contacts)
+    console.log("Se han creado los datos")
+
+} else {
+  res.send('Ya existen datos');
+    console.log('Ya existen datos')
+}
+});
   
 
 // app.get(BASE_API_URL + "/andalusian-bicycle-plans", (req, res)=>{
@@ -506,23 +859,37 @@ app.get('/api/v1/andalusian-bicycle-plans', (req, res) => {
     const { province, year } = req.params;
     const { from, to } = req.query;
   
+    // Verificar si se proporcionan los parámetros de ruta necesarios
+    if (!province || !year) {
+      return res.status(400).json({ error: 'Faltan parámetros de ruta' });
+    }
+  
+    // Validar que los valores de los parámetros sean correctos
+    const validProvinces = ['sevilla', 'malaga', 'cadiz', 'huelva', 'cordoba', 'jaen', 'almeria'];
+    if (!validProvinces.includes(province.toLowerCase())) {
+      return res.status(400).json({ error: 'Provincia inválida' });
+    }
+  
+    if (isNaN(year) || year < 2000 || year > 2023) {
+      return res.status(400).json({ error: 'Año inválido' });
+    }
+  
     let planesFiltrados = contacts.filter(plan => plan.province === province && plan.year == year);
   
     if (from !== undefined && to !== undefined) {
       const parsedFrom = Number(from);
       const parsedTo = Number(to);
-      if (isNaN(parsedFrom) || isNaN(parsedTo)) {
+      if (isNaN(parsedFrom) || isNaN(parsedTo) || parsedFrom < 2000 || parsedTo > 2023 || parsedFrom > parsedTo) {
         return res.status(400).json({ error: 'Rango de años inválido' });
       }
       planesFiltrados = planesFiltrados.filter(plan => plan.year >= parsedFrom && plan.year <= parsedTo);
     }
   
-    if (planesFiltrados.length === 0) {
-      return res.status(404).json({ error: 'No se encontraron planes para los parámetros especificados' });
-    }
-  
     res.json(planesFiltrados);
   });
+  
+  
+  
   
   app.get('/api/v1/andalusian-bicycle-plans', (req, res) => {
     const { from, to } = req.query;
@@ -547,10 +914,34 @@ app.get('/api/v1/andalusian-bicycle-plans', (req, res) => {
   
   
 
-  app.post('/api/v1/andalusian-bicycle-plans', (req, res) => {
-      contacts.push(req.body);
-      res.sendStatus(201, "CREATED")
-    });
+  app.post(BASE_API_URL+"/andalusian-bicycle-plans",(req,res)=>{
+    var inputPost = req.body;
+
+    if (contacts.find(autonomo => (autonomo.province === inputPost.province && autonomo.year === inputPost.year))) {
+        res.status(409).json({ message: "HTTP 409 CONFLICT: The contact already exists." });
+    } else {
+        contacts.push(inputPost);
+        res.status(201).json({ message: "HTTP 201 CREATED" });
+    }
+
+    console.log("New POST to /andalusian-bicycle-plans");
+});
+
+
+
+  app.post(BASE_API_URL+"/andalusian-bicycle-plans/:province", (req,res)=>{
+    res.sendStatus(405).json({ message: "HTTP 405 METHOD NOT ALLOWED" });
+});
+
+  
+  
+  
+  
+  
+  
+  
+  
+
  
   
   
@@ -558,99 +949,253 @@ app.get('/api/v1/andalusian-bicycle-plans', (req, res) => {
 
   app.put('/api/v1/andalusian-bicycle-plans/:province/:year', (req, res) => {
     const { province, year } = req.params;
-    const { information } = req.body;
-  
-    if (req.method !== 'PUT') {
-      return res.status(405).json({ error: 'Método no permitido' });
+    const expectedId = `${province}/${year}`;
+    if (parseInt(year) >= 2020) {
+      return res.sendStatus(404);
+    }
+    if(parseInt(year) <= 2013){
+            return res.sendStatus(400);
+    }
+
+
+    if (req.params.province && req.params.year) {
+      if (req.params.province !== province || req.params.year !== year.toString()) {
+        return res.sendStatus(400);
+      }
+    } else if (req.body.id !== expectedId) {
+      return res.sendStatus(400);
     }
   
-    // Aquí se podría validar la información del cuerpo de la solicitud
-  
-    // Aquí se podría buscar el plan por su ID en una base de datos o en un arreglo
-    const planIndex = contacts.findIndex(plan => plan.province === province && plan.year === year);
-  
-    if (planIndex === -1) {
-      return res.status(404).json({ error: 'Plan no encontrado' });
+    const index = contacts.findIndex(contact => contact.province === province && contact.year === parseInt(year));
+    if (index === -1) {
+      return res.sendStatus(404);
     }
   
-    const plan = contacts[planIndex];
+    contacts[index] = {
+      ...contacts[index],
+      ...req.body,
+      province,
+      year: parseInt(year),
+    };
   
-    // Aquí se actualizaría la información del plan
-    if (information !== undefined) {
-      plan.information = information;
-    }
-    // Aquí se podrían actualizar más campos relevantes
-  
-    // Aquí se podría guardar el plan actualizado en una base de datos o en un arreglo
-    contacts[planIndex] = plan;
-  
-    res.json(plan);
+    res.status(200).json(contacts[index]);
   });
+  
+  
+
+  
+  
+
+  app.put('/api/v1/andalusian-bicycle-plans', (req, res) => {
+    res.sendStatus(405);
+  });
+
   
   
   app.delete('/api/v1/andalusian-bicycle-plans', (req, res) => {
     // Aquí se podría eliminar todos los datos de una base de datos o de un arreglo
     contacts = [];
   
-    res.status(204).end();
+    res.status(200).end();
   });
 
   
 
   app.delete('/api/v1/andalusian-bicycle-plans/:province/:year', (req, res) => {
-    const { province, year } = req.params;
-  
-    // Aquí se podría buscar el plan por su ID en una base de datos o en un arreglo
-    const planIndex = contacts.findIndex(plan => plan.province === province && plan.year === year);
-  
-    if (planIndex === -1) {
-      return res.status(404).json({ error: 'Plan no encontrado' });
-    }
-  
-    // Aquí se podría eliminar el plan de una base de datos o de un arreglo
-    contacts.splice(planIndex, 1);
-  
-    res.status(204).end();
-  });
-  
+    const contactProvince = req.params.province;
+    const contactYear = parseInt(req.params.year); // parseInt is used to convert the year parameter to an integer
+    contacts = contacts.filter((contact) => {
+        return (contact.province !== contactProvince || contact.year !== contactYear);
+    });
+    res.sendStatus(200);
+});
 
-
-
+  
+  
 
 // codigo josgaroro1 /////////////////////////////////////////////////////////////////////
 
-//Variables
-let datosFichero = new Array();
-let ac = 0;
-let contador = 0;
-
-datosFichero = [["Hombres", 1, "Almería", 5, 6850, 2019], ["Hombres", 1, "Cádiz", 5, 8325, 2019], 
-["Hombres", 1, "Córdoba", 5, 4375, 2018], ["Hombres", 1, "Granada", 5, 9650, 2018], 
-["Hombres", 1, "Huelva", 3, 4425, 2016], ["Hombres", 1, "Jaén", 3, 4525, 2016], 
-["Hombres", 1, "Málaga", 3, 14525, 2016], ["Hombres", 1, "Sevilla", 3, 10175, 2018], 
-["Hombres", 1, "Cádiz", 3, 63250, 2018], ["Hombres", 1, "Almería", 3, 8050, 2019]];
-
-function contains(a, obj) {
-    for (var i = 0; i < a.length; i++) {
-        if (a[i] === obj) {
-            return true;
-        }
-    }
-    return false;
-}
 
 
-datosFichero.forEach(elemento=>{
-    if(contains(elemento, "Almería")){
-        ac += elemento[3];
-        contador++;
+app.get("/samples/JGO", (req,res)=>{
+    res.send(JSON.stringify(jose.datosJGO, null, 2));
+});
+
+app.get(BASE_API_URL+"/self-employed-stats", (request,response) => {
+    response.json(jose.datosJGO);
+    console.log("New GET to /self-employed-stats");
+    response.sendStatus(200).json({ message: "HTTP 200 OK" });
+});
+
+app.get(BASE_API_URL+"/self-employed-stats/:territory", (request,response) => {
+    var name = request.params.territory;
+    if (jose.datosJGO.filter((dato=>dato.territory === name)).length>0){
+        response.json(jose.datosJGO.filter(dato=>dato.territory === name));
+        response.sendStatus(200).json({ message: "HTTP 200 OK" });
+    }else{
+        response.sendStatus(404).json({ message: "HTTP 404 NOT FOUND" });
     }
 });
 
-let arrayJosgaroro1 = "Media empleados en Almería: "+ ac /contador;
+app.get(BASE_API_URL+"/self-employed-stats/:territory/:year", (request,response) => {
+    var name = request.params.territory;
+    var anyo = parseInt(request.params.year);
 
-app.get("/samples/JGO", (req,res)=>{
-    res.send(JSON.stringify(arrayJosgaroro1, null, 2));
+    if (jose.datosJGO.filter((dato=>dato.territory === name & dato.year === anyo)).length>0){
+        response.json(jose.datosJGO.filter(dato=>dato.territory === name & dato.year === anyo));
+        response.sendStatus(200).json({ message: "HTTP 200 OK" });
+    }else{
+        response.sendStatus(404).json({ message: "HTTP 404 NOT FOUND" });
+    }
+});
+
+app.get(BASE_API_URL+"/self-employed-stats?year=2016", (request,response) => {
+    var anyo = parseInt(request.params.year);
+
+    if (jose.datosJGO.filter((dato=>dato.year === anyo)).length>0){
+        response.json(jose.datosJGO.filter(dato=>dato.year === anyo));
+        response.sendStatus(200).json({ message: "HTTP 200 OK" });
+    }else{
+        response.sendStatus(404).json({ message: "HTTP 404 NOT FOUND" });
+    }
+});
+
+app.get(BASE_API_URL+"/self-employed-stats/:territory?from=year0&to=year1", (request,response) => {
+    var territorio = request.params.territory;
+    var anyo0 = parseInt(request.params.anyo0);
+    var anyo1 = parseInt(request.params.anyo1)
+    if (jose.datosJGO.filter((dato=>dato.territory === territorio & dato.year>=anyo0 & dato.year<=anyo1)).length>0){
+        response.json(jose.datosJGO.filter(dato=>dato.territory === territorio & dato.year>=anyo0 & dato.year<=anyo1));
+        response.sendStatus(200).json({ message: "HTTP 200 OK" });
+    }else{
+        response.sendStatus(404).json({ message: "HTTP 404 NOT FOUND" });
+    }
+});
+
+app.get(BASE_API_URL+"/self-employed-stats/loadInitialData", (req,res) => {
+    const autonomo = [];
+    const provincias = ["Sevilla", "Huelva", "Córdoba", "Granada", "Almería", "Málaga", "Jaén", "Cádiz", 
+        "Sevilla", "Huelva"];
+    for (let i = 0; i < 10; i++) {
+        const autonomo_iesimo = {
+            genre: "Mujeres",
+            live_with: 1 + (i + 1),
+            territory: provincias[i],
+            employee: 50 * (i + 1),
+            value: 1000 * (i + 1),
+            year: 2013 + (i + 1),
+        };
+        autonomo.push(autonomo_iesimo);
+    }
+    res.json(autonomo);
+      
+});
+
+app.post(BASE_API_URL+"/self-employed-stats",(req,res)=>{
+    var inputPost = req.body;
+    if(isNaN(inputPost.year)||isNaN(inputPost.value)||isNaN(inputPost.live_with)||isNaN(inputPost.employee)){
+        res.sendStatus(400).json({ message: "HTTP 400 BAD REQUEST" });
+    }
+    else if (jose.datosJGO.find(autonomo => (autonomo.value === inputPost.value)&(autonomo.year === inputPost.year)&
+            (autonomo.genre === inputPost.genre)&(autonomo.territory === inputPost.territory)&
+            (autonomo.live_with === inputPost.live_with)&(autonomo.employee === inputPost.employee))){
+        res.sendStatus(409).json({ message: "HTTP 409 CONFLICT" });
+    }else{
+        jose.datosJGO.push(inputPost);
+        res.sendStatus(201).json({ message: "HTTP 201 CREATED" });
+    }
+
+
+    console.log("New POST to /self-employed")
+});
+
+app.post(BASE_API_URL+"/self-employed-stats/:territory", (req,res)=>{
+    res.sendStatus(405).json({ message: "HTTP 405 METHOD NOT ALLOWED" });
+});
+
+app.post(BASE_API_URL+"/self-employed-stats/:year", (req,res)=>{
+    res.sendStatus(405).json({ message: "HTTP 405 METHOD NOT ALLOWED" });
+});
+
+app.put(BASE_API_URL+"/self-employed-stats", (req,res)=>{
+    res.sendStatus(405).json({ message: "HTTP 405 METHOD NOT ALLOWED" });
+});
+
+app.put(BASE_API_URL+"/self-employed-stats/:territory/:year", (request,response)=>{
+    var newFile = request.body;
+        var territorio = request.params.territory;
+        var anyo = parseInt(request.params.year);
+
+        db.update({territory:territorio, year:anyo}, {$set: newFile}, {}, function(err, data){
+            if(err){
+                console.log(`Error put /apartment-occupancy-surveys/${territorio}/${anyo}: ${err}`);
+                response.sendStatus(500);
+            }
+            else{
+                 console.log(`Numero de documentos actualizados: ${data}`);
+                 response.sendStatus(201);            
+            }
+        });
+});
+
+app.delete(BASE_API_URL +"/self-employed-stats",(request, response)=>{
+    db.remove({},function (err, dbRemoved){
+        if(err){
+            console.log(`Error deleting /self-employed-stats: ${err}`);
+            response.sendStatus(500);
+        }else{
+            console.log(`Files removed ${dbRemoved}`);
+            response.sendStatus(200);               
+        }
+    });
+});
+
+app.delete(BASE_API_URL+"/self-employed-stats/:territory", (request,response) => {
+    var name = request.params.territory;
+    console.log(`New DELETE to /self-employed-stats/${name}`);
+    
+    db.remove({"name" : name},{},(err, numRemoved)=>{
+        if(err){
+            console.log(`Error deleting /contacts/${name}: ${err}`);
+            response.sendStatus(500);
+        }else{
+            console.log(`Contacts removed ${numRemoved}`);
+            response.sendStatus(200);
+        }
+    });
+});
+
+app.delete(BASE_API_URL +"/self-employed-stats/:year",(request, response)=>{
+    var anyo = parseInt(request.params.year);
+
+    console.log(`New DELETE to /self-employed-stats//${anyo}`);
+
+    db.remove({year:anyo},{},function (err, dbRemoved){
+        if(err){
+            console.log(`Error deleting /self-employed-stats/${anyo}: ${err}`);
+            response.sendStatus(500);
+        }else{
+            console.log(`Files removed ${dbRemoved}`);
+            response.sendStatus(200);               
+        }
+    });
+});
+
+app.delete(BASE_API_URL +"/self-employed-stats/:territory/:year",(request, response)=>{
+    var territorio = request.params.territory;
+    var anyo = parseInt(request.params.year);
+
+    console.log(`New DELETE to /self-employed-stats/${territorio}/${anyo}`);
+
+    db.remove({territory:territorio, year:anyo},{},function (err, dbRemoved){
+        if(err){
+            console.log(`Error deleting /self-employed-stats/${territorio}/${anyo}: ${err}`);
+            response.sendStatus(500);
+        }else{
+            console.log(`Files removed ${dbRemoved}`);
+            response.sendStatus(200);               
+        }
+    });
 });
 
 
