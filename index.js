@@ -872,27 +872,34 @@ ac = ls.reduce((a,n)=>{
 });
 
 var sol = ac/ls.length;
-
+const dataBase = client.db(datosLlamadas);
 
 
 let arraySanpinand = "Media activaciones organizaciones de emergencia por telefono en Cádiz: "+ sol;
 
-app.get("/samples/SPA", (req,res)=>{
-    res.send(JSON.stringify(arraySanpinand, null, 2));
+app.get("/samples/SPA", (request,response)=>{
+    response.send(JSON.stringify(arraySanpinand, null, 2));
 });
+const array =  [];
 app.get(BASE_API_URL+SANTIAGO+"/loadInitialData", (request,response)=>{
-    response.send(JSON.stringify(datosLlamadas));
+    
+    if (array.length === 0) {
+        for (let i = 0; i < 10; i++) {
+          array.push(datosLlamadas[i]);
+        }
+      }
+    response.send(JSON.stringify(array));
 });
 
 app.get(BASE_API_URL+SANTIAGO, (request,response)=>{
-    response.send(JSON.stringify(datosLlamadas));
+    response.send(JSON.stringify(dataBase));
 });
 
 
 app.get(BASE_API_URL+SANTIAGO+"/:province", (request, response) => {
     var province = request.params.province;
 
-    response.send(JSON.stringify(datosLlamadas.filter(call => call.province == province)));
+    response.send(JSON.stringify(dataBase.filter(call => call.province == province)));
   });
   
 // app.get(BASE_API_URL+SANTIAGO+"/:province/:year", (request, response) => {
@@ -908,7 +915,7 @@ app.get(BASE_API_URL+SANTIAGO+"/:province/:month", (request, response) => {
     var province = request.params.province;
     var mes = request.params.month;
     
-    var obj = datosLlamadas.filter(call => call.province == province && call.month == mes );
+    var obj = dataBase.filter(call => call.province == province && call.month == mes );
 
     response.send(JSON.stringify(obj));
 });
@@ -916,13 +923,39 @@ app.get(BASE_API_URL+SANTIAGO+"/:province/:month", (request, response) => {
 app.get(BASE_API_URL+SANTIAGO, (request, response) => {
     var year = request.query.year; // obtener el año desde el query string
   
-    // aquí podrías hacer una consulta a tu base de datos o a la API externa
-    // para obtener las estadísticas del año solicitado
-    var datosFiltrados = datosLlamadas.filter(call => call.year === year);
+
+    var datosFiltrados = dataBase.filter(call => call.year === year);
   
    response.send(JSON.stringify(datosFiltrados));
 });
   
+app.post(BASE_API_URL+SANTIAGO,(request, response) => {
+    var newCall = request.body; // obtener el año desde el query string
+  
+
+    dataBase.push(newCall);
+  
+   response.sendStatus(201+"CREATED");
+});
+
+app.put(BASE_API_URL+SANTIAGO+"/:province/:month",(request, response) => {
+    var provincia = request.params.province;
+    var mes = request.params.month;
+    var updatedCall = request.body;
+   
+    dataBase.update({ province: provincia ,month: mes}, { $set: updatedCall }, (err, response) => {
+        if (err){
+            console.log(`Error put/emergency-call-stats/${province}/${year}: ${err}`);
+            response.sendStatus(500);
+        }else{
+            console.log('Datos actualizados correctamente');
+            response.sendStatus(201);
+        }
+      });
+
+  
+   response.sendStatus(201+"CREATED");
+});
 
 
 app.listen(port, () => {
