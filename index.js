@@ -769,48 +769,45 @@ app.put(BASE_API_URL+"/self-employed-stats", (req,res)=>{
     res.sendStatus(405).json({ message: "HTTP 405 METHOD NOT ALLOWED" });
 });
 
-app.put(BASE_API_URL+"/self-employed-stats/:territory/:year", (request,response)=>{
-    var newFile = request.body;
-        var territorio = request.params.territory;
-        var anyo = parseInt(request.params.year);
+app.put(BASE_API_URL+"/self-employed-stats/:province/:year", (req,res)=>{
+    const province = req.params.province;
+    const year = req.params.year;
+    const id = `${province}/${year}`
+    if (req.body.id !== id){
+        res.sendStatus(400).json({ message: "HTTP 400 BAD REQUEST" });
+    }
+});
 
-        db.update({territory:territorio, year:anyo}, {$set: newFile}, {}, function(err, data){
-            if(err){
-                console.log(`Error put /apartment-occupancy-surveys/${territorio}/${anyo}: ${err}`);
-                response.sendStatus(500);
-            }
-            else{
-                 console.log(`Numero de documentos actualizados: ${data}`);
-                 response.sendStatus(201);            
-            }
-        });
+app.put(BASE_API_URL+"/self-employed-stats/:territory/:year", (request,response)=>{
+    var territorio = request.params.territory;
+    var anyo = parseInt(request.params.year);
+    if (jose.datosJGO.filter((dato=>dato.territory === territorio & dato.year === anyo)).length>0){
+        for (var i = 0; i < jose.datosJGO.filter((dato=>dato.territory === territorio & dato.year === anyo)).length; i++) {
+            
+        }
+    }
+        
 });
 
 app.delete(BASE_API_URL +"/self-employed-stats",(request, response)=>{
-    db.remove({},function (err, dbRemoved){
-        if(err){
-            console.log(`Error deleting /self-employed-stats: ${err}`);
-            response.sendStatus(500);
-        }else{
-            console.log(`Files removed ${dbRemoved}`);
-            response.sendStatus(200);               
-        }
-    });
+    jose.datosJGO=[]
+    response.status(200).end();
 });
 
-app.delete(BASE_API_URL+"/self-employed-stats/:territory", (request,response) => {
-    var name = request.params.territory;
+app.delete(BASE_API_URL+"/self-employed-stats/:name", (request,response) => {
+    var name = request.params.name;
     console.log(`New DELETE to /self-employed-stats/${name}`);
+    var l = jose.datosJGO.filter((dato=>dato.territory === name)).pop();
+    response.sendStatus(200)
     
-    db.remove({"name" : name},{},(err, numRemoved)=>{
-        if(err){
-            console.log(`Error deleting /contacts/${name}: ${err}`);
-            response.sendStatus(500);
-        }else{
-            console.log(`Contacts removed ${numRemoved}`);
-            response.sendStatus(200);
-        }
+});
+app.delete('/api/v1/self-employed-stats/:province/:year', (req, res) => {
+    const contactProvince = req.params.province;
+    const contactYear = parseInt(req.params.year);
+    jose.datosJGO = jose.datosJGO.filter((contact) => {
+        return (contact.province !== contactProvince || contact.year !== contactYear);
     });
+    res.sendStatus(200);
 });
 
 app.delete(BASE_API_URL +"/self-employed-stats/:year",(request, response)=>{
