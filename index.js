@@ -724,7 +724,7 @@ app.get(BASE_API_URL+"/self-employed-stats/loadInitialData", (req,res) => {
     const autonomo = [];
     const provincias = ["Sevilla", "Huelva", "Córdoba", "Granada", "Almería", "Málaga", "Jaén", "Cádiz", 
         "Sevilla", "Huelva"];
-    for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < 10; i++) {
         const autonomo_iesimo = {
             genre: "Mujeres",
             live_with: 1 + (i + 1),
@@ -734,7 +734,7 @@ app.get(BASE_API_URL+"/self-employed-stats/loadInitialData", (req,res) => {
             year: 2013 + (i + 1),
         };
         autonomo.push(autonomo_iesimo);
-    }
+        }
     res.json(autonomo);
       
 });
@@ -805,7 +805,7 @@ app.delete('/api/v1/self-employed-stats/:province/:year', (req, res) => {
     const contactProvince = req.params.province;
     const contactYear = parseInt(req.params.year);
     jose.datosJGO = jose.datosJGO.filter((contact) => {
-        return (contact.province !== contactProvince || contact.year !== contactYear);
+        return (contact.territory !== contactProvince || contact.year !== contactYear);
     });
     res.sendStatus(200);
 });
