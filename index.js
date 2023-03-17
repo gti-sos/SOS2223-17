@@ -10,11 +10,12 @@ const SANTIAGO = "/emergency-call-stats"
 
 const port = process.env.PORT || 8080;
 
-const API_DOC_PORTAL = "https://documenter.getpostman.com/view/25746364/2s935rL3kj"
 
 const jose = require("./index-josgaroro1");
 
 const salim = require("./andalusian-bicycles-plans");
+
+const API_DOC_PORTAL_salim = "https://documenter.getpostman.com/view/25746364/2s93JxsMEP"
 
 
 
@@ -35,6 +36,10 @@ app.get("/cool", (req,res)=>{
 
 app.get("/samples/SCC", (req, res)=>{
     res.send(JSON.stringify(arraySalcha2, null, 2));
+});
+
+app.get(BASE_API_URL+"/andalusian-bicycle-plans/docs", (req,res)=>{
+    res.redirect(API_DOC_PORTAL_salim);
 });
 
 app.get(BASE_API_URL + "/andalusian-bicycle-plans/loadInitialData", (req, res) => {
