@@ -739,6 +739,10 @@ var datos_auxilio = [
   
   ]
 
+//   app.get("/samples/SCC", (req, res)=>{
+//     res.send(JSON.stringify(arraySalcha2, null, 2));
+// });
+
 
 var i = datos_Salim
             .filter((n)=>{
