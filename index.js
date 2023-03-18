@@ -1417,7 +1417,8 @@ ac = ls.reduce((a,n)=>{
 });
 
 var sol = ac/ls.length;
-const dataBase = client.db(datosLlamadas);
+const dataBase =  [];
+
 
 
 let arraySanpinand = "Media activaciones organizaciones de emergencia por telefono en Cádiz: "+ sol;
@@ -1425,15 +1426,15 @@ let arraySanpinand = "Media activaciones organizaciones de emergencia por telefo
 app.get("/samples/SPA", (request,response)=>{
     response.send(JSON.stringify(arraySanpinand, null, 2));
 });
-const array =  [];
+
 app.get(BASE_API_URL+SANTIAGO+"/loadInitialData", (request,response)=>{
     
-    if (array.length === 0) {
-        for (let i = 0; i < 10; i++) {
-          array.push(datosLlamadas[i]);
+    if (dataBase.length === 0) {
+        for (let i = 0; i < 24; i++) {
+          dataBase.push(datosLlamadas[i]);
         }
       }
-    response.send(JSON.stringify(array));
+    response.send(JSON.stringify(dataBase));
 });
 
 app.get(BASE_API_URL+SANTIAGO, (request,response)=>{
@@ -1460,9 +1461,9 @@ app.get(BASE_API_URL+SANTIAGO+"/:province/:month", (request, response) => {
     var province = request.params.province;
     var mes = request.params.month;
     
-    var obj = dataBase.filter(call => call.province == province && call.month == mes );
+    const obj = dataBase.find(call => call.province === province && call.month === mes );
 
-    response.send(JSON.stringify(obj));
+    response.send(obj);
 });
   
 app.get(BASE_API_URL+SANTIAGO, (request, response) => {
