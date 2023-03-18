@@ -2,6 +2,7 @@ const cool = require("cool-ascii-faces");
 const express = require("express");
 const bodyParser = require("body-parser");
 var Datastore = require('nedb');
+
 var db = new Datastore();
 
 const app = express(); //constructor
@@ -9,7 +10,8 @@ const BASE_API_URL = "/api/v1";
 
 app.use(bodyParser.json());
 var backend_spa = require("./backend_spa");
-backend_spa(app);
+
+
 
 
 const port = process.env.PORT || 8080;
@@ -21,6 +23,9 @@ const salim = require("./andalusian-bicycles-plans");
 
 const API_DOC_PORTAL_salim = "https://documenter.getpostman.com/view/25746364/2s93JxsMEP"
 
+//backend_spa////
+
+backend_spa(app);
 
 //código caras /////////////////////////////////////////////////////////////
 app.get("/cool", (req,res)=>{
