@@ -62,7 +62,7 @@ app.get(BASE_API_URL + "/andalusian-bicycle-plans/loadInitialData", (req, res) =
 
 
 app.get('/api/v1/andalusian-bicycle-plans', (req, res) => {
-    const { province, year, from, to } = req.query;
+    const { province, year, from, to ,population_over, municipality_over, all_dispacement_over, walking_over, car_driver_over, accompanying_car_over, motorcycle_over, bicycle_over, public_transport_over, other_transport_over, motorized_percentage_over} = req.query;
   
     // Filtramos por provincia, si se especificó
     let planesFiltrados = salim.datosSLC;
@@ -79,6 +79,112 @@ app.get('/api/v1/andalusian-bicycle-plans', (req, res) => {
       }
       planesFiltrados = planesFiltrados.filter(plan => plan.year === parsedYear);
     }
+
+    if (population_over) {
+        const parsedPop = Number(population_over); // Parseamos el año a número
+        if (isNaN(parsedPop)) {
+          // Si el año no es un número válido, devolvemos un código de estado 400
+          return res.status(400).json({ error: 'Numero invalido' });
+        }
+        planesFiltrados = planesFiltrados.filter(plan => plan.population > parsedPop);
+      }
+
+      if (municipality_over) {
+        const parsedPop = Number(municipality_over); // Parseamos el año a número
+        if (isNaN(parsedPop)) {
+          // Si el año no es un número válido, devolvemos un código de estado 400
+          return res.status(400).json({ error: 'Numero invalido' });
+        }
+        planesFiltrados = planesFiltrados.filter(plan => plan.municipality > parsedPop);
+      }
+
+      if (all_dispacement_over) {
+        const parsedPop = Number(all_dispacement_over); // Parseamos el año a número
+        if (isNaN(parsedPop)) {
+          // Si el año no es un número válido, devolvemos un código de estado 400
+          return res.status(400).json({ error: 'Numero invalido' });
+        }
+        planesFiltrados = planesFiltrados.filter(plan => plan.all_displacement > parsedPop);
+      }
+
+      
+    
+      if (walking_over) {
+        const parsedPop = Number(walking_over); // Parseamos el año a número
+        if (isNaN(parsedPop)) {
+          // Si el año no es un número válido, devolvemos un código de estado 400
+          return res.status(400).json({ error: 'Numero invalido' });
+        }
+        planesFiltrados = planesFiltrados.filter(plan => plan.walking > parsedPop);
+      }
+
+      if (car_driver_over) {
+        const parsedPop = Number(car_driver_over); // Parseamos el año a número
+        if (isNaN(parsedPop)) {
+          // Si el año no es un número válido, devolvemos un código de estado 400
+          return res.status(400).json({ error: 'Numero invalido' });
+        }
+        planesFiltrados = planesFiltrados.filter(plan => plan.car_driver > parsedPop);
+      }
+
+      if (accompanying_car_over) {
+        const parsedPop = Number(accompanying_car_over); // Parseamos el año a número
+        if (isNaN(parsedPop)) {
+          // Si el año no es un número válido, devolvemos un código de estado 400
+          return res.status(400).json({ error: 'Numero invalido' });
+        }
+        planesFiltrados = planesFiltrados.filter(plan => plan.accompanying_car > parsedPop);
+      }
+
+      if (motorcycle_over) {
+        const parsedPop = Number(motorcycle_over); // Parseamos el año a número
+        if (isNaN(parsedPop)) {
+          // Si el año no es un número válido, devolvemos un código de estado 400
+          return res.status(400).json({ error: 'Numero invalido' });
+        }
+        planesFiltrados = planesFiltrados.filter(plan => plan.motorcycle > parsedPop);
+      }
+
+
+      if (bicycle_over) {
+        const parsedPop = Number(bicycle_over); // Parseamos el año a número
+        if (isNaN(parsedPop)) {
+          // Si el año no es un número válido, devolvemos un código de estado 400
+          return res.status(400).json({ error: 'Numero invalido' });
+        }
+        planesFiltrados = planesFiltrados.filter(plan => plan.bicycle > parsedPop);
+      }
+
+      if (public_transport_over) {
+        const parsedPop = Number(public_transport_over); // Parseamos el año a número
+        if (isNaN(parsedPop)) {
+          // Si el año no es un número válido, devolvemos un código de estado 400
+          return res.status(400).json({ error: 'Numero invalido' });
+        }
+        planesFiltrados = planesFiltrados.filter(plan => plan.public_transport > parsedPop);
+      }
+
+      if (motorized_percentage_over) {
+        const parsedPop = Number(motorized_percentage_over); // Parseamos el año a número
+        if (isNaN(parsedPop)) {
+          // Si el año no es un número válido, devolvemos un código de estado 400
+          return res.status(400).json({ error: 'Numero invalido' });
+        }
+        planesFiltrados = planesFiltrados.filter(plan => plan.motorized_percentage > parsedPop);
+      }
+
+      if (other_transport_over) {
+        const parsedPop = Number(other_transport_over); // Parseamos el año a número
+        if (isNaN(parsedPop)) {
+          // Si el año no es un número válido, devolvemos un código de estado 400
+          return res.status(400).json({ error: 'Numero invalido' });
+        }
+        planesFiltrados = planesFiltrados.filter(plan => plan.other_transportation > parsedPop);
+      }
+
+
+      
+      
   
     // Filtramos por rango de años, si se especificó
     if (from && to) {
