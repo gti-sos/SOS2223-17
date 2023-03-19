@@ -2,7 +2,7 @@ const cool = require("cool-ascii-faces");
 const express = require("express");
 const bodyParser = require("body-parser");
 var Datastore = require('nedb');
-var backendJose = require("./backend_spa/index-josgaroro1");
+var backendJose = require("./backend/index-josgaroro1");
 var db = new Datastore();
 
 const app = express(); //constructor
@@ -20,7 +20,6 @@ var backend_spa = require("./backend_spa");
 const port = process.env.PORT || 8080;
 
 
-const jose = require("./index-josgaroro1");
 
 const salim = require("./andalusian-bicycles-plans");
 
