@@ -231,23 +231,109 @@ module.exports = (app) => {
 
     });
 
-    // app.get(BASE_API_URL + SANTIAGO, (request, response) => {
-    //     db.find({}, (err, datos) => {
-    //         if (err) {
-    //             console.log("Error de servidor");
-    //             response.sendStatus(500);
-    //         }else if(datos.length===0){
-    //             console.log("Base de datos vacia");
-    //             response.json(datos);
-    //         }else{
-    //             console.log("Recursos en la base de datos actual:",datos);
-    //             response.status(200).json(datos.map((e=>{
-    //                 delete e._id;
-    //                 return e;
-    //             })));
-    //         }
-    //     })
-    // });
+   //Obtener un dato concreto
+    app.get(BASE_API_URL + SANTIAGO + "/:province/:month", (request, response) => {
+        console.log("New GET to emergency-call-stats");
+        var mes = request.params.month;
+        var provincia = request.params.province;
+        db.findOne({province: provincia, month : mes }, (err, datos) => {
+          if(err){
+            console.log(err);
+            response.sendStatus(500);
+          } else if(!datos) {
+            console.log("Datos no encontrado")
+            response.sendStatus(404);
+          } else {
+            console.log(datos);
+            delete datos._id;
+            response.status(200).json(datos);
+          }
+        });
+    });
+      
+      //Borrar todos los recursos
+      app.delete(BASE_API_URL + SANTIAGO, (request, response) => {
+        console.log("New DELETE to emergency-call-stats");
+      //seleccionamos todos los recursos de la base de datos con multi:true
+        db.remove({}, { multi: true }, (err, numDelete) => {
+          if (err) {
+            console.log(err);
+            response.sendStatus(500);
+          } else {
+            console.log(`Se han eliminado ${numDelete} elementos `);
+            response.sendStatus(200);
+          }
+        });
+      });
+
+      //Borrar un recurso concreto
+      app.delete(BASE_API_URL + SANTIAGO +"/:province/:month", (request, response) => {
+        var mes = request.params.month;
+        var provincia = request.params.province;
+        console.log("New DELETE to emergency-call-stats");
+      //Seleccionamos el elemento a eliminar
+        db.remove({province: provincia, month : mes }, {}, (err, numDelete) => {
+          if (err) {
+            console.log(err);
+            response.sendStatus(500);
+          } else {
+            console.log(`Elemeneto eleminado`);
+            response.sendStatus(200);
+          }
+        });
+      });
+
+      //PROHIBIDO METODO POST A UN RECURSO CONCRETO
+      app.post(BASE_API_URL + SANTIAGO +"/:province/:month", (request, response) => {
+        // Enviamos una respuesta con el código de estado 405 Method Not Allowed
+        response.status(405).send('Method Not Allowed');
+      });
+
+      //PROHIBIDO LOS PUT A SOBRE LA LISTA DE RECURSOS
+      app.put(BASE_API_URL + SANTIAGO, (request, response) => {
+        // Enviamos una respuesta con el código de estado 405 Method Not Allowed
+        response.status(405).send('Method Not Allowed');
+      });
+
+      //Actualizar una entrada concreta
+      app.put(BASE_API_URL + SANTIAGO + "/:province/:month", (request, response) => {
+        var mes = request.params.month;
+        var provincia = request.params.province;
+        var body = request.body;
+        var provinciasAndalucia = ['Almería', 'Cádiz', 'Córdoba', 'Granada', 'Huelva', 'Jaén', 'Málaga', 'Sevilla'];
+        var meses = ["january", "february", "march", "april", "may", "june",
+                               "july", "august", "september", "october", "november", "december"];
+        //checkear que esta todos los campos implementados correctamente
+        if (!(mes==body.month) || !(provincia==body.province)) {
+          response.status(400).send("Bad Request");
+        } else if (!body.province ||!provinciasAndalucia.includes(body.province)) {
+          response.status(400).send("Error en el campo province");
+        }else if (!body.month || !meses.includes(body.month.toLowerCase())) {
+          response.status(400).send("Error en el campo month");
+        }else if(isNaN(body.phone_call_activation_organization) || body.phone_call_activation_organization < 0) {
+          response.status(400).send("Error en el campo phone_call_activation_organization");
+        }else if (isNaN(body.telematic_activation_organization) || body.telematic_activation_organization < 0) {
+          response.status(400).send("Error en el campo telematic_activation_organization");
+        }else if (isNaN(body.emergency_call) || body.emergency_call < 0) {
+          response.status(400).send("Error en el campo emergency_call");
+        }else if (isNaN(body.year) || body.year < 0) {
+          response.status(400).send("Error en el campo year");
+        } else {
+            //actualizar el recurso especificados
+         db.update({province: provincia, month : mes}, body, {}, (err, update) => {
+          if (err) {
+            console.error(err);
+            response.sendStatus(500);
+              } else if (update == 0) {
+                response.sendStatus(404);
+              } else {
+                console.log("Campos actualizados")
+                response.sendStatus(200);
+              }
+          });
+        }
+      });
+
 
     app.get(BASE_API_URL + SANTIAGO + "/:province", (request, response) => {
         console.log("New GET to emergency-call-stats");
@@ -265,6 +351,7 @@ module.exports = (app) => {
           }
         });
       });
+
       app.get(BASE_API_URL + SANTIAGO + "/:year", (request, response) => {
         console.log("New GET to emergency-call-stats");
         var ano = request.params.year;
@@ -281,6 +368,7 @@ module.exports = (app) => {
           }
         });
       });
+
       app.get(BASE_API_URL + SANTIAGO + "/:month", (request, response) => {
         console.log("New GET to emergency-call-stats");
         var mes = request.params.month;
@@ -297,26 +385,8 @@ module.exports = (app) => {
           }
         });
       });
-      //Obtener un dato concreto
-      app.get(BASE_API_URL + SANTIAGO + "/:province/:month", (request, response) => {
-        console.log("New GET to emergency-call-stats");
-        var mes = request.params.month;
-        var provincia = request.params.province;
-        db.findOne({province: provincia, month : mes }, (err, datos) => {
-          if(err){
-            console.log(err);
-            response.sendStatus(500);
-          } else if(!datos) {
-            console.log("Datos no encontrado")
-            response.sendStatus(404);
-          } else {
-            console.log(datos);
-            delete datos._id;
-            response.status(200).json(datos);
-          }
-        });
-      });
 
+      
 
       app.get(BASE_API_URL + SANTIAGO, (request, response) => {
         console.log("New GET to emergency-call-stats");
@@ -361,57 +431,50 @@ module.exports = (app) => {
         });
       });
 
-    // app.get(BASE_API_URL + SANTIAGO + "/:province", (request, response) => {
-    //     var province = request.params.province;
+   
 
-    //     response.send(JSON.stringify(dataBase.filter(call => call.province == province)));
-    // });
-
-    // app.get(BASE_API_URL + SANTIAGO + "/:province/:month", (request, response) => {
-    //     var province = request.params.province;
-    //     var mes = request.params.month;
-
-    //     const obj = dataBase.find(call => call.province === province && call.month === mes);
-
-    //     response.send(obj);
-    // });
-
-    // app.get(BASE_API_URL + SANTIAGO, (request, response) => {
-    //     var year = request.query.year; // obtener el año desde el query string
-
-
-    //     var datosFiltrados = dataBase.filter(call => call.year === year);
-
-    //     response.send(JSON.stringify(datosFiltrados));
-    // });
-
-    // app.post(BASE_API_URL + SANTIAGO, (request, response) => {
-    //     var newCall = request.body; // obtener el año desde el query string
-
-
-    //     dataBase.push(newCall);
-
-    //     response.sendStatus(201 + "CREATED");
-    // });
-
-    // app.put(BASE_API_URL + SANTIAGO + "/:province/:month", (request, response) => {
-    //     var provincia = request.params.province;
-    //     var mes = request.params.month;
-    //     var updatedCall = request.body;
-
-    //     dataBase.update({ province: provincia, month: mes }, { $set: updatedCall }, (err, response) => {
-    //         if (err) {
-    //             console.log(`Error put/emergency-call-stats/${province}/${year}: ${err}`);
-    //             response.sendStatus(500);
-    //         } else {
-    //             console.log('Datos actualizados correctamente');
-    //             response.sendStatus(201);
-    //         }
-    //     });
-
-
-    //     response.sendStatus(201 + "CREATED");
-    // });
-
-
+  
+    app.post(BASE_API_URL + SANTIAGO, (request, response) => {
+        console.log("New POST to emergency-call-stats");
+      
+        var provinciasAndalucia = ['Almería', 'Cádiz', 'Córdoba', 'Granada', 'Huelva', 'Jaén', 'Málaga', 'Sevilla'];
+        var meses = ["january", "february", "march", "april", "may", "june",
+                               "july", "august", "september", "october", "november", "december"];
+      
+        const body = request.body;
+       //Comprobar que todos los campos estan presentes y verificar sus valores
+        if (!body.province ||!provinciasAndalucia.includes(body.province)) {
+          response.status(400).send("Error en el campo province");
+        }else if (!body.month || !meses.includes(body.month.toLowerCase())) {
+          response.status(400).send("Error en el campo month");
+        }else if(isNaN(body.phone_call_activation_organization) || body.phone_call_activation_organization < 0) {
+          response.status(400).send("Error en el campo phone_call_activation_organization");
+        }else if (isNaN(body.telematic_activation_organization) || body.telematic_activation_organization < 0) {
+          response.status(400).send("Error en el campo telematic_activation_organization");
+        }else if (isNaN(body.emergency_call) || body.emergency_call < 0) {
+          response.status(400).send("Error en el campo emergency_call");
+        }else if (isNaN(body.year) || body.year < 0) {
+          response.status(400).send("Error en el campo year");
+        } else {
+          db.find({province: body.province, month: body.month}, (err, datos) => {
+          if (err) {
+              console.error(err);
+              response.status(500);
+          } else if(datos.length > 0) {
+                  console.log("El recurso ya existe");
+                  response.sendStatus(409); // Codido de estado conflit
+          } else {
+            db.insert(body, (err, newEntry) => {
+              if (err) {
+                console.log(err);
+                response.sendStatus(500);
+              } else {
+                console.log(newEntry);
+                response.status(201).send("Created");
+              }
+            });
+          }
+        });
+      }
+      });
 }
