@@ -1,5 +1,17 @@
+const BASE_API_URL = "/api/v1";
+
+//const salim = require("./andalusian-bicycles-plans");
+
+//const salim = require("./andalusian-bicycles-plans");
 
 
+var Datastore = require('nedb');
+var db = new Datastore();
+
+
+module.exports = (app) =>{
+
+    //codigo salim /////////////////////////////////////////////////////////////
 
 var datos_Salim = [
     {
@@ -740,27 +752,322 @@ var datos_auxilio = [
   
   ]
 
-//   app.get("/samples/SCC", (req, res)=>{
-//     res.send(JSON.stringify(arraySalcha2, null, 2));
-// });
+
+db.insert(datos_Salim);
+//db.insert(datos_auxilio);
 
 
-var i = datos_Salim
-            .filter((n)=>{
-                return n.province === "Sevilla";
-            }).map((n)=>{
-                return n.population;
+    
+    
+    app.get(BASE_API_URL+"/andalusian-bicycle-plans/docs", (req,res)=>{
+        res.redirect(API_DOC_PORTAL_salim);
+    });
+    
+    app.get(BASE_API_URL + "/andalusian-bicycle-plans/loadInitialData", (req, res) => {
+        db.find({}, (err, docs) => {
+          if (err) {
+            console.error(err);
+            res.status(500).send('Error obteniendo los datos de la base de datos');
+          } else if (docs.length == 0) {
+            db.insert(datos_auxilio, (err, newDocs) => {
+              if (err) {
+                console.error(err);
+                res.status(500).send('Error insertando los datos en la base de datos');
+              } else {
+                res.json(newDocs);
+                console.log("Se han creado los datos");
+              }
             });
+          } else {
+            res.send('Ya existen datos');
+            console.log('Ya existen datos');
+          }
+        });
+      });
+      
+      
+    
+    // app.get(BASE_API_URL + "/andalusian-bicycle-plans", (req, res)=>{
+    //     res.send(JSON.stringify(contacts, null, 2));
+    // });
+    
+    
 
-var suma = i.reduce((a, n)=>{
-    return a + n;
+app.get('/api/v1/andalusian-bicycle-plans', (req, res) => {
+  const { province, year, from, to, population_over, municipality_over, all_dispacement_over, walking_over, car_driver_over, accompanying_car_over, motorcycle_over, bicycle_over, public_transport_over, other_transport_over, motorized_percentage_over } = req.query;
+
+  let query = {};
+  if (province) {
+    query.province = province;
+  }
+  if (year) {
+    query.year = Number(year);
+  }
+  if (population_over) {
+    query.population = { $gt: Number(population_over) };
+  }
+  if (municipality_over) {
+    query.municipality = { $gt: Number(municipality_over) };
+  }
+  if (all_dispacement_over) {
+    query.all_displacement = { $gt: Number(all_dispacement_over) };
+  }
+  if (walking_over) {
+    query.walking = { $gt: Number(walking_over) };
+  }
+  if (car_driver_over) {
+    query.car_driver = { $gt: Number(car_driver_over) };
+  }
+  if (accompanying_car_over) {
+    query.accompanying_car = { $gt: Number(accompanying_car_over) };
+  }
+  if (motorcycle_over) {
+    query.motorcycle = { $gt: Number(motorcycle_over) };
+  }
+  if (bicycle_over) {
+    query.bicycle = { $gt: Number(bicycle_over) };
+  }
+  if (public_transport_over) {
+    query.public_transport = { $gt: Number(public_transport_over) };
+  }
+  if (motorized_percentage_over) {
+    query.motorized_percentage = { $gt: Number(motorized_percentage_over) };
+  }
+
+  
+  if (from && to) {
+    query.year = { $gte: Number(from), $lte: Number(to) };
+  } else if (from) {
+    query.year = { $gte: Number(from) };
+  } else if (to) {
+    query.year = { $lte: Number(to) };
+  }
+
+  db.find(query, (err, docs) => {
+    if (err) {
+      return res.status(500).json({ error: 'Internal server error' });
+    }
+    return res.json(docs);
+  });
 });
 
-var media = suma / i.length;
+      
+  
 
-var arraySalcha2 = "Media de la población de Sevilla en los diferentes periodos: " + media;
+app.get('/api/v1/andalusian-bicycle-plans/:province/:year', (req, res) => {
+  const { province, year } = req.params;
+  const { from, to } = req.query;
 
 
-exports.datosSLC = datos_Salim;
 
-exports.datosAux = datos_auxilio;
+
+  // Verificar si se proporcionan los parámetros de ruta necesarios
+  if (!province || !year) {
+    return res.status(400).json({ error: 'Faltan parámetros de ruta' });
+  }
+
+  // Validar que los valores de los parámetros sean correctos
+  const validProvinces = ['sevilla', 'malaga', 'cadiz', 'huelva', 'cordoba', 'jaen', 'almeria'];
+  if (!validProvinces.includes(province.toLowerCase())) {
+    return res.status(400).json({ error: 'Provincia inválida' });
+  }
+
+  if (isNaN(year) || year < 2000 || year > 2023) {
+    return res.status(400).json({ error: 'Año inválido' });
+  }
+
+  const query = {
+    province: province.toLowerCase(),
+    year: parseInt(year)
+  };
+
+  db.find(query, (err, docs) => {
+    if (err) {
+      return res.status(500).json({ error: 'Error al buscar en la base de datos' });
+    }
+
+    let planesFiltrados = docs;
+
+
+    res.json(planesFiltrados);
+  });
+});
+
+      
+      
+      
+      
+
+  
+   
+
+
+
+//   app.get('/api/v1/andalusian-bicycle-plans', (req, res) => {
+//     const province = req.params.province;
+//     const from = Number(req.query.from);
+//     const to = Number(req.query.to);
+
+//     // Filtrar por rango de años y por provincia en la base de datos
+//     db.find({ province: province, year: { $gte: from, $lte: to } }, function (err, docs) {
+//     if (from && to) {
+//         if (from >= to) {
+//         res.status(400).send("El rango es incorrecto");
+//         } else {
+//         if (docs.length !== 0) {
+//             res.status(200).json(docs);
+//             console.log(`New GET to /provisions-for-the-year-2014/${province}?from=${from}&to=${to}`);
+//         }
+//         else {
+//             res.status(404).send("No existe ningún recurso")
+//         }
+//         }
+//     } else {
+//         // Filtrar solo por provincia en la base de datos
+//         db.find({ province: province }, function (err, docs) {
+//         if (docs.length !== 0) {
+//             res.json(docs);
+//             console.log("New GET to /provisions-for-the-year-2014/" + province);
+//         }
+//         else {
+//             res.status(404).send("No existe ningún recurso")
+//         }
+//         });
+//     }
+//     });
+// });
+      
+      
+    
+app.post(BASE_API_URL + "/andalusian-bicycle-plans", (req, res) => {
+  const inputPost = req.body;
+
+  const query = { province: inputPost.province, year: inputPost.year };
+
+  db.find(query, (err, docs) => {
+    if (err) {
+      return res.status(500).json({ error: 'Internal server error' });
+    }
+    if (docs.length > 0) {
+      return res.status(409).json({ message: 'HTTP 409 CONFLICT: The contact already exists.' });
+    } else {
+      db.insert(inputPost, (err, newDoc) => {
+        if (err) {
+          return res.status(500).json({ error: 'Internal server error' });
+        }
+        return res.status(201).json({ message: 'HTTP 201 CREATED' });
+      });
+    }
+  });
+  
+  console.log("New POST to /andalusian-bicycle-plans");
+});
+
+    
+    
+      app.post(BASE_API_URL+"/andalusian-bicycle-plans/:province", (req,res)=>{
+        res.sendStatus(405).json({ message: "HTTP 405 METHOD NOT ALLOWED" });
+    });
+    
+      
+      
+      
+      
+      
+      
+      
+      
+    
+     
+      
+      
+      
+    
+    app.put('/api/v1/andalusian-bicycle-plans/:province/:year', (req, res) => {
+      const { province, year } = req.params;
+      const expectedId = `${province}/${year}`;
+      
+      if (parseInt(year) >= 2020) {
+        return res.sendStatus(404);
+      }
+      
+      if(parseInt(year) <= 2013){
+        return res.sendStatus(400);
+      }
+    
+      if (req.params.province && req.params.year) {
+        if (req.params.province !== province || req.params.year !== year.toString()) {
+          return res.sendStatus(400);
+        }
+      } else if (req.body.id !== expectedId) {
+        return res.sendStatus(400);
+      }
+    
+      const query = { province, year: parseInt(year) };
+      const update = { $set: { ...req.body, province, year: parseInt(year) } };
+      const options = { returnUpdatedDocs: true };
+    
+      db.update(query, update, options, (err, numAffected, updatedDoc) => {
+        if (err) {
+          return res.status(500).json({ error: 'Internal server error' });
+        }
+        if (numAffected === 0) {
+          return res.sendStatus(404);
+        }
+        return res.status(200).json(updatedDoc);
+      });
+    });
+    
+      
+    
+      
+      
+    
+      app.put('/api/v1/andalusian-bicycle-plans', (req, res) => {
+        res.sendStatus(405);
+      });
+    
+      
+      
+      app.delete(BASE_API_URL + '/andalusian-bicycle-plans', (req, res) => {
+        db.remove({}, { multi: true }, (err, numRemoved) => {
+          if (err) {
+            return res.status(500).json({ error: 'Internal server error' });
+          }
+          return res.status(200).end();
+        });
+      
+        console.log('All data deleted from /andalusian-bicycle-plans');
+      });
+      
+    
+      
+    
+      app.get(BASE_API_URL + "/andalusian-bicycle-plans/:province/:year", (req, res) => {
+        const { province, year } = req.params;
+        const query = { province, year: parseInt(year) };
+      
+        db.findOne(query, (err, doc) => {
+          if (err) {
+            return res.status(500).json({ error: 'Internal server error' });
+          }
+      
+          if (!doc) {
+            return res.status(404).json({ message: 'HTTP 404 NOT FOUND' });
+          }
+      
+          return res.status(200).json(doc);
+        });
+      });
+      
+      
+
+
+
+    exports 
+
+
+
+}
+
+
