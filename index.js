@@ -20,7 +20,7 @@ var backend_spa = require("./backend_spa");
 const port = process.env.PORT || 8080;
 
 
-const jose = require("./index-josgaroro1");
+///const jose = require("./index-josgaroro1");
 
 const salim = require("./andalusian-bicycles-plans");
 

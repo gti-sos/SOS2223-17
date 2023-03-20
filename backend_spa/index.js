@@ -338,7 +338,10 @@ module.exports = (app) => {
     app.get(BASE_API_URL + SANTIAGO + "/:province", (request, response) => {
         console.log("New GET to emergency-call-stats");
         var provincia = request.params.province;
-        db.find({ province : provincia }, (err, datos) => {
+        const limit = parseInt(request.query.limit) || 10;
+        const offset = parseInt(request.query.offset) || 0;
+        
+        db.find({ province : provincia }).skip(offset).limit(limit).exec((err, datos) => {
           if(err){
             console.log(err);
             response.sendStatus(500);
@@ -351,47 +354,16 @@ module.exports = (app) => {
           }
         });
       });
-
-      app.get(BASE_API_URL + SANTIAGO + "/:year", (request, response) => {
-        console.log("New GET to emergency-call-stats");
-        var ano = request.params.year;
-        db.find({ year : ano }, (err, datos) => {
-          if(err){
-            console.log(err);
-            response.sendStatus(500);
-          } else {
-            console.log(datos);
-            response.status(200).json(datos.map((e=>{
-                delete e._id;
-                return e;
-            })));
-          }
-        });
-      });
-
-      app.get(BASE_API_URL + SANTIAGO + "/:month", (request, response) => {
-        console.log("New GET to emergency-call-stats");
-        var mes = request.params.month;
-        db.find({ month : mes }, (err, datos) => {
-          if(err){
-            console.log(err);
-            response.sendStatus(500);
-          } else {
-            console.log(datos);
-            response.status(200).json(datos.map((e=>{
-                delete e._id;
-                return e;
-            })));
-          }
-        });
-      });
-
-      
 
       app.get(BASE_API_URL + SANTIAGO, (request, response) => {
         console.log("New GET to emergency-call-stats");
+        const limit = parseInt(request.query.limit) || 10;
+        const offset = parseInt(request.query.offset) || 0;
 
-        var parametros = request.query;//obntenemos la consulta campo1=valor1&campo2=valor2...
+        var parametros = request.query;//obtenemos la consulta campo1=valor1&campo2=valor2...
+
+        delete parametros.limit;
+        delete parametros.offset;
 
         var claves = Object.keys(parametros); // creamos una variable con todos las claves de cada consulta
 
@@ -417,7 +389,7 @@ module.exports = (app) => {
             }
         });
 
-        db.find(filtros, (err, datos) => {
+        db.find(filtros).skip(offset).limit(limit).exec((err, datos)  => {
           if(err){
             console.log(err);
             response.sendStatus(500);
