@@ -26,6 +26,10 @@ var backend_spa = require("./backend_spa");
 const port = process.env.PORT || 8080;
 
 
+<<<<<<< HEAD
+///const jose = require("./index-josgaroro1");
+=======
+>>>>>>> 8210fc0c27e4729d3ae4e9ad923238deeab47f89
 
 //const salim = require("./andalusian-bicycles-plans");
 
