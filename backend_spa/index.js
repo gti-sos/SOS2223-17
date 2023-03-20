@@ -204,6 +204,9 @@ module.exports = (app) => {
     }
 
     ];
+    app.get(BASE_API_URL+SANTIAGO+"/docs", (request,response) => {
+      response.redirect("https://documenter.getpostman.com/view/25995736/2s93K1oeqq");
+  });
 
     
 
@@ -265,6 +268,20 @@ module.exports = (app) => {
           }
         });
       });
+      app.delete(BASE_API_URL + SANTIAGO +"/:province", (request, response) => {
+        var provincia = request.params.province;
+        console.log("New DELETE to emergency-call-stats");
+      //Seleccionamos el elemento a eliminar
+        db.remove({province: provincia}, {}, (err, numDelete) => {
+          if (err) {
+            console.log(err);
+            response.sendStatus(500);
+          } else {
+            console.log(`Elemeneto eleminado`);
+            response.sendStatus(200);
+          }
+        });
+      });
 
       //Borrar un recurso concreto
       app.delete(BASE_API_URL + SANTIAGO +"/:province/:month", (request, response) => {
@@ -291,6 +308,10 @@ module.exports = (app) => {
 
       //PROHIBIDO LOS PUT A SOBRE LA LISTA DE RECURSOS
       app.put(BASE_API_URL + SANTIAGO, (request, response) => {
+        // Enviamos una respuesta con el código de estado 405 Method Not Allowed
+        response.status(405).send('Method Not Allowed');
+      });
+      app.put(BASE_API_URL + SANTIAGO+"/:var", (request, response) => {
         // Enviamos una respuesta con el código de estado 405 Method Not Allowed
         response.status(405).send('Method Not Allowed');
       });
