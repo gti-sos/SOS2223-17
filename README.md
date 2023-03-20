@@ -21,7 +21,7 @@ URL: [sos2223-17.ew.r.appspot.com/] (https://sos2223-17.ew.r.appspot.com/)
 
 APIs:
 
-https://sos2223-17.ew.r.appspot.com/api/v1/andalusian-bicycle-plans/docs (developed by Salim Chaieri Chafai)
+https://documenter.getpostman.com/view/25746364/2s93JxsMEP (developed by Salim Chaieri Chafai)
 
 https://sos2223-17.appspot.com/api/v1/self-employed-stats/docs (developed by Jose Germinal Garrucho Orozco)
 
