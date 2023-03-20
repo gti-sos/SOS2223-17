@@ -4,6 +4,8 @@ const BASE_API_URL = "/api/v1";
 
 //const salim = require("./andalusian-bicycles-plans");
 
+const API_DOC_PORTAL_salim = "https://documenter.getpostman.com/view/25746364/2s93JxsMEP"
+
 
 var Datastore = require('nedb');
 var db = new Datastore();
@@ -787,10 +789,7 @@ db.insert(datos_Salim);
       
       
     
-    // app.get(BASE_API_URL + "/andalusian-bicycle-plans", (req, res)=>{
-    //     res.send(JSON.stringify(contacts, null, 2));
-    // });
-    
+   
     
 
 app.get('/api/v1/andalusian-bicycle-plans', (req, res) => {
@@ -898,44 +897,7 @@ app.get('/api/v1/andalusian-bicycle-plans/:province/:year', (req, res) => {
       
       
 
-  
-   
 
-
-
-//   app.get('/api/v1/andalusian-bicycle-plans', (req, res) => {
-//     const province = req.params.province;
-//     const from = Number(req.query.from);
-//     const to = Number(req.query.to);
-
-//     // Filtrar por rango de años y por provincia en la base de datos
-//     db.find({ province: province, year: { $gte: from, $lte: to } }, function (err, docs) {
-//     if (from && to) {
-//         if (from >= to) {
-//         res.status(400).send("El rango es incorrecto");
-//         } else {
-//         if (docs.length !== 0) {
-//             res.status(200).json(docs);
-//             console.log(`New GET to /provisions-for-the-year-2014/${province}?from=${from}&to=${to}`);
-//         }
-//         else {
-//             res.status(404).send("No existe ningún recurso")
-//         }
-//         }
-//     } else {
-//         // Filtrar solo por provincia en la base de datos
-//         db.find({ province: province }, function (err, docs) {
-//         if (docs.length !== 0) {
-//             res.json(docs);
-//             console.log("New GET to /provisions-for-the-year-2014/" + province);
-//         }
-//         else {
-//             res.status(404).send("No existe ningún recurso")
-//         }
-//         });
-//     }
-//     });
-// });
       
       
     
