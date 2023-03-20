@@ -16,7 +16,7 @@ Our source of information is oriented to the use of bikes,number of self-employe
 Repository: gti-sos/SOS2223-17
 
 
-URL: sos2223-17.ew.r.appspot.com/
+URL: https://sos2223-17.ew.r.appspot.com
 
 
 APIs:
