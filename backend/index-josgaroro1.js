@@ -108,7 +108,7 @@ module.exports = (app) => {
     });
 
     app.get(BASE_API_URL+"/self-employed-stats/docs", (request,response) => {
-        response.redirect("https://documenter.getpostman.com/view/25998017/2s93Jxqfu4");
+        response.redirect("https://documenter.getpostman.com/view/26051644/2s93K1oemT");
     });
 
     app.get(BASE_API_URL+"/self-employed-stats/loadInitialData", (request,response) => {
@@ -285,7 +285,7 @@ module.exports = (app) => {
     });
     
     //PUT //////////////////////////////////////////////////
-    
+
     //db.update({ planet: 'Jupiter' }, { planet: 'Pluton'}, {}, function (err, numReplaced) {} remplaza jupiter por pluton
     app.put(BASE_API_URL+"/self-employed-stats", (req,res)=>{
         res.sendStatus(405).json({ message: "HTTP 405 METHOD NOT ALLOWED" });
