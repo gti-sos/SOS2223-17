@@ -153,7 +153,7 @@ module.exports = (app) => {
             response.sendStatus(200).send("HTTP 200 OK" );
 
         }else{
-            response.sendStatus(404).json({ message: "HTTP 404 NOT FOUND" });
+            response.sendStatus(404).json({ mes   ge: "HTTP 404 NOT FOUND" });
         }
     });*/
     app.get(BASE_API_URL+"/self-employed-stats/:name", (request,response) => {
@@ -212,6 +212,30 @@ module.exports = (app) => {
         }
     });
 
+    app.get(BASE_API_URL+"/self-employed-stats?limit=n1&offset=n2", (request,response) => {
+        var n1 = parseInt(request.params.n1);
+        var n2 = parseInt(request.params.n2);
+
+        db.find({}).skip(n1).limit(n2).exec(function (err, data) {//PAGINACION
+            if(err){
+                console.log(`Error geting /self-employed-stats/: ${err}`);
+                response.sendStatus(500);
+            }else{
+                if(data.length > 0){
+                    console.log(`data returned ${data.length}`);
+                    response.json(data.map((d)=>{
+                        delete d._id;
+                        return d;
+                    }));
+                }else{
+                    console.log(`Data not found /self-employed-stats/${anyo}: ${err}`);
+                    response.status(404).send("Data not found");
+                }
+            }
+        })
+
+    });
+
     app.get(BASE_API_URL+"/self-employed-stats/:year", (request,response) => {
         var anyo = request.params.year;
 
@@ -231,7 +255,7 @@ module.exports = (app) => {
                     response.status(404).send("Data not found");
                 }
             }
-        })
+        });
     });
     
     app.get(BASE_API_URL+"/self-employed-stats/:territory/:year1/:year2", (request,response) => {
