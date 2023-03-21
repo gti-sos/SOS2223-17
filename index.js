@@ -1,5 +1,6 @@
 const cool = require("cool-ascii-faces");
 const express = require("express");
+
 const bodyParser = require("body-parser");
 var Datastore = require('nedb');
 var backendJose = require("./backend/index-josgaroro1");
@@ -11,7 +12,13 @@ const BASE_API_URL = "/api/v1";
 
 app.use("/" , express.static("./public"))
 
+
+
 app.use(bodyParser.json());
+
+
+
+
 
 backendJose(app);
 

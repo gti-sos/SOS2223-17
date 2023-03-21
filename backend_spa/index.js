@@ -204,10 +204,19 @@ module.exports = (app) => {
     }
 
     ];
+
+    //Redirect a la lista de Postman
     app.get(BASE_API_URL+SANTIAGO+"/docs", (request,response) => {
       response.redirect("https://documenter.getpostman.com/view/25995736/2s93K1oeqq");
   });
 
+  function validateId(request, response, next) {
+    const { _id } = request.body;
+    if (_id) {
+      return response.status(400).json({ error: 'El campo _id no está permitido.' });
+    }
+    next();
+  }
     
 
     app.get(BASE_API_URL + SANTIAGO + "/loadInitialData", (request, response) => {
@@ -268,6 +277,8 @@ module.exports = (app) => {
           }
         });
       });
+
+      //Borrar datos por provincias
       app.delete(BASE_API_URL + SANTIAGO +"/:province", (request, response) => {
         var provincia = request.params.province;
         console.log("New DELETE to emergency-call-stats");
@@ -277,7 +288,7 @@ module.exports = (app) => {
             console.log(err);
             response.sendStatus(500);
           } else {
-            console.log(`Elemeneto eleminado`);
+            console.log(`Elemenetos eleminados`);
             response.sendStatus(200);
           }
         });
@@ -288,12 +299,15 @@ module.exports = (app) => {
         var mes = request.params.month;
         var provincia = request.params.province;
         console.log("New DELETE to emergency-call-stats");
-      //Seleccionamos el elemento a eliminar
+        //Seleccionamos el elemento a eliminar
         db.remove({province: provincia, month : mes }, {}, (err, numDelete) => {
           if (err) {
             console.log(err);
             response.sendStatus(500);
-          } else {
+          } else if(numDelete == 0) {
+            console.log("Elemento no encontrado");
+            response.sendStatus(404);
+           }else {
             console.log(`Elemeneto eleminado`);
             response.sendStatus(200);
           }
@@ -303,7 +317,7 @@ module.exports = (app) => {
       //PROHIBIDO METODO POST A UN RECURSO CONCRETO
       app.post(BASE_API_URL + SANTIAGO +"/:province/:month", (request, response) => {
         // Enviamos una respuesta con el código de estado 405 Method Not Allowed
-        response.status(405).send('Method Not Allowed');
+        response.sendStatus(405);
       });
 
       //PROHIBIDO LOS PUT A SOBRE LA LISTA DE RECURSOS
@@ -313,11 +327,11 @@ module.exports = (app) => {
       });
       app.put(BASE_API_URL + SANTIAGO+"/:var", (request, response) => {
         // Enviamos una respuesta con el código de estado 405 Method Not Allowed
-        response.status(405).send('Method Not Allowed');
+        response.sendStatus(405);
       });
 
       //Actualizar una entrada concreta
-      app.put(BASE_API_URL + SANTIAGO + "/:province/:month", (request, response) => {
+      app.put(BASE_API_URL + SANTIAGO + "/:province/:month",validateId , (request, response) => {
         var mes = request.params.month;
         var provincia = request.params.province;
         var body = request.body;
@@ -326,19 +340,19 @@ module.exports = (app) => {
                                "july", "august", "september", "october", "november", "december"];
         //checkear que esta todos los campos implementados correctamente
         if (!(mes==body.month) || !(provincia==body.province)) {
-          response.status(400).send("Bad Request");
+          response.sendStatus(400);
         } else if (!body.province ||!provinciasAndalucia.includes(body.province)) {
-          response.status(400).send("Error en el campo province");
+          response.sendStatus(400);
         }else if (!body.month || !meses.includes(body.month.toLowerCase())) {
-          response.status(400).send("Error en el campo month");
+          response.sendStatus(400);
         }else if(isNaN(body.phone_call_activation_organization) || body.phone_call_activation_organization < 0) {
-          response.status(400).send("Error en el campo phone_call_activation_organization");
+          response.sendStatus(400);
         }else if (isNaN(body.telematic_activation_organization) || body.telematic_activation_organization < 0) {
-          response.status(400).send("Error en el campo telematic_activation_organization");
+          response.sendStatus(400);
         }else if (isNaN(body.emergency_call) || body.emergency_call < 0) {
-          response.status(400).send("Error en el campo emergency_call");
+          response.sendStatus(400);
         }else if (isNaN(body.year) || body.year < 0) {
-          response.status(400).send("Error en el campo year");
+          response.sendStatus(400);
         } else {
             //actualizar el recurso especificados
          db.update({province: provincia, month : mes}, body, {}, (err, update) => {
@@ -356,17 +370,29 @@ module.exports = (app) => {
       });
 
 
-    app.get(BASE_API_URL + SANTIAGO + "/:province", (request, response) => {
+    app.get(BASE_API_URL + SANTIAGO + "/:value", (request, response) => {
         console.log("New GET to emergency-call-stats");
-        var provincia = request.params.province;
+        var valor = request.params.value;
         const limit = parseInt(request.query.limit) || 10;
         const offset = parseInt(request.query.offset) || 0;
+
+        //Creamos los filtros para cada campo con el valor especificado
+        var filtros = {
+          $or: [
+              { year: valor },
+              { month: valor },
+              { province: valor }
+            ]
+          };
         
-        db.find({ province : provincia }).skip(offset).limit(limit).exec((err, datos) => {
+        db.find(filtros).skip(offset).limit(limit).exec((err, datos) => {
           if(err){
             console.log(err);
             response.sendStatus(500);
-          } else {
+          } else if(datos==0){
+            console.log("Datos no encontrados");
+            response.sendStatus(404);
+          }else{
             console.log(datos);
             response.status(200).json(datos.map((e=>{
                 delete e._id;
@@ -410,11 +436,15 @@ module.exports = (app) => {
             }
         });
 
+        if(filtros['_id']){
+          response.status(400).json({ error: 'El campo _id no está permitido.' });
+        }else{
+
         db.find(filtros).skip(offset).limit(limit).exec((err, datos)  => {
           if(err){
             console.log(err);
             response.sendStatus(500);
-          } else {
+          } else{
             console.log(datos);
             response.status(200).json(datos.map((e=>{
                 delete e._id;
@@ -422,12 +452,13 @@ module.exports = (app) => {
             })));
           }
         });
+      }
       });
 
    
 
   
-    app.post(BASE_API_URL + SANTIAGO, (request, response) => {
+    app.post(BASE_API_URL + SANTIAGO,validateId , (request, response) => {
         console.log("New POST to emergency-call-stats");
       
         var provinciasAndalucia = ['Almería', 'Cádiz', 'Córdoba', 'Granada', 'Huelva', 'Jaén', 'Málaga', 'Sevilla'];
@@ -437,17 +468,17 @@ module.exports = (app) => {
         const body = request.body;
        //Comprobar que todos los campos estan presentes y verificar sus valores
         if (!body.province ||!provinciasAndalucia.includes(body.province)) {
-          response.status(400).send("Error en el campo province");
+          response.sendStatus(400);
         }else if (!body.month || !meses.includes(body.month.toLowerCase())) {
-          response.status(400).send("Error en el campo month");
+          response.sendStatus(400);
         }else if(isNaN(body.phone_call_activation_organization) || body.phone_call_activation_organization < 0) {
-          response.status(400).send("Error en el campo phone_call_activation_organization");
+          response.sendStatus(400);
         }else if (isNaN(body.telematic_activation_organization) || body.telematic_activation_organization < 0) {
-          response.status(400).send("Error en el campo telematic_activation_organization");
+          response.sendStatus(400);
         }else if (isNaN(body.emergency_call) || body.emergency_call < 0) {
-          response.status(400).send("Error en el campo emergency_call");
+          response.sendStatus(400);
         }else if (isNaN(body.year) || body.year < 0) {
-          response.status(400).send("Error en el campo year");
+          response.sendStatus(400);
         } else {
           db.find({province: body.province, month: body.month}, (err, datos) => {
           if (err) {
@@ -455,7 +486,7 @@ module.exports = (app) => {
               response.status(500);
           } else if(datos.length > 0) {
                   console.log("El recurso ya existe");
-                  response.sendStatus(409); // Codido de estado conflit
+                  response.sendStatus(409); // Codido de estado conflict
           } else {
             db.insert(body, (err, newEntry) => {
               if (err) {
@@ -463,7 +494,7 @@ module.exports = (app) => {
                 response.sendStatus(500);
               } else {
                 console.log(newEntry);
-                response.status(201).send("Created");
+                response.sendStatus(201);//Ok Created
               }
             });
           }
