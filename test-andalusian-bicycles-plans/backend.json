@@ -138,7 +138,7 @@
 			"response": []
 		},
 		{
-			"name": "Get bicycles/province/year",
+			"name": "Get bicycles/province/year 404",
 			"event": [
 				{
 					"listen": "test",
@@ -172,14 +172,14 @@
 			"response": []
 		},
 		{
-			"name": "Get 400 bicycles/province/year",
+			"name": "Get exito bicycles/province/year",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Status code is 400\", function () {\r",
-							"    pm.response.to.have.status(400);\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
 							"});\r",
 							"\r",
 							""
@@ -192,16 +192,24 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{URLBASE}}/api/v1/andalusian-bicycle-plans/Sevilla/20133",
+					"raw": "{{URLBASE}}/api/v1/andalusian-bicycle-plans?province=Sevilla&year=2016",
 					"host": [
 						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
 						"v1",
-						"andalusian-bicycle-plans",
-						"Sevilla",
-						"20133"
+						"andalusian-bicycle-plans"
+					],
+					"query": [
+						{
+							"key": "province",
+							"value": "Sevilla"
+						},
+						{
+							"key": "year",
+							"value": "2016"
+						}
 					]
 				}
 			},
@@ -389,7 +397,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"province\":\"Granada\",\r\n    \"municipality\":71,\r\n    \"population\":566830,\r\n    \"all_displacement\":1382297,\r\n    \"walking\":\"31,8\",\r\n    \"car_driver\":\"48,1\",\r\n    \"accompanying_car\":\"10,5\",\r\n    \"motorcycle\":\"3,5\",\r\n    \"bicycle\":\"2,2\",\r\n    \"public_transport\":\"9,3\",\r\n    \"other_ transportation\":\"0,8\",\r\n    \"year\":2015,\r\n    \"motorized_percentage\":\"62,8\"\r\n  }",
+					"raw": "{\r\n    \"province\":\"Granada\",\r\n    \"municipality\":80,\r\n    \"population\":566830,\r\n    \"all_displacement\":1382297,\r\n    \"walking\":\"31,8\",\r\n    \"car_driver\":\"48,1\",\r\n    \"accompanying_car\":\"10,5\",\r\n    \"motorcycle\":\"3,5\",\r\n    \"bicycle\":\"2,2\",\r\n    \"public_transport\":\"9,3\",\r\n    \"other_ transportation\":\"0,8\",\r\n    \"year\":2015,\r\n    \"motorized_percentage\":\"62,8\"\r\n  }",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -433,16 +441,24 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "{{URLBASE}}/api/v1/andalusian-bicycle-plans/Sevilla/2016",
+					"raw": "{{URLBASE}}/api/v1/andalusian-bicycle-plans?province=Sevilla&year=2016",
 					"host": [
 						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
 						"v1",
-						"andalusian-bicycle-plans",
-						"Sevilla",
-						"2016"
+						"andalusian-bicycle-plans"
+					],
+					"query": [
+						{
+							"key": "province",
+							"value": "Sevilla"
+						},
+						{
+							"key": "year",
+							"value": "2016"
+						}
 					]
 				}
 			},
