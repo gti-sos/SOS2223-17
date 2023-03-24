@@ -7,6 +7,9 @@ const BASE_API_URL = "/api/v1";
 const API_DOC_PORTAL_salim = "https://documenter.getpostman.com/view/25746364/2s93JxsMEP"
 
 
+const API_DOC_PORTAL_salim1 = "https://sos2223-17-381423.ew.r.appspot.com/"
+
+
 var Datastore = require('nedb');
 var db = new Datastore();
 
@@ -765,6 +768,8 @@ db.insert(datos_Salim);
         res.redirect(API_DOC_PORTAL_salim);
     });
     
+    
+
     app.get(BASE_API_URL + "/andalusian-bicycle-plans/loadInitialData", (req, res) => {
         db.find({}, (err, docs) => {
           if (err) {
