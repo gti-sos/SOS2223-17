@@ -221,7 +221,9 @@ module.exports = (app) => {
 
     app.get(BASE_API_URL + SANTIAGO + "/loadInitialData", (request, response) => {
         db.count({}, (err, count) => {
-            if (count === 0) {
+          if(err){
+            response.sendStatus(500);
+         } else if (count === 0) {
                 console.log('Base de datos vacia, insertando datos...');
                 db.insert(datosLlamadas,(err,datos)=>{
                     console.log("Datos insertados");
