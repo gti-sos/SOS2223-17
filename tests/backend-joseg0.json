@@ -1,23 +1,33 @@
 {
 	"info": {
-		"_postman_id": "7623e170-948c-4bcd-bb89-d50249900513",
-		"name": "F05-SOS",
+		"_postman_id": "2566cb85-7fc6-4067-94e3-696407fcb7f2",
+		"name": "F07",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "25746364"
+		"_exporter_id": "26051644"
 	},
 	"item": [
 		{
-			"name": "https://sos2223-17.appspot.com/api/v1/self-employed-stats",
+			"name": "200-/self-employed-stats",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
-				"method": "PUT",
+				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://sos2223-17.appspot.com/api/v1/self-employed-stats",
-					"protocol": "https",
+					"raw": "{{URLBASE}}/api/v1/self-employed-stats",
 					"host": [
-						"sos2223-17",
-						"appspot",
-						"com"
+						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
@@ -29,111 +39,139 @@
 			"response": []
 		},
 		{
-			"name": "https://sos2223-17.appspot.com/api/v1/self-employed-stats/Madrid",
+			"name": "200-/self-employed-stats/Sevilla",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://sos2223-17.appspot.com/api/v1/self-employed-stats/Madrid",
-					"protocol": "https",
+					"raw": "{{URLBASE}}/api/v1/self-employed-stats/Sevilla",
 					"host": [
-						"sos2223-17",
-						"appspot",
-						"com"
+						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
 						"v1",
 						"self-employed-stats",
-						"Madrid"
+						"Sevilla"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "https://sos2223-17.appspot.com/api/v1/self-employed-stats",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n        \"genre\": \"Hombres\",\r\n        \"live_with\": \"q\",\r\n        \"territory\": \"Almería\",\r\n        \"employee\": 5,\r\n        \"value\": 6850,\r\n        \"year\": 2019\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
+			"name": "404-/self-employed-stats/Dublin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript"
 					}
-				},
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
 				"url": {
-					"raw": "https://sos2223-17.appspot.com/api/v1/self-employed-stats",
-					"protocol": "https",
+					"raw": "{{URLBASE}}/api/v1/self-employed-stats/Dublin",
 					"host": [
-						"sos2223-17",
-						"appspot",
-						"com"
+						"{{URLBASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"self-employed-stats",
+						"Dublin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PAG-/self-employed-stats",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"/*pm.test(\"Array equal to 1\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.length).to.eql(1);\r",
+							"});*/"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URLBASE}}/api/v1/self-employed-stats?offset=1&limit=1",
+					"host": [
+						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
 						"v1",
 						"self-employed-stats"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "https://sos2223-17.appspot.com/api/v1/self-employed-stats",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n        \"genre\": \"Hombres\",\r\n        \"live_with\": 1,\r\n        \"territory\": \"Almería\",\r\n        \"employee\": 5,\r\n        \"value\": 6850,\r\n        \"year\": 2019\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "https://sos2223-17.appspot.com/api/v1/self-employed-stats",
-					"protocol": "https",
-					"host": [
-						"sos2223-17",
-						"appspot",
-						"com"
 					],
-					"path": [
-						"api",
-						"v1",
-						"self-employed-stats"
+					"query": [
+						{
+							"key": "offset",
+							"value": "1"
+						},
+						{
+							"key": "limit",
+							"value": "1"
+						}
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "https://sos2223-17.appspot.com/api/v1/self-employed-stats/Almería/2019",
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n        \"genre\": \"Hombres\",\r\n        \"live_with\": 1,\r\n        \"territory\": \"Almer\",\r\n        \"employee\": 5,\r\n        \"value\": 6850,\r\n        \"year\": 2010\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
+			"name": "200-/self-employed-stats/Almería/2019",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
 					}
-				},
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
 				"url": {
-					"raw": "https://sos2223-17.appspot.com/api/v1/self-employed-stats/Almería/2019",
-					"protocol": "https",
+					"raw": "{{URLBASE}}/api/v1/self-employed-stats/Almería/2019",
 					"host": [
-						"sos2223-17",
-						"appspot",
-						"com"
+						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
@@ -147,58 +185,26 @@
 			"response": []
 		},
 		{
-			"name": "https://sos2223-17.appspot.com/api/v1/self-employed-stats/Huelva",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "https://sos2223-17.appspot.com/api/v1/self-employed-stats/Huelva",
-					"protocol": "https",
-					"host": [
-						"sos2223-17",
-						"appspot",
-						"com"
-					],
-					"path": [
-						"api",
-						"v1",
-						"self-employed-stats",
-						"Huelva"
-					]
+			"name": "400-/self-employed-stats",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
 				}
-			},
-			"response": []
-		},
-		{
-			"name": "https://sos2223-17.appspot.com/api/v1/self-employed-stats",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "https://sos2223-17.appspot.com/api/v1/self-employed-stats",
-					"protocol": "https",
-					"host": [
-						"sos2223-17",
-						"appspot",
-						"com"
-					],
-					"path": [
-						"api",
-						"v1",
-						"self-employed-stats"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "https://sos2223-17.appspot.com/api/v1/self-employed-stats",
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n        \"genre\": \"Hombres\",\r\n        \"live_with\": 1,\r\n        \"territory\": \"Jaén\",\r\n        \"employee\": 5,\r\n        \"value\": 6868,\r\n        \"year\": 2019\r\n}",
+					"raw": "{\r\n        \"genre\": \"Mujeres\",\r\n        \"live_with\": 1,\r\n        \"territory\": \"Sevilla\",\r\n        \"employee\": 33,\r\n        \"value\": 1011\r\n    }",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -206,17 +212,351 @@
 					}
 				},
 				"url": {
-					"raw": "https://sos2223-17.appspot.com/api/v1/self-employed-stats",
-					"protocol": "https",
+					"raw": "{{URLBASE}}/api/v1/self-employed-stats",
 					"host": [
-						"sos2223-17",
-						"appspot",
-						"com"
+						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
 						"v1",
 						"self-employed-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "409 ALREADY EXIST",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 409\", function () {\r",
+							"    pm.response.to.have.status(409);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"genre\": \"Hombres\",\r\n        \"live_with\": 1,\r\n        \"territory\": \"Almería\",\r\n        \"employee\": 5,\r\n        \"value\": 6850,\r\n        \"year\": 2020\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URLBASE}}/api/v1/self-employed-stats",
+					"host": [
+						"{{URLBASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"self-employed-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "405-/self-employed-stats/Almería/2018",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 405\", function () {\r",
+							"    pm.response.to.have.status(405);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{URLBASE}}/api/v1/self-employed-stats/Almería/2018",
+					"host": [
+						"{{URLBASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"self-employed-stats",
+						"Almería",
+						"2018"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "405-/self-employed-stats/Sevilla",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 405\", function () {\r",
+							"    pm.response.to.have.status(405);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{URLBASE}}/api/v1/self-employed-stats/Sevilla",
+					"host": [
+						"{{URLBASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"self-employed-stats",
+						"Sevilla"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "201-/self-employed-stats",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"genre\": \"Mujeres\",\r\n        \"live_with\": 1,\r\n        \"territory\": \"Sevilla\",\r\n        \"employee\": 3,\r\n        \"value\": 1011,\r\n        \"year\": 2020\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URLBASE}}/api/v1/self-employed-stats",
+					"host": [
+						"{{URLBASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"self-employed-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "200-/self-employed-stats Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Self-employers greater than 0\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.lengthOf.above(0);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URLBASE}}/api/v1/self-employed-stats",
+					"host": [
+						"{{URLBASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"self-employed-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "405-/self-employed-stats",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 405\", function () {\r",
+							"    pm.response.to.have.status(405);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{URLBASE}}/api/v1/self-employed-stats",
+					"host": [
+						"{{URLBASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"self-employed-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "400-self-employed-stats/Sevilla/2018",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"genre\": \"Mujeres\",\r\n        \"live_with\": 1,\r\n        \"territory\": \"Sevilla\",\r\n        \"employee\": 33,\r\n        \"value\": 1011\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URLBASE}}/api/v1/self-employed-stats/Sevilla/2018",
+					"host": [
+						"{{URLBASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"self-employed-stats",
+						"Sevilla",
+						"2018"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "201-/self-employed-stats/Sevilla/2020",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"genre\": \"Mujeres\",\r\n        \"live_with\": 1,\r\n        \"territory\": \"Sevilla\",\r\n        \"employee\": 33,\r\n        \"value\": 1011,\r\n        \"year\": 2020\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URLBASE}}/api/v1/self-employed-stats/Sevilla/2020",
+					"host": [
+						"{{URLBASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"self-employed-stats",
+						"Sevilla",
+						"2020"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "200-/self-employed-stats/Sevilla/2020",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{URLBASE}}/api/v1/self-employed-stats/Sevilla/2020",
+					"host": [
+						"{{URLBASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"self-employed-stats",
+						"Sevilla",
+						"2020"
 					]
 				}
 			},
