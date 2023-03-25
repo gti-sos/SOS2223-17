@@ -761,7 +761,13 @@ var datos_auxilio = [
 db.insert(datos_Salim);
 //db.insert(datos_auxilio);
 
-
+function validateId(request, response, next) {
+  const { _id } = request.body;
+  if (_id) {
+    return response.status(400).json({ error: 'El campo _id no está permitido.' });
+  }
+  next();
+}
     
     
     app.get(BASE_API_URL+"/andalusian-bicycle-plans/docs", (req,res)=>{
@@ -927,7 +933,7 @@ app.get('/api/v1/andalusian-bicycle-plans/:province/:year', (req, res) => {
       
       
     
-app.post(BASE_API_URL + "/andalusian-bicycle-plans", (req, res) => {
+app.post(BASE_API_URL + "/andalusian-bicycle-plans",validateId, (req, res) => {
   const inputPost = req.body;
 
   const query = { province: inputPost.province, year: inputPost.year };
@@ -971,7 +977,7 @@ app.post(BASE_API_URL + "/andalusian-bicycle-plans", (req, res) => {
       
       
     
-    app.put('/api/v1/andalusian-bicycle-plans/:province/:year', (req, res) => {
+    app.put('/api/v1/andalusian-bicycle-plans/:province/:year',validateId, (req, res) => {
       const { province, year } = req.params;
       const expectedId = `${province}/${year}`;
       
