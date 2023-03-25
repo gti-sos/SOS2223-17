@@ -13,7 +13,7 @@ module.exports = (app) => {
             "territory": "Almería", 
             "employee": 5, 
             "value": 6850, 
-            "year": 2019
+            "year": 2020
         },
         {
             "genre": "Hombres", 
@@ -92,23 +92,33 @@ module.exports = (app) => {
 
     //GET //////////////////////////////////////////////////
     app.get(BASE_API_URL+"/self-employed-stats", (request,response) => {
-        console.log("New GET to /self-employed-stats");
-        db.find({}, (err, datosFichero)=>{
+        console.log("New GET to self-employed-stats");
+        const limit = parseInt(request.query.limit) || 10;
+        const offset = parseInt(request.query.offset) || 0;
+
+        db.find({}).skip(offset).limit(limit).exec(function (err, data) {//PAGINACION
             if(err){
-                console.log(`Error geting /self-employed-stats: ${err}`);
+                console.log(`Error geting /self-employed-stats/: ${err}`);
                 response.sendStatus(500);
             }else{
-                console.log(`data out: ${datosFichero.length}`);
-                response.json(datosFichero.map((d)=>{
-                    delete d._id;//id propio de mongoDB, no apropiado mostrar al cliente
-                    return d;
-                }));                           
+                if(data.length > 0){
+                    console.log(`data returned ${data.length}`);
+                    response.json(data.map((d)=>{
+                        delete d._id;
+                        return d;
+                    }));
+                }else{
+                    console.log(`Data not found /self-employed-stats: ${err}`);
+                    response.status(404).send("Data not found");
+                }
             }
-        });
+        })
+
     });
+      
 
     app.get(BASE_API_URL+"/self-employed-stats/docs", (request,response) => {
-        response.redirect("https://documenter.getpostman.com/view/26051644/2s93K1oemT");
+        response.redirect("https://documenter.getpostman.com/view/26051644/2s93RNyacK");
     });
 
     app.get(BASE_API_URL+"/self-employed-stats/loadInitialData", (request,response) => {
@@ -133,29 +143,6 @@ module.exports = (app) => {
         });
     });
     
-    /*app.get(BASE_API_URL+"/self-employed-stats/:name", (request,response) => {
-        var name = request.params.name;
-        //
-        if (datosFichero.filter((dato=>dato.territory === name)).length>0){
-            response.json(datosFichero.filter(dato=>dato.territory === name));
-            response.sendStatus(200).send("HTTP 200 OK" );
-        }else if(datosFichero.filter((dato=>dato.genre === name)).length>0){
-            response.json(datosFichero.filter(dato=>dato.genre === name));
-            response.sendStatus(200).send("HTTP 200 OK" );
-        }else if(datosFichero.filter((dato=>dato.year === parseInt(name))).length>0){
-            response.json(datosFichero.filter(dato=>dato.year === parseInt(name)));
-            response.sendStatus(200).send("HTTP 200 OK" );
-        }else if(datosFichero.filter((dato=>dato.live_with === parseInt(name))).length>0){
-            response.json(datosFichero.filter(dato=>dato.live_with === parseInt(name)));
-            response.sendStatus(200).send("HTTP 200 OK" );
-        }else if(datosFichero.filter((dato=>dato.value === parseInt(name))).length>0){
-            response.json(datosFichero.filter(dato=>dato.value === parseInt(name)));
-            response.sendStatus(200).send("HTTP 200 OK" );
-
-        }else{
-            response.sendStatus(404).json({ mes   ge: "HTTP 404 NOT FOUND" });
-        }
-    });*/
     app.get(BASE_API_URL+"/self-employed-stats/:name", (request,response) => {
         var name = request.params.name;
         if (isNaN(name)){
@@ -212,74 +199,6 @@ module.exports = (app) => {
         }
     });
 
-    app.get(BASE_API_URL+"/self-employed-stats?limit=n1&offset=n2", (request,response) => {
-        var n1 = parseInt(request.params.n1);
-        var n2 = parseInt(request.params.n2);
-
-        db.find({}).skip(n1).limit(n2).exec(function (err, data) {//PAGINACION
-            if(err){
-                console.log(`Error geting /self-employed-stats/: ${err}`);
-                response.sendStatus(500);
-            }else{
-                if(data.length > 0){
-                    console.log(`data returned ${data.length}`);
-                    response.json(data.map((d)=>{
-                        delete d._id;
-                        return d;
-                    }));
-                }else{
-                    console.log(`Data not found /self-employed-stats/${anyo}: ${err}`);
-                    response.status(404).send("Data not found");
-                }
-            }
-        })
-
-    });
-
-    app.get(BASE_API_URL+"/self-employed-stats/:year", (request,response) => {
-        var anyo = request.params.year;
-
-        db.find({year: anyo}).skip(1).limit(2).exec(function (err, data) {//PAGINACION
-            if(err){
-                console.log(`Error geting /self-employed-stats/${anyo}: ${err}`);
-                response.sendStatus(500);
-            }else{
-                if(data.length > 0){
-                    console.log(`data returned ${data.length}`);
-                    response.json(data.map((d)=>{
-                        delete d._id;
-                        return d;
-                    }));
-                }else{
-                    console.log(`Data not found /self-employed-stats/${anyo}: ${err}`);
-                    response.status(404).send("Data not found");
-                }
-            }
-        });
-    });
-    
-    app.get(BASE_API_URL+"/self-employed-stats/:territory/:year1/:year2", (request,response) => {
-        var anyo1 = parseInt(request.params.year1);
-        var anyo2 = parseInt(request.params.year2);
-        var territorio = request.params.territory;
-
-        db.find({territory : territorio,year : {$gte: anyo1, $lte: anyo2}}, function(err, data){
-            if(err){
-                console.log(`Error geting /apartment-occupancy-surveys/${territorio}/${anyo1}/${anyo2}: ${err}`);
-                response.sendStatus(500);
-            }else{
-                if(data.length!=0){
-                    response.json(data.map((d)=>{
-                        delete d._id;
-                        return d;
-                    }));
-                }else{
-                    console.log(`Data not found /self-employed-stats/${territorio}/${anyo1}/${anyo2}: ${err}`);
-                    response.status(404).send("Data not found");
-                }                
-            }
-        });
-    });
     
     
     //POST //////////////////////////////////////////////////
@@ -312,39 +231,44 @@ module.exports = (app) => {
 
     //db.update({ planet: 'Jupiter' }, { planet: 'Pluton'}, {}, function (err, numReplaced) {} remplaza jupiter por pluton
     app.put(BASE_API_URL+"/self-employed-stats", (req,res)=>{
-        res.sendStatus(405).json({ message: "HTTP 405 METHOD NOT ALLOWED" });
+        res.sendStatus(405).send("HTTP 405 METHOD NOT ALLOWED" );
     });
 
     //id no coincidente
-    app.put(BASE_API_URL+"/self-employed-stats/:province/:year", (req,res)=>{
+    /*app.put(BASE_API_URL+"/self-employed-stats/:province/:year", (req,res)=>{
         const province = req.params.province;
         const year = req.params.year;
         const id = `${province}/${year}`
         if (req.body.id !== id){
-            res.sendStatus(400).json({ message: "HTTP 400 BAD REQUEST" });
+            res.sendStatus(400).send("HTTP 400 BAD REQUEST" );
         }
-    });
+    });*/
     
     app.put(BASE_API_URL+"/self-employed-stats/:territory/:year", (request,response)=>{
-        var newFile = request.body;
+        let newFile = request.body;
         var territorio = request.params.territory;
         var año = parseInt(request.params.year);
 
-        /*if(!newFile.genre || !newFile.live_with || !newFile.territory || !newFile.employee || 
-            !newFile.value || newFile.year){
+        if(/*!newFile.genre || !newFile.live_with || !newFile.territory || !newFile.employee || 
+            !newFile.value || !newFile.year*/Object.keys(newFile).length!==6){
             console.log(`No se han recibido los campos esperados:`);
-            response.status(400);
-        }else{*/
+            response.status(400).send("Bad request");
+        }else{
             db.update({$and: [{"territory":territorio}, {"year":año}]}, {$set: newFile},{},function(err, data){
                 if(err){
                     console.log(`Error put /self-employed-stats/${territorio}/${año}: ${err}`);
                     response.sendStatus(500);
                 }else{
-                    console.log(`Numero de documentos actualizados: ${data}`);
-                    response.sendStatus(200);  
+                    if(data==0){
+                        console.log("Data not found");
+                        response.sendStatus(404);
+                    }
+                    else{
+                        console.log(`Resources updated: ${data}`);
+                        response.sendStatus(201);}
                     }
             });
-        //}
+        }
             
     });
     
@@ -397,7 +321,7 @@ module.exports = (app) => {
                 console.log(`Error deleting /self-employed-stats/${territorio}/${anyo}: ${err}`);
                 response.sendStatus(500);
             }else{
-                if(dbRemoved==0){
+                if(numRemoved==0){
                     response.sendStatus(404).send("Not Found");
                 }else{
                     console.log(`Files removed ${numRemoved}`);
