@@ -797,65 +797,86 @@ db.insert(datos_Salim);
    
     
 
-app.get('/api/v1/andalusian-bicycle-plans', (req, res) => {
-  const { province, year, from, to, population_over, municipality_over, all_dispacement_over, walking_over, car_driver_over, accompanying_car_over, motorcycle_over, bicycle_over, public_transport_over, other_transport_over, motorized_percentage_over } = req.query;
-
-  let query = {};
-  if (province) {
-    query.province = province;
-  }
-  if (year) {
-    query.year = Number(year);
-  }
-  if (population_over) {
-    query.population = { $gt: Number(population_over) };
-  }
-  if (municipality_over) {
-    query.municipality = { $gt: Number(municipality_over) };
-  }
-  if (all_dispacement_over) {
-    query.all_displacement = { $gt: Number(all_dispacement_over) };
-  }
-  if (walking_over) {
-    query.walking = { $gt: Number(walking_over) };
-  }
-  if (car_driver_over) {
-    query.car_driver = { $gt: Number(car_driver_over) };
-  }
-  if (accompanying_car_over) {
-    query.accompanying_car = { $gt: Number(accompanying_car_over) };
-  }
-  if (motorcycle_over) {
-    query.motorcycle = { $gt: Number(motorcycle_over) };
-  }
-  if (bicycle_over) {
-    query.bicycle = { $gt: Number(bicycle_over) };
-  }
-  if (public_transport_over) {
-    query.public_transport = { $gt: Number(public_transport_over) };
-  }
-  if (motorized_percentage_over) {
-    query.motorized_percentage = { $gt: Number(motorized_percentage_over) };
-  }
-
-  
-  if (from && to) {
-    query.year = { $gte: Number(from), $lte: Number(to) };
-  } else if (from) {
-    query.year = { $gte: Number(from) };
-  } else if (to) {
-    query.year = { $lte: Number(to) };
-  }
-
-  db.find(query, (err, docs) => {
-    if (err) {
-      return res.status(500).json({ error: 'Internal server error' });
-    }
-    return res.json(docs);
-  });
-});
+      app.get('/api/v1/andalusian-bicycle-plans', (req, res) => {
+        const { province, year, from, to, population_over, municipality_over, all_dispacement_over, walking_over, car_driver_over, accompanying_car_over, motorcycle_over, bicycle_over, public_transport_over, other_transport_over, motorized_percentage_over, limit, offset } = req.query;
+      
+        let query = {};
+      
+        if (province) {
+          query.province = province;
+        }
+        if (year) {
+          query.year = Number(year);
+        }
+        if (population_over) {
+          query.population = { $gt: Number(population_over) };
+        }
+        if (municipality_over) {
+          query.municipality = { $gt: Number(municipality_over) };
+        }
+        if (all_dispacement_over) {
+          query.all_displacement = { $gt: Number(all_dispacement_over) };
+        }
+        if (walking_over) {
+          query.walking = { $gt: Number(walking_over) };
+        }
+        if (car_driver_over) {
+          query.car_driver = { $gt: Number(car_driver_over) };
+        }
+        if (accompanying_car_over) {
+          query.accompanying_car = { $gt: Number(accompanying_car_over) };
+        }
+        if (motorcycle_over) {
+          query.motorcycle = { $gt: Number(motorcycle_over) };
+        }
+        if (bicycle_over) {
+          query.bicycle = { $gt: Number(bicycle_over) };
+        }
+        if (public_transport_over) {
+          query.public_transport = { $gt: Number(public_transport_over) };
+        }
+        if (motorized_percentage_over) {
+          query.motorized_percentage = { $gt: Number(motorized_percentage_over) };
+        }
+        if (other_transport_over) {
+          query.other_transport = { $gt: Number(other_transport_over) };
+        }
+      
+        if (from && to) {
+          query.year = { $gte: Number(from), $lte: Number(to) };
+        } else if (from) {
+          query.year = { $gte: Number(from) };
+        } else if (to) {
+          query.year = { $lte: Number(to) };
+        }
+      
+        let limitValue = limit ? Number(limit) : 0;
+        let offsetValue = offset ? Number(offset) : 0;
+      
+        let queryResult = db.find(query);
+      
+        if (limitValue > 0) {
+          queryResult = queryResult.limit(limitValue);
+        }
+      
+        if (offsetValue > 0) {
+          queryResult = queryResult.skip(offsetValue);
+        }
+      
+        queryResult.exec((err, docs) => {
+          if (err) {
+            return res.status(500).json({ error: 'Internal server error' });
+          }
+          return res.json(docs);
+        });
+      });
+      
 
       
+
+      
+
+
   
 
 app.get('/api/v1/andalusian-bicycle-plans/:province/:year', (req, res) => {
@@ -1026,6 +1047,22 @@ app.post(BASE_API_URL + "/andalusian-bicycle-plans", (req, res) => {
           return res.status(200).json(doc);
         });
       });
+      
+
+      app.delete(BASE_API_URL + "/andalusian-bicycle-plans/:province/:year", (req, res) => {
+        const province = req.params.province;
+        const year = Number(req.params.year);
+        
+        db.remove({ province: province, year: year}, {}, (err, numRemoved) => {
+        if (err) {
+            res.status(500).send("Error interno del servidor.");
+        } else if (numRemoved === 0) {
+            res.status(404).send("El recurso no existe.");
+        } else {
+            res.status(200).send("El recurso se ha borrado correctamente.");
+        }
+        });
+    });
       
       
 
