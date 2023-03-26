@@ -281,11 +281,18 @@ module.exports = (app) => {
       });
 
       //Borrar datos por provincias
-      app.delete(BASE_API_URL + SANTIAGO +"/:province", (request, response) => {
-        var provincia = request.params.province;
+      app.delete(BASE_API_URL + SANTIAGO +"/:value", (request, response) => {
+        var valor = request.params.value;
         console.log("New DELETE to emergency-call-stats");
       //Seleccionamos el elemento a eliminar
-        db.remove({province: provincia}, {}, (err, numDelete) => {
+      var filtros = {
+        $or: [
+            { year: parseInt(valor) },
+            { month: valor },
+            { province: valor }
+          ]
+        };
+        db.remove(filtros,{ multi: true }, (err, numDelete) => {
           if (err) {
             console.log(err);
             response.sendStatus(500);
@@ -301,6 +308,7 @@ module.exports = (app) => {
         var mes = request.params.month;
         var provincia = request.params.province;
         console.log("New DELETE to emergency-call-stats");
+        
         //Seleccionamos el elemento a eliminar
         db.remove({province: provincia, month : mes }, {}, (err, numDelete) => {
           if (err) {
@@ -381,7 +389,7 @@ module.exports = (app) => {
         //Creamos los filtros para cada campo con el valor especificado
         var filtros = {
           $or: [
-              { year: valor },
+              { year: parseInt(valor) },
               { month: valor },
               { province: valor }
             ]
@@ -446,6 +454,8 @@ module.exports = (app) => {
           if(err){
             console.log(err);
             response.sendStatus(500);
+          } else if (datos==0){
+            response.sendStatus(404);
           } else{
             console.log(datos);
             response.status(200).json(datos.map((e=>{

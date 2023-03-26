@@ -1,56 +1,368 @@
 {
 	"info": {
-		"_postman_id": "bdaf936a-e079-441c-bf4b-ecd3054a5d39",
-		"name": "Gcloud",
+		"_postman_id": "cddbfca7-fb4c-4077-899a-5dbec9db4fc7",
+		"name": "localhost collection",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "25746364"
+		"_exporter_id": "25995736"
 	},
 	"item": [
 		{
-			"name": "GET /emergency-call-stats/Load",
+			"name": "POST /newEntry Málaga",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Object posted exist\", function () {\r",
+							"    pm.sendRequest({\r",
+							"        url: \"http://localhost:8080/api/v1/emergency-call-stats/Málaga/january\",\r",
+							"        method: \"GET\",\r",
+							"    }, function (err, res) {\r",
+							"        var jsonData = res.json();\r",
+							"        pm.expect(err).to.be.null;\r",
+							"        pm.expect(res).to.have.property('code', 200);\r",
+							"        pm.expect(jsonData.province).to.equal(\"Málaga\");\r",
+							"        pm.expect(jsonData.month).to.equal(\"january\");\r",
+							"    });\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
-				"method": "GET",
+				"method": "POST",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": " {\r\n       \"province\": \"Málaga\",\r\n        \"month\": \"january\",\r\n        \"phone_call_activation_organization\": 3520,\r\n        \"telematic_activation_organization\": 4826,\r\n        \"emergency_call\": 3786,\r\n        \"year\": 1234\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": "https://sos2223-17.ew.r.appspot.com/api/v1/emergency-call-stats/loadInitialData",
-					"protocol": "https",
+					"raw": "{{URL_BASE}}/api/v1/emergency-call-stats",
 					"host": [
-						"sos2223-17",
-						"ew",
-						"r",
-						"appspot",
-						"com"
+						"{{URL_BASE}}"
 					],
 					"path": [
 						"api",
 						"v1",
-						"emergency-call-stats",
-						"loadInitialData"
+						"emergency-call-stats"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "GET /emergency-call-stats",
+			"name": "POST /newEntry Huelva",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Object posted exist\", function () {\r",
+							"    pm.sendRequest({\r",
+							"        url: \"http://localhost:8080/api/v1/emergency-call-stats/Huelva/january\",\r",
+							"        method: \"GET\",\r",
+							"    }, function (err, res) {\r",
+							"        var jsonData = res.json();\r",
+							"        pm.expect(err).to.be.null;\r",
+							"        pm.expect(res).to.have.property('code', 200);\r",
+							"        pm.expect(jsonData.province).to.equal(\"Huelva\");\r",
+							"        pm.expect(jsonData.month).to.equal(\"january\");\r",
+							"    });\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
-				"method": "GET",
+				"method": "POST",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": " {\r\n       \"province\": \"Huelva\",\r\n        \"month\": \"january\",\r\n        \"phone_call_activation_organization\": 3520,\r\n        \"telematic_activation_organization\": 4826,\r\n        \"emergency_call\": 3786,\r\n        \"year\": 1234\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": "https://sos2223-17.ew.r.appspot.com/api/v1/emergency-call-stats/Sevilla",
-					"protocol": "https",
+					"raw": "{{URL_BASE}}/api/v1/emergency-call-stats",
 					"host": [
-						"sos2223-17",
-						"ew",
-						"r",
-						"appspot",
-						"com"
+						"{{URL_BASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"emergency-call-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST /newEntry Sevilla",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Object posted exist\", function () {\r",
+							"    pm.sendRequest({\r",
+							"        url: \"http://localhost:8080/api/v1/emergency-call-stats/Sevilla/january\",\r",
+							"        method: \"GET\",\r",
+							"    }, function (err, res) {\r",
+							"        var jsonData = res.json();\r",
+							"        pm.expect(err).to.be.null;\r",
+							"        pm.expect(res).to.have.property('code', 200);\r",
+							"        pm.expect(jsonData.province).to.equal(\"Sevilla\");\r",
+							"        pm.expect(jsonData.month).to.equal(\"january\");\r",
+							"    });\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": " {\r\n       \"province\": \"Sevilla\",\r\n        \"month\": \"january\",\r\n        \"phone_call_activation_organization\": 3520,\r\n        \"telematic_activation_organization\": 4826,\r\n        \"emergency_call\": 3786,\r\n        \"year\": 1234\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL_BASE}}/api/v1/emergency-call-stats",
+					"host": [
+						"{{URL_BASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"emergency-call-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST /newEntry Sevilla.2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Object posted exist\", function () {\r",
+							"    pm.sendRequest({\r",
+							"        url: \"http://localhost:8080/api/v1/emergency-call-stats/Sevilla/april\",\r",
+							"        method: \"GET\",\r",
+							"    }, function (err, res) {\r",
+							"        var jsonData = res.json();\r",
+							"        pm.expect(err).to.be.null;\r",
+							"        pm.expect(res).to.have.property('code', 200);\r",
+							"        pm.expect(jsonData.province).to.equal(\"Sevilla\");\r",
+							"        pm.expect(jsonData.month).to.equal(\"april\");\r",
+							"    });\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": " {\r\n       \"province\": \"Sevilla\",\r\n        \"month\": \"april\",\r\n        \"phone_call_activation_organization\": 3520,\r\n        \"telematic_activation_organization\": 4826,\r\n        \"emergency_call\": 3786,\r\n        \"year\": 1234\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL_BASE}}/api/v1/emergency-call-stats",
+					"host": [
+						"{{URL_BASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"emergency-call-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST /Conflict 409",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 409\", function () {\r",
+							"    pm.response.to.have.status(409);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Object posted already exist\", function () {\r",
+							"    pm.sendRequest({\r",
+							"        url: \"http://localhost:8080/api/v1/emergency-call-stats/Málaga/january\",\r",
+							"        method: \"GET\",\r",
+							"    }, function (err, res) {\r",
+							"        var jsonData = res.json();\r",
+							"        pm.expect(err).to.be.null;\r",
+							"        pm.expect(res).to.have.property('code', 200);\r",
+							"        pm.expect(jsonData.province).to.equal(\"Málaga\");\r",
+							"        pm.expect(jsonData.month).to.equal(\"january\");\r",
+							"    });\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": " {\r\n       \"province\": \"Málaga\",\r\n        \"month\": \"january\",\r\n        \"phone_call_activation_organization\": 3520,\r\n        \"telematic_activation_organization\": 4826,\r\n        \"emergency_call\": 3786,\r\n        \"year\": 1234\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL_BASE}}/api/v1/emergency-call-stats",
+					"host": [
+						"{{URL_BASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"emergency-call-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST /Not Allowed",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 405\", function () {\r",
+							"    pm.response.to.have.status(405);\r",
+							"});\r",
+							"pm.test(\"El cuerpo de la respuesta está vacío\", function () {\r",
+							"    pm.expect(pm.response.text()).to.be.equal(\"Method Not Allowed\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": " {\r\n       \"province\": \"Sevilla\",\r\n        \"month\": \"january\",\r\n        \"phone_call_activation_organization\": 3520,\r\n        \"telematic_activation_organization\": 4826,\r\n        \"emergency_call\": 3786,\r\n        \"year\": 1234\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL_BASE}}/api/v1/emergency-call-stats/Sevilla/january",
+					"host": [
+						"{{URL_BASE}}"
 					],
 					"path": [
 						"api",
 						"v1",
 						"emergency-call-stats",
-						"Sevilla"
+						"Sevilla",
+						"january"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST /Bad Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"El cuerpo de la respuesta está vacío\", function () {\r",
+							"    pm.expect(pm.response.text()).to.be.equal(\"Bad Request\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": " {\r\n       \"provincia\": \"Sevilla\",\r\n        \"mes\": \"january\",\r\n        \"phone_call_activation_organization\": 3520,\r\n        \"telematic_activation_organization\": 4826,\r\n        \"llamadas_emergencia\": 3786,\r\n        \"ano\": 1234\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL_BASE}}/api/v1/emergency-call-stats",
+					"host": [
+						"{{URL_BASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"emergency-call-stats"
 					]
 				}
 			},
@@ -58,25 +370,44 @@
 		},
 		{
 			"name": "GET /RECURSO CONCRETO",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"JSON Required properties Check\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"  pm.expect(jsonData).to.have.property('province');\r",
+							"    pm.expect(jsonData).to.have.property('month');\r",
+							"    pm.expect(jsonData).to.have.property('phone_call_activation_organization');\r",
+							"    pm.expect(jsonData).to.have.property('telematic_activation_organization');\r",
+							"    pm.expect(jsonData).to.have.property('emergency_call');\r",
+							"    pm.expect(jsonData).to.have.property('year');\r",
+							"    pm.expect(jsonData).to.not.have.property('id');\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://sos2223-17.ew.r.appspot.com/api/v1/emergency-call-stats/Málaga/march",
-					"protocol": "https",
+					"raw": "{{URL_BASE}}/api/v1/emergency-call-stats/Málaga/january",
 					"host": [
-						"sos2223-17",
-						"ew",
-						"r",
-						"appspot",
-						"com"
+						"{{URL_BASE}}"
 					],
 					"path": [
 						"api",
 						"v1",
 						"emergency-call-stats",
 						"Málaga",
-						"march"
+						"january"
 					]
 				}
 			},
@@ -84,18 +415,45 @@
 		},
 		{
 			"name": "GET /LISTA DE RECURSOS",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let jsonData = pm.response.json();\r",
+							"let expectedProvince = \"Sevilla\";\r",
+							"let allProvinceEqual = true;\r",
+							"\r",
+							"for (let i = 0; i < jsonData.length; i++) {\r",
+							"    let currentProvince = jsonData[i].province;\r",
+							"    pm.expect(currentProvince).to.equal(expectedProvince, `El recurso ${i} no tiene el valor de 'province' igual a '${expectedProvince}'`);\r",
+							"    if (currentProvince !== expectedProvince) {\r",
+							"        allProvinceEqual = false;\r",
+							"    }\r",
+							"}\r",
+							"\r",
+							"pm.test(`Check all 'province' property values equals to '${expectedProvince}'`, function() {\r",
+							"    pm.expect(allProvinceEqual).to.equal(true);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://sos2223-17.ew.r.appspot.com/api/v1/emergency-call-stats/Sevilla",
-					"protocol": "https",
+					"raw": "{{URL_BASE}}/api/v1/emergency-call-stats/Sevilla",
 					"host": [
-						"sos2223-17",
-						"ew",
-						"r",
-						"appspot",
-						"com"
+						"{{URL_BASE}}"
 					],
 					"path": [
 						"api",
@@ -108,13 +466,42 @@
 			"response": []
 		},
 		{
-			"name": "POST /RECURSO CONCRETO",
+			"name": "PUT /recursosConcreto",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Object updated correctly\", function () {\r",
+							"    pm.sendRequest({\r",
+							"        url: \"http://localhost:8080/api/v1/emergency-call-stats/Málaga/january\",\r",
+							"        method: \"GET\",\r",
+							"    }, function (err, res) {\r",
+							"        var jsonData = res.json();\r",
+							"        pm.expect(err).to.be.null;\r",
+							"        pm.expect(res).to.have.property('code', 200);\r",
+							"        pm.expect(jsonData.province).to.equal(\"Málaga\");\r",
+							"        pm.expect(jsonData.month).to.equal(\"january\");\r",
+							"        pm.expect(jsonData.phone_call_activation_organization).to.equal(11111);\r",
+							"        pm.expect(jsonData.telematic_activation_organization).to.equal(11111);\r",
+							"        pm.expect(jsonData.emergency_call).to.equal(11111);\r",
+							"        pm.expect(jsonData.year).to.equal(11111);\r",
+							"    });\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
-				"method": "POST",
+				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": " {\r\n        \"province\": \"Málaga\",\r\n        \"month\": \"february\",\r\n        \"phone_call_activation_organization\": 848,\r\n        \"telematic_activation_organization\": 7763,\r\n        \"emergency_call\": 5506,\r\n        \"year\": 1234\r\n    }",
+					"raw": "{\r\n        \"province\": \"Málaga\",\r\n        \"month\": \"january\",\r\n        \"phone_call_activation_organization\": 11111,\r\n        \"telematic_activation_organization\": 11111,\r\n        \"emergency_call\": 11111,\r\n        \"year\": 11111\r\n    }",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -122,133 +509,74 @@
 					}
 				},
 				"url": {
-					"raw": "https://sos2223-17.ew.r.appspot.com/api/v1/emergency-call-stats/Málaga/february",
-					"protocol": "https",
+					"raw": "{{URL_BASE}}/api/v1/emergency-call-stats/Málaga/january",
 					"host": [
-						"sos2223-17",
-						"ew",
-						"r",
-						"appspot",
-						"com"
+						"{{URL_BASE}}"
 					],
 					"path": [
 						"api",
 						"v1",
 						"emergency-call-stats",
 						"Málaga",
-						"february"
+						"january"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "POST /CONFLICT",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n        \"province\": \"Málaga\",\r\n        \"month\": \"february\",\r\n        \"phone_call_activation_organization\": 848,\r\n        \"telematic_activation_organization\": 7763,\r\n        \"emergency_call\": 5506,\r\n        \"year\": 1234\r\n    }",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
+			"name": "PUT /Bad Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"URL Object not updated\", function () {\r",
+							"    pm.sendRequest({\r",
+							"        url: \"http://localhost:8080/api/v1/emergency-call-stats/Sevilla/january\",\r",
+							"        method: \"GET\",\r",
+							"    }, function (err, res) {\r",
+							"        var jsonData = res.json();\r",
+							"        pm.expect(err).to.be.null;\r",
+							"        pm.expect(res).to.have.property('code', 200);\r",
+							"        pm.expect(jsonData.province).to.equal(\"Sevilla\");\r",
+							"        pm.expect(jsonData.month).to.equal(\"january\");\r",
+							"        pm.expect(jsonData.phone_call_activation_organization).not.equal(99999);\r",
+							"        pm.expect(jsonData.telematic_activation_organization).not.equal(99999);\r",
+							"        pm.expect(jsonData.emergency_call).not.equal(99999);\r",
+							"        pm.expect(jsonData.year).not.equal(99999);\r",
+							"    });\r",
+							"});\r",
+							"pm.test(\"BODY Object not updated\", function () {\r",
+							"    pm.sendRequest({\r",
+							"        url: \"http://localhost:8080/api/v1/emergency-call-stats/Sevilla/april\",\r",
+							"        method: \"GET\",\r",
+							"    }, function (err, res) {\r",
+							"        var jsonData = res.json();\r",
+							"        pm.expect(err).to.be.null;\r",
+							"        pm.expect(res).to.have.property('code', 200);\r",
+							"        pm.expect(jsonData.province).to.equal(\"Sevilla\");\r",
+							"        pm.expect(jsonData.month).to.equal(\"april\");\r",
+							"        pm.expect(jsonData.phone_call_activation_organization).not.equal(99999);\r",
+							"        pm.expect(jsonData.telematic_activation_organization).not.equal(99999);\r",
+							"        pm.expect(jsonData.emergency_call).not.equal(99999);\r",
+							"        pm.expect(jsonData.year).not.equal(99999);\r",
+							"    });\r",
+							"});"
+						],
+						"type": "text/javascript"
 					}
-				},
-				"url": {
-					"raw": "https://sos2223-17.ew.r.appspot.com/api/v1/emergency-call-stats",
-					"protocol": "https",
-					"host": [
-						"sos2223-17",
-						"ew",
-						"r",
-						"appspot",
-						"com"
-					],
-					"path": [
-						"api",
-						"v1",
-						"emergency-call-stats"
-					]
 				}
-			},
-			"response": []
-		},
-		{
-			"name": "POST /CREATED",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": " {\r\n        \"province\": \"Huelva\",\r\n        \"month\": \"may\",\r\n        \"phone_call_activation_organization\": 848,\r\n        \"telematic_activation_organization\": 7763,\r\n        \"emergency_call\": 5506,\r\n        \"year\": 1234\r\n    }",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "https://sos2223-17.ew.r.appspot.com/api/v1/emergency-call-stats",
-					"protocol": "https",
-					"host": [
-						"sos2223-17",
-						"ew",
-						"r",
-						"appspot",
-						"com"
-					],
-					"path": [
-						"api",
-						"v1",
-						"emergency-call-stats"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "POST /BAD REQUEST",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n        \"betis\": \"Huelva\",\r\n        \"month\": \"may\",\r\n        \"phone_call_activation_organization\": 848,\r\n        \"telematic_activation_organization\": 7763,\r\n        \"emergency_call\": 5506,\r\n        \"year\": 1234\r\n    }",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "https://sos2223-17.ew.r.appspot.com/api/v1/emergency-call-stats",
-					"protocol": "https",
-					"host": [
-						"sos2223-17",
-						"ew",
-						"r",
-						"appspot",
-						"com"
-					],
-					"path": [
-						"api",
-						"v1",
-						"emergency-call-stats"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "PUT /LISTA DE RECURSOS",
+			],
 			"request": {
 				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n        \"province\": \"Huelva\",\r\n        \"month\": \"may\",\r\n        \"phone_call_activation_organization\": 848,\r\n        \"telematic_activation_organization\": 7763,\r\n        \"emergency_call\": 5506,\r\n        \"year\": 1234\r\n    }",
+					"raw": "{\r\n        \"province\": \"Sevilla\",\r\n        \"month\": \"april\",\r\n        \"phone_call_activation_organization\": 99999,\r\n        \"telematic_activation_organization\": 99999,\r\n        \"emergency_call\": 99999,\r\n        \"year\": 99999\r\n    }",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -256,47 +584,9 @@
 					}
 				},
 				"url": {
-					"raw": "https://sos2223-17.ew.r.appspot.com/api/v1/emergency-call-stats",
-					"protocol": "https",
+					"raw": "{{URL_BASE}}/api/v1/emergency-call-stats/Sevilla/january",
 					"host": [
-						"sos2223-17",
-						"ew",
-						"r",
-						"appspot",
-						"com"
-					],
-					"path": [
-						"api",
-						"v1",
-						"emergency-call-stats"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "PUT /RECURSO CONCRETO",
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": " {\r\n        \"province\": \"Sevilla\",\r\n        \"month\": \"january\",\r\n        \"phone_call_activation_organization\": 848,\r\n        \"telematic_activation_organization\": 7763,\r\n        \"emergency_call\": 5506,\r\n        \"year\": 1234\r\n    }",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "https://sos2223-17.ew.r.appspot.com/api/v1/emergency-call-stats/Sevilla/january",
-					"protocol": "https",
-					"host": [
-						"sos2223-17",
-						"ew",
-						"r",
-						"appspot",
-						"com"
+						"{{URL_BASE}}"
 					],
 					"path": [
 						"api",
@@ -310,13 +600,42 @@
 			"response": []
 		},
 		{
-			"name": "PUT /BAD REQUEST",
+			"name": "PUT /Not Allowed",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 405\", function () {\r",
+							"    pm.response.to.have.status(405);\r",
+							"});\r",
+							"pm.test(\"Object not updated\", function () {\r",
+							"    pm.sendRequest({\r",
+							"        url: \"http://localhost:8080/api/v1/emergency-call-stats/Málaga/january\",\r",
+							"        method: \"GET\",\r",
+							"    }, function (err, res) {\r",
+							"        var jsonData = res.json();\r",
+							"        pm.expect(err).to.be.null;\r",
+							"        pm.expect(res).to.have.property('code', 200);\r",
+							"        pm.expect(jsonData.province).to.equal(\"Málaga\");\r",
+							"        pm.expect(jsonData.month).to.equal(\"january\");\r",
+							"        pm.expect(jsonData.phone_call_activation_organization).not.equal(99999);\r",
+							"        pm.expect(jsonData.telematic_activation_organization).not.equal(99999);\r",
+							"        pm.expect(jsonData.emergency_call).not.equal(99999);\r",
+							"        pm.expect(jsonData.year).not.equal(99999);\r",
+							"    });\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n        \"province\": \"Betis\",\r\n        \"month\": \"january\",\r\n        \"phone_call_activation_organization\": 848,\r\n        \"telematic_activation_organization\": 7763,\r\n        \"emergency_call\": 5506,\r\n        \"year\": 1234\r\n    }",
+					"raw": "{\r\n        \"province\": \"Málaga\",\r\n        \"month\": \"january\",\r\n        \"phone_call_activation_organization\": 99999,\r\n        \"telematic_activation_organization\": 99999,\r\n        \"emergency_call\": 99999,\r\n        \"year\": 99999\r\n    }",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -324,71 +643,138 @@
 					}
 				},
 				"url": {
-					"raw": "https://sos2223-17.ew.r.appspot.com/api/v1/emergency-call-stats/Sevilla/january",
-					"protocol": "https",
+					"raw": "{{URL_BASE}}/api/v1/emergency-call-stats",
 					"host": [
-						"sos2223-17",
-						"ew",
-						"r",
-						"appspot",
-						"com"
+						"{{URL_BASE}}"
 					],
 					"path": [
 						"api",
 						"v1",
-						"emergency-call-stats",
-						"Sevilla",
-						"january"
+						"emergency-call-stats"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "DELETE /TODO",
+			"name": "DELETE /recursoconcreto",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Object deleted doesnt exist\", function () {\r",
+							"    pm.sendRequest({\r",
+							"        url: \"http://localhost:8080/api/v1/emergency-call-stats/Málaga/january\",\r",
+							"        method: \"GET\",\r",
+							"    }, function (err, res) {\r",
+							"        pm.expect(err).to.be.null;\r",
+							"        pm.expect(res).to.have.property('code', 404);\r",
+							"    });\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "https://sos2223-17.ew.r.appspot.com/api/v1/emergency-call-stats",
-					"protocol": "https",
+					"raw": "{{URL_BASE}}/api/v1/emergency-call-stats/Málaga/january",
 					"host": [
-						"sos2223-17",
-						"ew",
-						"r",
-						"appspot",
-						"com"
+						"{{URL_BASE}}"
 					],
 					"path": [
 						"api",
 						"v1",
-						"emergency-call-stats"
+						"emergency-call-stats",
+						"Málaga",
+						"january"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "DELETE /RECURSO CONCRETO",
+			"name": "DELETE /years=1234",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Deleted all years = 1234\", function () {\r",
+							"    pm.sendRequest({\r",
+							"        url: \"http://localhost:8080/api/v1/emergency-call-stats/1234\",\r",
+							"        method: \"GET\",\r",
+							"    }, function (err, res) {\r",
+							"        pm.expect(err).to.be.null;\r",
+							"        pm.expect(res).to.have.property('code', 404);\r",
+							"    });\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "https://sos2223-17.ew.r.appspot.com/api/v1/emergency-call-stats/Sevilla/january",
-					"protocol": "https",
+					"raw": "{{URL_BASE}}/api/v1/emergency-call-stats/1234",
 					"host": [
-						"sos2223-17",
-						"ew",
-						"r",
-						"appspot",
-						"com"
+						"{{URL_BASE}}"
 					],
 					"path": [
 						"api",
 						"v1",
 						"emergency-call-stats",
-						"Sevilla",
-						"january"
+						"1234"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /Not Found",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"pm.test(\"El cuerpo de la respuesta está vacío\", function () {\r",
+							"    pm.expect(pm.response.text()).to.be.equal(\"Not Found\");\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL_BASE}}/api/v1/emergency-call-stats/1234",
+					"host": [
+						"{{URL_BASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"emergency-call-stats",
+						"1234"
 					]
 				}
 			},

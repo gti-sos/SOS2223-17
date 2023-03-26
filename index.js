@@ -22,7 +22,6 @@ app.use(bodyParser.json());
 
 backendJose(app);
 
-var backend_spa = require("./backend_spa");
 
 
 
@@ -34,13 +33,12 @@ var backend_spa = require("./backend_spa");
 const port = process.env.PORT || 8080;
 
 
-///const jose = require("./index-josgaroro1");
-
-//const salim = require("./andalusian-bicycles-plans");
-
 const API_DOC_PORTAL_salim = "https://documenter.getpostman.com/view/25746364/2s93JxsMEP"
 
-//backend_spa////
+//codigo sanpinand/////////////////////////////////////////////////////////////
+
+var backend_spa = require("./backend");
+
 
 backend_spa(app);
 
@@ -60,12 +58,6 @@ backend_slc(app);
 
 
 
-
-
-
-// código sanpinand /////////////////////////////////////////////////////////////////////
-
-////////////////////////
 
 
 app.listen(port, () => {
