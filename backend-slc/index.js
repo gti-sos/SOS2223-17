@@ -873,6 +873,7 @@ function validateId(request, response, next) {
           if (err) {
             return res.status(500).json({ error: 'Internal server error' });
           }
+          
           return res.json(docs);
         });
       });
@@ -912,6 +913,10 @@ app.get('/api/v1/andalusian-bicycle-plans/:province/:year', (req, res) => {
     year: parseInt(year)
   };
 
+  if(filtros['_id']){
+    response.status(400).json({ error: 'El campo _id no está permitido.' });
+  }else{
+
   db.find(query, (err, docs) => {
     if (err) {
       return res.status(500).json({ error: 'Error al buscar en la base de datos' });
@@ -922,7 +927,7 @@ app.get('/api/v1/andalusian-bicycle-plans/:province/:year', (req, res) => {
 
     res.json(planesFiltrados);
   });
-});
+}});
 
       
       
