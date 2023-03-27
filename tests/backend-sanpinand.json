@@ -19,7 +19,7 @@
 							"\r",
 							"pm.test(\"Object posted exist\", function () {\r",
 							"    pm.sendRequest({\r",
-							"        url: \"http://localhost:8080/api/v1/emergency-call-stats/Málaga/january\",\r",
+							"        url: `http://localhost:8080/api/v1/emergency-call-stats/Málaga/january`,\r",
 							"        method: \"GET\",\r",
 							"    }, function (err, res) {\r",
 							"        var jsonData = res.json();\r",
@@ -47,9 +47,9 @@
 					}
 				},
 				"url": {
-					"raw": "{{URL_BASE}}/api/v1/emergency-call-stats",
+					"raw": "{{URLBASE}}/api/v1/emergency-call-stats",
 					"host": [
-						"{{URL_BASE}}"
+						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
@@ -101,9 +101,9 @@
 					}
 				},
 				"url": {
-					"raw": "{{URL_BASE}}/api/v1/emergency-call-stats",
+					"raw": "{{URLBASE}}/api/v1/emergency-call-stats",
 					"host": [
-						"{{URL_BASE}}"
+						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
@@ -155,9 +155,9 @@
 					}
 				},
 				"url": {
-					"raw": "{{URL_BASE}}/api/v1/emergency-call-stats",
+					"raw": "{{URLBASE}}/api/v1/emergency-call-stats",
 					"host": [
-						"{{URL_BASE}}"
+						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
@@ -209,9 +209,9 @@
 					}
 				},
 				"url": {
-					"raw": "{{URL_BASE}}/api/v1/emergency-call-stats",
+					"raw": "{{URLBASE}}/api/v1/emergency-call-stats",
 					"host": [
-						"{{URL_BASE}}"
+						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
@@ -263,9 +263,9 @@
 					}
 				},
 				"url": {
-					"raw": "{{URL_BASE}}/api/v1/emergency-call-stats",
+					"raw": "{{URLBASE}}/api/v1/emergency-call-stats",
 					"host": [
-						"{{URL_BASE}}"
+						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
@@ -308,9 +308,9 @@
 					}
 				},
 				"url": {
-					"raw": "{{URL_BASE}}/api/v1/emergency-call-stats/Sevilla/january",
+					"raw": "{{URLBASE}}/api/v1/emergency-call-stats/Sevilla/january",
 					"host": [
-						"{{URL_BASE}}"
+						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
@@ -355,9 +355,9 @@
 					}
 				},
 				"url": {
-					"raw": "{{URL_BASE}}/api/v1/emergency-call-stats",
+					"raw": "{{URLBASE}}/api/v1/emergency-call-stats",
 					"host": [
-						"{{URL_BASE}}"
+						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
@@ -398,9 +398,9 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{URL_BASE}}/api/v1/emergency-call-stats/Málaga/january",
+					"raw": "{{URLBASE}}/api/v1/emergency-call-stats/Málaga/january",
 					"host": [
-						"{{URL_BASE}}"
+						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
@@ -451,9 +451,9 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{URL_BASE}}/api/v1/emergency-call-stats/Sevilla",
+					"raw": "{{URLBASE}}/api/v1/emergency-call-stats/Sevilla",
 					"host": [
-						"{{URL_BASE}}"
+						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
@@ -509,9 +509,9 @@
 					}
 				},
 				"url": {
-					"raw": "{{URL_BASE}}/api/v1/emergency-call-stats/Málaga/january",
+					"raw": "{{URLBASE}}/api/v1/emergency-call-stats/Málaga/january",
 					"host": [
-						"{{URL_BASE}}"
+						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
@@ -584,9 +584,9 @@
 					}
 				},
 				"url": {
-					"raw": "{{URL_BASE}}/api/v1/emergency-call-stats/Sevilla/january",
+					"raw": "{{URLBASE}}/api/v1/emergency-call-stats/Sevilla/january",
 					"host": [
-						"{{URL_BASE}}"
+						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
@@ -643,9 +643,9 @@
 					}
 				},
 				"url": {
-					"raw": "{{URL_BASE}}/api/v1/emergency-call-stats",
+					"raw": "{{URLBASE}}/api/v1/emergency-call-stats",
 					"host": [
-						"{{URL_BASE}}"
+						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
@@ -684,9 +684,9 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "{{URL_BASE}}/api/v1/emergency-call-stats/Málaga/january",
+					"raw": "{{URLBASE}}/api/v1/emergency-call-stats/Málaga/january",
 					"host": [
-						"{{URL_BASE}}"
+						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
@@ -728,9 +728,9 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "{{URL_BASE}}/api/v1/emergency-call-stats/1234",
+					"raw": "{{URLBASE}}/api/v1/emergency-call-stats/1234",
 					"host": [
-						"{{URL_BASE}}"
+						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
@@ -766,9 +766,9 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{URL_BASE}}/api/v1/emergency-call-stats/1234",
+					"raw": "{{URLBASE}}/api/v1/emergency-call-stats/1234",
 					"host": [
-						"{{URL_BASE}}"
+						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
