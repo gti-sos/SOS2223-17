@@ -454,9 +454,7 @@ module.exports = (app) => {
           if(err){
             console.log(err);
             response.sendStatus(500);
-          } else if (datos==0){
-            response.sendStatus(404);
-          } else{
+          }else{
             console.log(datos);
             response.status(200).json(datos.map((e=>{
                 delete e._id;
