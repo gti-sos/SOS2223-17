@@ -95,10 +95,18 @@ module.exports = (app) => {
     app.get(BASE_API_URL+"/self-employed-stats/docs", (request,response) => {
         response.redirect("https://documenter.getpostman.com/view/26051644/2s93RNyacK");
     });
+
     app.get(BASE_API_URL + "/self-employed-stats", (request, response) => {
-        console.log("New GET to emergency-call-stats");
+
+        console.log("New GET to self-employed-stats");
         const limit = parseInt(request.query.limit) || 10;
         const offset = parseInt(request.query.offset) || 0;
+        var genre = request.query.genre;
+        var live_with = request.query.live_with;
+        var territory = request.query.territory;
+        var employee = request.query.employee;
+        var value = request.query.value;
+        var year = request.query.year;
 
         var parametros = request.query;//obtenemos la consulta campo1=valor1&campo2=valor2...
 
@@ -131,22 +139,116 @@ module.exports = (app) => {
 
         if(filtros['_id']){
           response.status(400).json({ error: 'El campo _id no está permitido.' });
-        }else{
+        }
+        else{
 
         db.find(filtros).skip(offset).limit(limit).exec((err, datos)  => {
           if(err){
             console.log(err);
             response.sendStatus(500);
-          } else if (datos.length==0){
+        } else if (datos.length==0){
             response.sendStatus(404);
-          } else if(datos.length==1){
-            delete datos[0]._id;
-            response.json(datos[0]);
-          } else{
+        } else if (genre != null){//Busqueda por genre
+            var datos = datos.filter((reg)=>{
+                return (reg.genre == genre);
+            });
+
+            if (datos==0){
+                console.log(`Data not found /self-emplyed-stats: ${err}`);
+                response.status(404).send("Data not found");
+            }else if(datos.length==1){
+                delete datos[0]._id;
+                response.json(datos[0]);
+            }else{
+                response.json(datos.map((d)=>{
+                    delete d._id;
+                    return d;
+                }));}
+        }else if (live_with != null){//Busqueda por live_with
+            var datos = datos.filter((reg)=>{
+                return (reg.live_with == live_with);
+            });
+
+            if (datos==0){
+                console.log(`Data not found /self-emplyed-stats: ${err}`);
+                response.status(404).send("Data not found");
+            }else if(datos.length==1){
+                delete datos[0]._id;
+                response.json(datos[0]);
+            }else{
+                response.json(datos.map((d)=>{
+                    delete d._id;
+                    return d;
+                }));}
+        }else if (territory != null){//Busqueda por territory
+            var datos = datos.filter((reg)=>{
+                return (reg.territory == territory);
+            });
+
+            if (datos==0){
+                console.log(`Data not found /self-emplyed-stats: ${err}`);
+                response.status(404).send("Data not found");
+            }else if(datos.length==1){
+                delete datos[0]._id;
+                response.json(datos[0]);
+            }else{
+                response.json(datos.map((d)=>{
+                    delete d._id;
+                    return d;
+                }));}
+        }else if (employee != null){//Busqueda por employee
+            var datos = datos.filter((reg)=>{
+                return (reg.employee == employee);
+            });
+
+            if (datos==0){
+                console.log(`Data not found /self-emplyed-stats: ${err}`);
+                response.status(404).send("Data not found");
+            }else if(datos.length==1){
+                delete datos[0]._id;
+                response.json(datos[0]);
+            }else{
+                response.json(datos.map((d)=>{
+                    delete d._id;
+                    return d;
+                }));}
+        }else if (value != null){//Busqueda por value
+            var datos = datos.filter((reg)=>{
+                return (reg.value == value);
+            });
+
+            if (datos==0){
+                console.log(`Data not found /self-emplyed-stats: ${err}`);
+                response.status(404).send("Data not found");
+            }else if(datos.length==1){
+                delete datos[0]._id;
+                response.json(datos[0]);
+            }else{
+                response.json(datos.map((d)=>{
+                    delete d._id;
+                    return d;
+                }));}
+        }else if (year != null){//Busqueda por año
+            var datos = datos.filter((reg)=>{
+                return (reg.year == year);
+            });
+
+            if (datos==0){
+                console.log(`Data not found /self-emplyed-stats: ${err}`);
+                response.status(404).send("Data not found");
+            }else if(datos.length==1){
+                delete datos[0]._id;
+                response.json(datos[0]);
+            }else{
+                response.json(datos.map((d)=>{
+                    delete d._id;
+                    return d;
+                }));}
+        }else{
             console.log(datos);
-            response.status(200).json(datos.map((e=>{
-                delete e._id;
-                return e;
+            response.status(200).json(datos.map((d=>{
+                delete d._id;
+                return d;
             })));
           }
         });
