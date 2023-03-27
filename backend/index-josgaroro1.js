@@ -244,9 +244,6 @@ module.exports = (app) => {
                     delete d._id;
                     return d;
                 }));}
-        }else if(datos.length==1){
-            delete datos[0]._id;
-            response.json(datos[0]);
         }else{
             console.log(datos);
             response.status(200).json(datos.map((d=>{
