@@ -88,38 +88,200 @@ module.exports = (app) => {
             "year": 2019
         },
     ];
+
     db.insert(datosFichero);
 
     //GET //////////////////////////////////////////////////
-    app.get(BASE_API_URL+"/self-employed-stats", (request,response) => {
-        console.log("New GET to self-employed-stats");
-        const limit = parseInt(request.query.limit) || 10;
-        const offset = parseInt(request.query.offset) || 0;
-
-        db.find({}).skip(offset).limit(limit).exec(function (err, data) {//PAGINACION
-            if(err){
-                console.log(`Error geting /self-employed-stats/: ${err}`);
-                response.sendStatus(500);
-            }else{
-                if(data.length > 0){
-                    console.log(`data returned ${data.length}`);
-                    response.json(data.map((d)=>{
-                        delete d._id;
-                        return d;
-                    }));
-                }else{
-                    console.log(`Data not found /self-employed-stats: ${err}`);
-                    response.status(404).send("Data not found");
-                }
-            }
-        })
-
-    });
-      
-
     app.get(BASE_API_URL+"/self-employed-stats/docs", (request,response) => {
         response.redirect("https://documenter.getpostman.com/view/26051644/2s93RNyacK");
     });
+    app.get(BASE_API_URL + "/self-employed-stats", (request, response) => {
+        console.log("New GET to emergency-call-stats");
+        const limit = parseInt(request.query.limit) || 10;
+        const offset = parseInt(request.query.offset) || 0;
+
+        var parametros = request.query;//obtenemos la consulta campo1=valor1&campo2=valor2...
+
+        delete parametros.limit;
+        delete parametros.offset;
+
+        var claves = Object.keys(parametros); // creamos una variable con todos las claves de cada consulta
+
+        var filtros = {}; // inizializamos el array con el que vamos a filtrar
+
+        claves.forEach(clave =>{
+            if (clave === 'from') {
+                //creamos el filtro con la clave time y añadimo con el valor el comparador >=
+                filtros['year'] = { $gte: parseInt(parametros[clave]) };
+            } else if (clave === 'to') {
+                if (filtros['year']) {
+                //añadimos al objeto ya creado el comparador menor que y el valor a comparar <=
+                  filtros['year']['$lte'] = parseInt(parametros[clave]);
+            } else {
+                //creamos el filtro con la clave time y añadimo con el valor el comparador <=
+                  filtros['year'] = { $lte: parseInt(parametros[clave]) };
+
+            } }else if(!isNaN(parametros[clave])){//Si el valor es un numero lo parseamos
+                //Añadimos al valor del filtro un comparador >=
+                filtros[clave] = {$gte: Number(parametros[clave]) }; 
+            }else{
+                filtros[clave] = parametros[clave];
+            }
+        });
+
+        if(filtros['_id']){
+          response.status(400).json({ error: 'El campo _id no está permitido.' });
+        }else{
+
+        db.find(filtros).skip(offset).limit(limit).exec((err, datos)  => {
+          if(err){
+            console.log(err);
+            response.sendStatus(500);
+          } else if (datos.length==0){
+            response.sendStatus(404);
+          } else if(datos.length==1){
+            delete datos[0]._id;
+            response.json(datos[0]);
+          } else{
+            console.log(datos);
+            response.status(200).json(datos.map((e=>{
+                delete e._id;
+                return e;
+            })));
+          }
+        });
+      }
+      });
+            
+    /*app.get(BASE_API_URL+"/self-employed-stats", (request,response) => {
+        console.log("New GET to self-employed-stats");
+
+        var limit = request.query.limit;
+        var offset = request.query.offset;
+
+        var genre = request.query.genre;
+        var live_with = request.query.live_with;
+        var territory = request.query.territory;
+        var employee = request.query.employee;
+        var value = request.query.value;
+        var year = request.query.year;
+
+        if(limit==null){//si no hay paginacion
+            db.find({},function(err, data){
+                if(err){
+                    console.log(`Error geting /self-emplyed-stats: ${err}`);
+                    response.sendStatus(500);
+                }else{
+                    if (genre != null){
+                        var data = data.filter((reg)=>{
+                            return (reg.genre == genre);
+                        });
+            
+                        if (data==0){
+                            console.log(`Data not found /self-emplyed-stats: ${err}`);
+                            response.status(404).send("Data not found");
+                        }else{
+                        response.json(data.map((d)=>{
+                            delete d._id;
+                            return d;
+                        }));}
+                    }
+                    if (live_with != null){
+                        var data = data.filter((reg)=>{
+                            return (reg.live_with == live_with);
+                        });
+            
+                        if (data==0){
+                            console.log(`Data not found /self-emplyed-stats: ${err}`);
+                            response.status(404).send("Data not found");
+                        }else{
+                            response.json(data.map((d)=>{
+                                delete d._id;
+                                return d;
+                            }));}
+                    }
+                    if (territory != null){
+                        var data = data.filter((reg)=>{
+                            return (reg.territory == territory);
+                        });
+            
+                        if (data==0){
+                            console.log(`Data not found /self-emplyed-stats: ${err}`);
+                            response.status(404).send("Data not found");
+                        }else{
+                            response.json(data.map((d)=>{
+                                delete d._id;
+                                return d;
+                            }));}
+                    }
+                    if (employee != null){
+                        var data = data.filter((reg)=>{
+                            return (reg.employee == employee);
+                        });
+            
+                        if (data==0){
+                            console.log(`Data not found /self-emplyed-stats: ${err}`);
+                            response.status(404).send("Data not found");
+                        }else{
+                            response.json(data.map((d)=>{
+                                delete d._id;
+                                return d;
+                            }));}
+                    }
+                    if (value != null){
+                        var data = data.filter((reg)=>{
+                            return (reg.value == value);
+                        });
+            
+                        if (data==0){
+                            console.log(`Data not found /self-emplyed-stats: ${err}`);
+                            response.status(404).send("Data not found");
+                        }else{
+                            response.json(data.map((d)=>{
+                                delete d._id;
+                                return d;
+                            }));}
+                    }
+                    if (year != null){
+                        var data = data.filter((reg)=>{
+                            return (reg.year == year);
+                        });
+            
+                        if (data==0){
+                            console.log(`Data not found /self-emplyed-stats: ${err}`);
+                            response.status(404).send("Data not found");
+                        }else{
+                            response.json(data.map((d)=>{
+                                delete d._id;
+                                return d;
+                            }));}
+                    }
+                    
+                }
+            });
+        }else{
+            db.find({}).skip(parseInt(offset)).limit(parseInt(limit)).exec(function (err, data) {//PAGINACION
+                if(err){
+                    console.log(`Error geting /self-employed-stats/: ${err}`);
+                    response.sendStatus(500);
+                }else{
+                    if(data.length > 0){
+                        console.log(`data returned ${data.length}`);
+                        response.json(data.map((d)=>{
+                            delete d._id;
+                            return d;
+                        }));
+                    }else{
+                        console.log(`Data not found /self-employed-stats: ${err}`);
+                        response.status(404).send("Data not found");
+                    }
+                }
+            });
+        }
+        
+
+    });*/
+      
 
     app.get(BASE_API_URL+"/self-employed-stats/loadInitialData", (request,response) => {
         console.log("New GET to /self-employed-stats/loadInitialData");
@@ -143,60 +305,31 @@ module.exports = (app) => {
         });
     });
     
-    app.get(BASE_API_URL+"/self-employed-stats/:name", (request,response) => {
-        var name = request.params.name;
-        if (isNaN(name)){
-            db.find({ $or: [{ "genre": name }, { "territory": name }] }, function (err, data) {
-                if(err){
-                    console.log(`Error geting /self-employed-stats/${name}: ${err}`);
-                    response.sendStatus(500);
-                }else{
-                    if(data.length > 0){
-                        console.log(`data returned ${data.length}`);
-                        response.json(data.map((d)=>{
-                            delete d._id;
-                            return d;
-                        }));
-                    }else{
-                        console.log(`Data not found /self-employed-stats/${name}: ${err}`);
-                        response.status(404).send("Data not found");
-                    }
-                }
-              });
-        }else{
-            name = parseInt(name);
-            db.find({ $or: [{ "value": name }, { "employee": name }, {"year": name}] }, function (err, data) {
-                if(err){
-                    console.log(`Error geting /self-employed-stats/${name}: ${err}`);
-                    response.sendStatus(500);
-                }else{
-                    if(data.length > 0){
-                        console.log(`data returned ${data.length}`);
-                        response.json(data.map((d)=>{
-                            delete d._id;
-                            return d;
-                        }));
-                    }else{
-                        console.log(`Data not found /self-employed-stats/${name}: ${err}`);
-                        response.status(404).send("Data not found");
-                    }
-                }
-              });
-        }
-        
-        
-    });
     
+    
+    //recurso concreto
     app.get(BASE_API_URL+"/self-employed-stats/:territory/:year", (request,response) => {
         var name = request.params.territory;
         var anyo = parseInt(request.params.year);
-    
-        if (datosFichero.filter((dato=>dato.territory === name & dato.year === anyo)).length>0){
-            response.json(datosFichero.filter(dato=>dato.territory === name & dato.year === anyo));
-            response.sendStatus(200).json({ message: "HTTP 200 OK" });
-        }else{
-            response.sendStatus(404).json({ message: "HTTP 404 NOT FOUND" });
-        }
+        
+        console.log(`New GET to /self-employed-stats/${name}/${anyo}`);
+        
+        db.find({"territory":name, "year":anyo},function(err,data){
+            if(err){
+                console.log(`Error geting /self-employed-stats/${name}/${anyo}: ${err}`);
+                response.sendStatus(500);
+            }else{
+                if(data.length!=0){
+                    console.log(`data returned ${data.length}`);
+                    delete data[0]._id;
+                    response.json(data[0]);
+                }
+                else{
+                    console.log(`Data not found /self-employed-stats/${name}/${anyo}: ${err}`);
+                    response.status(404).send("Data not found");
+                }
+            }
+        });
     });
 
     

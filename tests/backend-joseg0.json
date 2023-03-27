@@ -57,15 +57,20 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{URLBASE}}/api/v1/self-employed-stats/Sevilla",
+					"raw": "{{URLBASE}}/api/v1/self-employed-stats?territory=Sevilla",
 					"host": [
 						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
 						"v1",
-						"self-employed-stats",
-						"Sevilla"
+						"self-employed-stats"
+					],
+					"query": [
+						{
+							"key": "territory",
+							"value": "Sevilla"
+						}
 					]
 				}
 			},
@@ -90,15 +95,20 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{URLBASE}}/api/v1/self-employed-stats/Dublin",
+					"raw": "{{URLBASE}}/api/v1/self-employed-stats?territory=Dublin",
 					"host": [
 						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
 						"v1",
-						"self-employed-stats",
-						"Dublin"
+						"self-employed-stats"
+					],
+					"query": [
+						{
+							"key": "territory",
+							"value": "Dublin"
+						}
 					]
 				}
 			},
