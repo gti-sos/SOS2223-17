@@ -761,13 +761,7 @@ var datos_auxilio = [
 db.insert(datos_Salim);
 //db.insert(datos_auxilio);
 
-function validateId(request, response, next) {
-  const { _id } = request.body;
-  if (_id) {
-    return response.status(400).json({ error: 'El campo _id no está permitido.' });
-  }
-  next();
-}
+
     
     
     app.get(BASE_API_URL+"/andalusian-bicycle-plans/docs", (req,res)=>{
@@ -806,6 +800,12 @@ function validateId(request, response, next) {
       app.get('/api/v1/andalusian-bicycle-plans', (req, res) => {
         const { province, year, from, to, population_over, municipality_over, all_dispacement_over, walking_over, car_driver_over, accompanying_car_over, motorcycle_over, bicycle_over, public_transport_over, other_transport_over, motorized_percentage_over, limit, offset } = req.query;
       
+
+        if (req.headers['content-type'] && req.headers['content-type'] !== 'application/json') {
+          return res.sendStatus(415);
+        }
+        
+
         let query = {};
       
         if (province) {
@@ -873,7 +873,6 @@ function validateId(request, response, next) {
           if (err) {
             return res.status(500).json({ error: 'Internal server error' });
           }
-          
           return res.json(docs);
         });
       });
@@ -913,10 +912,6 @@ app.get('/api/v1/andalusian-bicycle-plans/:province/:year', (req, res) => {
     year: parseInt(year)
   };
 
-  if(filtros['_id']){
-    response.status(400).json({ error: 'El campo _id no está permitido.' });
-  }else{
-
   db.find(query, (err, docs) => {
     if (err) {
       return res.status(500).json({ error: 'Error al buscar en la base de datos' });
@@ -927,7 +922,7 @@ app.get('/api/v1/andalusian-bicycle-plans/:province/:year', (req, res) => {
 
     res.json(planesFiltrados);
   });
-}});
+});
 
       
       
@@ -938,8 +933,18 @@ app.get('/api/v1/andalusian-bicycle-plans/:province/:year', (req, res) => {
       
       
     
-app.post(BASE_API_URL + "/andalusian-bicycle-plans",validateId, (req, res) => {
+app.post(BASE_API_URL + "/andalusian-bicycle-plans", (req, res) => {
   const inputPost = req.body;
+
+  const requiredFields = ['province', 'municipality', 'population', 'all_displacement', 'walking', 'car_driver', 'accompanying_car', 'motorcycle', 'bicycle', 'public_transport', 'other_transportation', 'year', 'motorized_percentage'];
+
+  const missingFields = requiredFields.filter(field => !inputPost.hasOwnProperty(field));
+
+  if (missingFields.length > 0) {
+    const errorMessage = `Missing fields: ${missingFields.join(', ')}`;
+    console.log(errorMessage);
+    return res.status(400).send(errorMessage);
+  }
 
   const query = { province: inputPost.province, year: inputPost.year };
 
@@ -962,6 +967,7 @@ app.post(BASE_API_URL + "/andalusian-bicycle-plans",validateId, (req, res) => {
   console.log("New POST to /andalusian-bicycle-plans");
 });
 
+
     
     
       app.post(BASE_API_URL+"/andalusian-bicycle-plans/:province", (req,res)=>{
@@ -982,7 +988,7 @@ app.post(BASE_API_URL + "/andalusian-bicycle-plans",validateId, (req, res) => {
       
       
     
-    app.put('/api/v1/andalusian-bicycle-plans/:province/:year',validateId, (req, res) => {
+    app.put('/api/v1/andalusian-bicycle-plans/:province/:year', (req, res) => {
       const { province, year } = req.params;
       const expectedId = `${province}/${year}`;
       
@@ -1084,5 +1090,3 @@ app.post(BASE_API_URL + "/andalusian-bicycle-plans",validateId, (req, res) => {
 
 
 }
-
-
