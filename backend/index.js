@@ -207,7 +207,7 @@ module.exports = (app) => {
 
     //Redirect a la lista de Postman
     app.get(BASE_API_URL+SANTIAGO+"/docs", (request,response) => {
-      response.redirect("https://documenter.getpostman.com/view/25995736/2s93K1oeqq");
+      response.redirect("https://documenter.getpostman.com/view/25995736/2s93RQSDxy");
   });
 
   function validateId(request, response, next) {
