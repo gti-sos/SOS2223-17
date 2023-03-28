@@ -900,8 +900,10 @@ app.get('/api/v1/andalusian-bicycle-plans/:province/:year', (req, res) => {
   // Validar que los valores de los parámetros sean correctos
   const validProvinces = ['sevilla', 'malaga', 'cadiz', 'huelva', 'cordoba', 'jaen', 'almeria'];
   if (!validProvinces.includes(province.toLowerCase())) {
-    return res.status(400).json({ error: 'Provincia inválida' });
+    
+    return res.status(404).json({ error: 'Provincia inválida' });
   }
+  
 
   if (isNaN(year) || year < 2000 || year > 2023) {
     return res.status(400).json({ error: 'Año inválido' });
