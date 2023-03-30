@@ -109,7 +109,7 @@ module.exports = (app) => {
         var year = request.query.year;
 
         var parametros = request.query;//obtenemos la consulta campo1=valor1&campo2=valor2...
-
+        
         delete parametros.limit;
         delete parametros.offset;
 
@@ -138,7 +138,7 @@ module.exports = (app) => {
         });
 
         if(filtros['_id']){
-          response.status(400).json({ error: 'El campo _id no está permitido.' });
+          response.status(400).send('El campo _id no está permitido.' );
         }
         else{
 
@@ -484,8 +484,8 @@ module.exports = (app) => {
         var territorio = request.params.territory;
         var año = parseInt(request.params.year);
 
-        if(/*!newFile.genre || !newFile.live_with || !newFile.territory || !newFile.employee || 
-            !newFile.value || !newFile.year*/Object.keys(newFile).length!==6){
+        if(!newFile.genre || !newFile.live_with || !newFile.territory || !newFile.employee || 
+            !newFile.value || !newFile.year || Object.keys(newFile).length!==6){
             console.log(`No se han recibido los campos esperados:`);
             response.status(400).send("Bad request");
         }else{
