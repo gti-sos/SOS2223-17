@@ -2,13 +2,13 @@
 const BASE_API_URL = "/api/v1";
 const SANTIAGO = "/emergency-call-stats"
 
-var Datastore = require('nedb');
+import Datastore from 'nedb';
 
 var db = new Datastore();
 
 
 
-module.exports = (app) => {
+function loadBackend_sanpinand(app){
 
     var datosLlamadas = [{
         province: "Almería",
@@ -512,3 +512,5 @@ module.exports = (app) => {
       }
       });
 }
+
+export {loadBackend_sanpinand};

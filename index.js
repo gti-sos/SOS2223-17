@@ -1,26 +1,38 @@
-const cool = require("cool-ascii-faces");
-const express = require("express");
+import express from "express";
 
-const bodyParser = require("body-parser");
-var Datastore = require('nedb');
-var backendJose = require("./backend/index-josgaroro1");
+import cors from "cors";
+
+
+import { loadBackend_salcha2 } from "./backend-slc/index.js";
+
+import { loadBackend_josgaroro1 } from "./backend/index-josgaroro1.js";
+
+import { loadBackend_sanpinand } from "./backend/index.js";
+
+
+import { handler } from "./frontend/build/handler.js";
+
+import Datastore from 'nedb';
+
+
+//var backendJose = require("./backend/index-josgaroro1");
 var db = new Datastore();
 
 
 const app = express(); //constructor
 const BASE_API_URL = "/api/v1";
 
-app.use("/" , express.static("./public"))
+//app.use("/" , express.static("./public"))
 
 
 
-app.use(bodyParser.json());
+app.use(express.json());
 
 
 
 
 
-backendJose(app);
+//backendJose(app);
 
 
 
@@ -32,15 +44,23 @@ backendJose(app);
 
 const port = process.env.PORT || 8080;
 
+app.use(cors());
+
+
+
+loadBackend_josgaroro1(app);
+
 
 const API_DOC_PORTAL_salim = "https://documenter.getpostman.com/view/25746364/2s93JxsMEP"
 
 //codigo sanpinand/////////////////////////////////////////////////////////////
 
-var backend_spa = require("./backend");
+//var backend_spa = require("./backend");
+loadBackend_sanpinand(app);
 
 
-backend_spa(app);
+
+//(app);
 
 
 
@@ -48,17 +68,17 @@ backend_spa(app);
 //codigo salim /////////////////////////////////////////////////////////////
 
 
-var backend_slc = require("./backend-slc");
-backend_slc(app);
+//var backend_slc = require("./backend-slc");
+loadBackend_salcha2(app);
 
-  
+
   
 
 //  antiguo sitio codigo josgaroro1 /////////////////////////////////////////////////////////////////////
 
 
 
-
+app.use(handler);
 
 app.listen(port, () => {
      console.log(`Server TRULY ready at port: ${port}`);
