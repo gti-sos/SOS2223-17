@@ -12,7 +12,7 @@ Santiago Pineda Andrade
 
 Project description:
 
-Our source of information is oriented to the use of bikes,number of self-employed people and number of emergency calls in Andalusia.
+Our source of information is oriented to the use of bikes,number of self-employed people and numbers of emergency calls in Andalusia.
 Repository: gti-sos/SOS2223-17
 
 
