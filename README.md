@@ -4,7 +4,7 @@
 
 Team:
 
-Salim Chaieri Chafai
+Salim Chaiei Chafai
 
 Jose Germinal Garrucho Orozco
 
