@@ -1068,6 +1068,22 @@ app.post(BASE_API_URL + "/andalusian-bicycle-plans", (req, res) => {
 
       app.get(BASE_API_URL+"/andalusian-bicycle-plans/:province/:year", (request,response) => {
         const { province, year } = request.params;
+        const { from, to } = request.query;
+    
+        // Check if necessary route parameters are provided
+        if (!province || !year) {
+            return response.status(400).json({ error: 'Missing route parameters' });
+        }
+    
+        // Validate parameter values
+        const validProvinces = ['sevilla', 'malaga', 'cadiz', 'huelva', 'cordoba', 'jaen', 'almeria'];
+        if (!validProvinces.includes(province.toLowerCase())) {
+            return response.status(404).json({ error: 'Invalid province' });
+        }
+    
+        if (isNaN(year) || year < 2000 || year > 2023) {
+            return response.status(400).json({ error: 'Invalid year' });
+        }
     
         const query = { province, year: parseInt(year) };
         console.log(`New GET to /andalusian-bicycle-plans/${province}/${year}`);
@@ -1086,6 +1102,7 @@ app.post(BASE_API_URL + "/andalusian-bicycle-plans", (req, res) => {
             }
         });
     });
+    
     
     
     
