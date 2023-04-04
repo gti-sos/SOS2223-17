@@ -882,46 +882,46 @@ var datos_auxilio = [
     
     
     
-    app.get('/api/v2/andalusian-bicycle-plans/:province/:year', (req, res) => {
-      const { province, year } = req.params;
-      const { from, to } = req.query;
+    // app.get('/api/v2/andalusian-bicycle-plans/:province/:year', (req, res) => {
+    //   const { province, year } = req.params;
+    //   const { from, to } = req.query;
     
     
     
     
-      // Verificar si se proporcionan los parámetros de ruta necesarios
-      if (!province || !year) {
-        return res.status(400).json({ error: 'Faltan parámetros de ruta' });
-      }
+    //   // Verificar si se proporcionan los parámetros de ruta necesarios
+    //   if (!province || !year) {
+    //     return res.status(400).json({ error: 'Faltan parámetros de ruta' });
+    //   }
     
-      // Validar que los valores de los parámetros sean correctos
-      const validProvinces = ['sevilla', 'malaga', 'cadiz', 'huelva', 'cordoba', 'jaen', 'almeria'];
-      if (!validProvinces.includes(province.toLowerCase())) {
+    //   // Validar que los valores de los parámetros sean correctos
+    //   const validProvinces = ['sevilla', 'malaga', 'cadiz', 'huelva', 'cordoba', 'jaen', 'almeria'];
+    //   if (!validProvinces.includes(province.toLowerCase())) {
         
-        return res.status(404).json({ error: 'Provincia inválida' });
-      }
+    //     return res.status(404).json({ error: 'Provincia inválida' });
+    //   }
       
     
-      if (isNaN(year) || year < 2000 || year > 2023) {
-        return res.status(400).json({ error: 'Año inválido' });
-      }
+    //   if (isNaN(year) || year < 2000 || year > 2023) {
+    //     return res.status(400).json({ error: 'Año inválido' });
+    //   }
     
-      const query = {
-        province: province.toLowerCase(),
-        year: parseInt(year)
-      };
+    //   const query = {
+    //     province: province.toLowerCase(),
+    //     year: parseInt(year)
+    //   };
     
-      db.find(query, (err, docs) => {
-        if (err) {
-          return res.status(500).json({ error: 'Error al buscar en la base de datos' });
-        }
+    //   db.find(query, (err, docs) => {
+    //     if (err) {
+    //       return res.status(500).json({ error: 'Error al buscar en la base de datos' });
+    //     }
     
-        let planesFiltrados = docs;
+    //     let planesFiltrados = docs;
     
     
-        res.json(planesFiltrados);
-      });
-    });
+    //     res.json(planesFiltrados);
+    //   });
+    // });
       
       
       
@@ -1048,38 +1048,82 @@ app.post(BASE_API_URL + "/andalusian-bicycle-plans", (req, res) => {
     
       
     
-      app.get(BASE_API_URL + "/andalusian-bicycle-plans/:province/:year", (req, res) => {
-        const { province, year } = req.params;
-        const query = { province, year: parseInt(year) };
+      // app.get(BASE_API_URL + "/andalusian-bicycle-plans/:province/:year", (req, res) => {
+      //   const { province, year } = req.params;
+      //   const query = { province, year: parseInt(year) };
       
-        db.findOne(query, (err, doc) => {
-          if (err) {
-            return res.status(500).json({ error: 'Internal server error' });
-          }
+      //   db.findOne(query, (err, doc) => {
+      //     if (err) {
+      //       return res.status(500).json({ error: 'Internal server error' });
+      //     }
       
-          if (!doc) {
-            return res.status(404).json({ message: 'HTTP 404 NOT FOUND' });
-          }
+      //     if (!doc) {
+      //       return res.status(404).json({ message: 'HTTP 404 NOT FOUND' });
+      //     }
       
-          return res.status(200).json(doc);
-        });
-      });
+      //     return res.status(200).json(doc);
+      //   });
+      // });
       
 
-      app.delete(BASE_API_URL + "/andalusian-bicycle-plans/:province/:year", (req, res) => {
-        const province = req.params.province;
-        const year = Number(req.params.year);
-        
-        db.remove({ province: province, year: year}, {}, (err, numRemoved) => {
-        if (err) {
-            res.status(500).send("Error interno del servidor.");
-        } else if (numRemoved === 0) {
-            res.status(404).send("El recurso no existe.");
-        } else {
-            res.status(200).send("El recurso se ha borrado correctamente.");
-        }
+      app.get(BASE_API_URL+"/andalusian-bicycle-plans/:province/:year", (request,response) => {
+        const { province, year } = request.params;
+    
+        const query = { province, year: parseInt(year) };
+        console.log(`New GET to /andalusian-bicycle-plans/${province}/${year}`);
+        db.findOne(query, (err, plan)=>{
+            if(err){
+                console.log(`Error getting /andalusian-bicycle-plans/${province}/${year}: ${err}`);
+                response.sendStatus(500);
+            }else{
+                console.log(`Plan returned ${plan}`);
+                if (plan) {
+                    delete plan._id;
+                    response.json(plan);
+                } else {
+                    response.sendStatus(404);
+                }
+            }
         });
     });
+    
+    
+    
+    
+
+    //   app.delete(BASE_API_URL + "/andalusian-bicycle-plans/:province/:year", (req, res) => {
+    //     const province = req.params.province;
+    //     const year = Number(req.params.year);
+        
+    //     db.remove({ province: province, year: year}, {}, (err, numRemoved) => {
+    //     if (err) {
+    //         res.status(500).send("Error interno del servidor.");
+    //     } else if (numRemoved === 0) {
+    //         res.status(404).send("El recurso no existe.");
+    //     } else {
+    //         res.status(200).send("El recurso se ha borrado correctamente.");
+    //     }
+    //     });
+    // });
+
+
+    app.delete(BASE_API_URL + "/andalusian-bicycle-plans/:province/:year", (req,res)=>{ //borrar todos los recursos bien
+      var data = req.params;
+  
+      db.remove({province:data.province,year:parseInt(data.year)},{},(err,docs) =>{
+          if(err){
+              res.sendStatus(500);
+          }
+          else{
+              if(docs == 0){
+                  res.sendStatus(404);
+              }
+              else{
+                  res.sendStatus(200);
+              }
+          }
+      })
+  });
 }
 
 

@@ -4,9 +4,9 @@
         import { onMount } from 'svelte';
         import { dev } from '$app/environment';
         import { Column, Button, Table } from 'sveltestrap';
-    import { each } from 'svelte/internal';
         
-        
+    let search = false; // se ha buscado
+
 
 
         onMount(async () => {
@@ -14,6 +14,14 @@
         });
         
         let API = '/api/v2/andalusian-bicycle-plans';
+
+        let msgVisible=false;
+
+        let checkMSG="";
+
+        let color="success";
+
+
         
         if(dev)
             API = 'http://localhost:8080'+API
@@ -70,18 +78,18 @@
                  },
                  body:JSON.stringify({
                      province: newBicycleProvince,
-                     municipality: newBicycleMunicipality,
-                     population: newBicyclePopulation,
-                     all_displacement: newBicycleAllDispacement,
-                     walking: newBicycleWalking,
-                     car_driver: newBicycleCarDriver,
-                     accompanying_car: newBicycleAccompaningCar,
-                     motorcycle: newBicycleMotorcycle,
-                     bicycle: newBicycleBicycle,
-                     public_transport: newBicyclePublicTransport,
-                     other_transportation: newBicycleOtherTransport,
-                     year: newBicycleYear,
-                     motorized_percentage: newBicycleMotorPercentage
+                     municipality: Number(newBicycleMunicipality),
+                     population: Number(newBicyclePopulation),
+                     all_displacement: Number(newBicycleAllDispacement),
+                     walking: Number(newBicycleWalking),
+                     car_driver: Number(newBicycleCarDriver),
+                     accompanying_car: Number(newBicycleAccompaningCar),
+                     motorcycle: Number(newBicycleMotorcycle),
+                     bicycle: Number(newBicycleBicycle),
+                     public_transport: Number(newBicyclePublicTransport),
+                     other_transportation: Number(newBicycleOtherTransport),
+                     year: Number(newBicycleYear),
+                     motorized_percentage: Number(newBicycleMotorPercentage)
                      
                  })
              });
@@ -93,20 +101,52 @@
          }
 
 
-        // async function deleteContacts (contactName) {
-        //     resultStatus = result = "";
-        //     const res = await fetch(API+"/" + contactName, {
-        //         method: 'DELETE'
-        //     });
-            
-        //     const status = await res.status;
-        //     resultStatus = status;
-            
-        //     if(status==200){
-        //         message = "Se ha producido un error"
-        //         getContacts();
-        //     }	
+        //  async function deleteContact(contactName, contactYear) {
+        //     let resultStatus = "";
+        //     const res = await fetch(API + "?province=" + contactName + "&year=" + contactYear, {
+        //     method: 'DELETE'
+        //   });
+  
+        //   const status = await res.status;
+        //   resultStatus = status;
+  
+        //   if (status == 200) {
+        //       console.log("El contacto se eliminó correctamente");
+        //   } else {
+        //     console.log("Se produjo un error al eliminar el contacto");
+        //   }
         // }
+
+
+        async function deleteContact(provinceDelete,yearDelete){
+		search=false;
+		console.log("Deleting single contact... ");
+		const res = await fetch(`${API}/${provinceDelete}/${yearDelete}`,{
+			method:"DELETE"
+		}).then(function(res){
+			if(res.ok){
+				msgVisible = true;
+				color = "success";
+				checkMSG =  `Dato ${provinceDelete},${yearDelete} Eliminado con exito`;
+		}
+		else{
+				msgVisible = true;
+				color = "danger";
+				checkMSG = `Dato ${provinceDelete},${yearDelete} no se pudo eliminar, comprueba si existe`;
+		}
+			getBicycles();
+		
+		}
+		);
+		
+	}
+
+
+
+
+
+
+
     
     </script>
     <h1> Bicycles</h1>
@@ -196,6 +236,7 @@
         <th width="6rem">Oth. Transp.</th>
         <th width="6rem">Año</th>
         <th width="9rem">Motoriz.</th>
+        <th width="9rem">Action</th>
         </thead>
         <tbody>
 
@@ -215,6 +256,8 @@
               <Column>{row.other_transportation}%</Column>
               <Column>{row.year}</Column>
               <Column>{row.motorized_percentage}%</Column>
+              <Column><Button on:click={deleteContact(row.province, row.year)}>Delete</Button></Column>
+
             </tr>
           {/each}
         </tbody>
@@ -237,6 +280,8 @@
         <th>Oth. Transp.</th>
         <th width=79px >Año</th>
         <th width=40px>Motoriz.</th>
+        <th>Action</th>
+
           </tr>
         </thead>
         <tbody>
