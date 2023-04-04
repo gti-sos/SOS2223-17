@@ -1,4 +1,4 @@
-const BASE_API_URL = "/api/v1";
+const BASE_API_URL = "/api/v2";
 
 //const salim = require("./andalusian-bicycles-plans");
 
@@ -758,7 +758,7 @@ var datos_auxilio = [
   ]
 
 
-db.insert(datos_Salim);
+//db.insert(datos_Salim);
 //db.insert(datos_auxilio);
 
 
@@ -802,7 +802,7 @@ db.insert(datos_Salim);
   
 
   
-    app.get('/api/v1/andalusian-bicycle-plans', (req, res) => {
+    app.get('/api/v2/andalusian-bicycle-plans', (req, res) => {
       const { province, year, from, to, population_over, municipality_over, all_dispacement_over, walking_over, car_driver_over, accompanying_car_over, motorcycle_over, bicycle_over, public_transport_over, other_transport_over, motorized_percentage_over, limit, offset } = req.query;
     
       if (req.headers['content-type'] && req.headers['content-type'] !== 'application/json') {
@@ -882,7 +882,7 @@ db.insert(datos_Salim);
     
     
     
-    app.get('/api/v1/andalusian-bicycle-plans/:province/:year', (req, res) => {
+    app.get('/api/v2/andalusian-bicycle-plans/:province/:year', (req, res) => {
       const { province, year } = req.params;
       const { from, to } = req.query;
     
@@ -986,7 +986,7 @@ app.post(BASE_API_URL + "/andalusian-bicycle-plans", (req, res) => {
       
       
     
-    app.put('/api/v1/andalusian-bicycle-plans/:province/:year', (req, res) => {
+    app.put('/api/v2/andalusian-bicycle-plans/:province/:year', (req, res) => {
       const { province, year } = req.params;
       const expectedId = `${province}/${year}`;
     
@@ -1028,7 +1028,7 @@ app.post(BASE_API_URL + "/andalusian-bicycle-plans", (req, res) => {
       
       
     
-      app.put('/api/v1/andalusian-bicycle-plans', (req, res) => {
+      app.put('/api/v2/andalusian-bicycle-plans', (req, res) => {
         res.sendStatus(405);
       });
     
