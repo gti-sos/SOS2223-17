@@ -3,7 +3,7 @@
     
         import { onMount } from 'svelte';
         import { dev } from '$app/environment';
-        import { Column, Button, Table } from 'sveltestrap';
+        import { Alert, Column, Button, Table } from 'sveltestrap';
         import { page } from '$app/stores';
 
 
@@ -90,36 +90,49 @@
             resultStatus = status;	
         }
       
-         async function updateBicycle () {
-             resultStatus = result = "";
-             const res = await fetch(API, {
-                 method: 'PUT',
-                 headers:{
-                     "Content-Type" : "application/json"
-                 },
-                 body:JSON.stringify({
-                     province: updatedBicycleProvince,
-                     municipality: Number(updatedBicycleMunicipality),
-                     population: Number(updatedBicyclePopulation),
-                     all_displacement: Number(updatedBicycleAllDispacement),
-                     walking: Number(updatedBicycleWalking),
-                     car_driver: Number(updatedBicycleCarDriver),
-                     accompanying_car: Number(updatedBicycleAccompaningCar),
-                     motorcycle: Number(updatedBicycleMotorcycle),
-                     bicycle: Number(updatedBicycleBicycle),
-                     public_transport: Number(updatedBicyclePublicTransport),
-                     other_transportation: Number(updatedBicycleOtherTransport),
-                     year: Number(updatedBicycleYear),
-                     motorized_percentage: Number(updatedBicycleMotorPercentage)
-                     
-                 })
-             });
-             const status = await res.status;
-             resultStatus = status;	           
-             if(status==200){
-                 getBicycle();
-             }
-         }
+        async function updateBicycle () {
+    resultStatus = result = "";
+    try {
+        const res = await fetch(API, {
+            method: 'PUT',
+            headers:{
+                "Content-Type" : "application/json"
+            },
+            body:JSON.stringify({
+                province: updatedBicycleProvince,
+                municipality: Number(updatedBicycleMunicipality),
+                population: Number(updatedBicyclePopulation),
+                all_displacement: Number(updatedBicycleAllDispacement),
+                walking: Number(updatedBicycleWalking),
+                car_driver: Number(updatedBicycleCarDriver),
+                accompanying_car: Number(updatedBicycleAccompaningCar),
+                motorcycle: Number(updatedBicycleMotorcycle),
+                bicycle: Number(updatedBicycleBicycle),
+                public_transport: Number(updatedBicyclePublicTransport),
+                other_transportation: Number(updatedBicycleOtherTransport),
+                year: Number(updatedBicycleYear),
+                motorized_percentage: Number(updatedBicycleMotorPercentage)
+            })
+        });
+        const status = await res.status;
+        resultStatus = status;
+        if(status==200){
+            msgVisible = true;
+            color = "success";
+            checkMSG = "Datos de bicicleta actualizados con éxito";
+            getBicycle();
+        } else {
+            msgVisible = true;
+            color = "danger";
+            checkMSG = "Error al actualizar los datos de bicicleta, comprueba que hayas completado todos los campos y que los campos numericos son mayores que 0 y vuelve a intentarlo";
+        }
+    } catch (error) {
+        console.error(error);
+        msgVisible = true;
+        color = "danger";
+        checkMSG = "Hubo un error al intentar actualizar los datos de bicicleta, intenta nuevamente más tarde";
+    }
+}
 
 
         
@@ -132,76 +145,109 @@
 
     
     </script>
-    <h1> Bicycles details</h1>
+
+<style>
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    text-align: left;
+  }
+  
+  th, td {
+    padding: 10px;
+    border: 1px solid #ddd;
+  }
+  
+  th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+  }
+  
+  tr:hover {
+    background-color: #f5f5f5;
+  }
+
+  
+  body {
+margin: 0 20px; /* Cambia el valor de 20px según tus necesidades */
+}
+
+.page-container {
+        margin: 0 50px; /* aplicar margen de 50px en los laterales */
+      }
+
+      h1 {
+        font-size: 36px;
+        font-weight: bold;
+        text-align: center;
+        color: #333;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-weight: normal;
+
+      } 
+  
+
+</style>
+
+
+    <body>
+      <div class="page-container">
+    <h1> Bicicleta concreta</h1>
     
     
        
-       
+    
+    
+    
       
-      <Table class="table table-success table-striped table-auto">
-        <thead>
-          <th width="8rem">Prov.</th>
-        <th width="5rem">Mun.</th>
-        <th width="7rem">Pob.</th>
-        <th width="9rem">Desp.</th>
-        <th width="6rem">Walk.</th>
-        <th width="6rem">Car</th>
-        <th width="7rem">Acc. Car</th>
-        <th width="5rem">Moto</th>
-        <th width="5rem">Bike</th>
-        <th width="7rem">Pub. Transp.</th>
-        <th width="6rem">Oth. Transp.</th>
-        <th width="6rem">Año</th>
-        <th width="9rem">Motoriz.</th>
-        <th width="9rem">Action</th>
-        </thead>
-        <tbody>
-
-          
-          
-        </tbody>
-      </Table>
+    <Alert color={color} isOpen={msgVisible} toggle={() => (msgVisible = false)}>
+      {#if checkMSG!=""}
+        {checkMSG}
+      {/if}
+    </Alert>
       
-
-      <table class="table table-success table-striped table-auto">
-        <thead>
-          <tr>
-            <th width=115px>Prov.</th>
-        <th>Mun.</th>
-        <th width=89px>Pob.</th>
-        <th width=89px>Desp.</th>
-        <th>Walk.</th>
-        <th>Car</th>
-        <th>Acc. Car</th>
-        <th>Moto</th>
-        <th>Bike</th>
-        <th>Pub. Transp.</th>
-        <th>Oth. Transp.</th>
-        <th width=79px >Año</th>
-        <th width=40px>Motoriz.</th>
-        <th>Action</th>
-
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>{updatedBicycleProvince}</td>
-            <td><input type="text" bind:value={updatedBicycleMunicipality} class="form-control"></td>
-            <td><input type="text" bind:value={updatedBicyclePopulation} class="form-control"></td>
-            <td><input type="text" bind:value={updatedBicycleAllDispacement} class="form-control"></td>
-            <td><input type="text" bind:value={updatedBicycleWalking} class="form-control"></td>
-            <td><input type="text" bind:value={updatedBicycleCarDriver} class="form-control"></td>
-            <td><input type="text" bind:value={updatedBicycleAccompaningCar} class="form-control"></td>
-            <td><input type="text" bind:value={updatedBicycleMotorcycle} class="form-control"></td>
-            <td><input type="text" bind:value={updatedBicycleBicycle} class="form-control"></td>
-            <td><input type="text" bind:value={updatedBicyclePublicTransport} class="form-control"></td>
-            <td><input type="text" bind:value={updatedBicycleOtherTransport} class="form-control"></td>
-            <td>{updatedBicycleYear}</td>
-            <td><input type="text" bind:value={updatedBicycleMotorPercentage} class="form-control"></td>
-            <td><Button on:click={updateBicycle}>Update</Button></td>
-          </tr>
-        </tbody>
-      </table>
+    <table class="table table-bordered table-striped table-hover">
+      <thead>
+        <tr>
+          <th width="115px">Prov.</th>
+          <th>Mun.</th>
+          <th width="89px">Pob.</th>
+          <th width="89px">Desp.</th>
+          <th>Walk.</th>
+          <th>Car</th>
+          <th>Acc. Car</th>
+          <th>Moto</th>
+          <th>Bike</th>
+          <th>Pub. Transp.</th>
+          <th>Oth. Transp.</th>
+          <th width="79px">Año</th>
+          <th width="40px">Motoriz.</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{updatedBicycleProvince}</td>
+          <td><input type="text" bind:value={updatedBicycleMunicipality} class="form-control"></td>
+          <td><input type="text" bind:value={updatedBicyclePopulation} class="form-control"></td>
+          <td><input type="text" bind:value={updatedBicycleAllDispacement} class="form-control"></td>
+          <td><input type="text" bind:value={updatedBicycleWalking} class="form-control"></td>
+          <td><input type="text" bind:value={updatedBicycleCarDriver} class="form-control"></td>
+          <td><input type="text" bind:value={updatedBicycleAccompaningCar} class="form-control"></td>
+          <td><input type="text" bind:value={updatedBicycleMotorcycle} class="form-control"></td>
+          <td><input type="text" bind:value={updatedBicycleBicycle} class="form-control"></td>
+          <td><input type="text" bind:value={updatedBicyclePublicTransport} class="form-control"></td>
+          <td><input type="text" bind:value={updatedBicycleOtherTransport} class="form-control"></td>
+          <td>{updatedBicycleYear}</td>
+          <td><input type="text" bind:value={updatedBicycleMotorPercentage} class="form-control"></td>
+          <td><Button on:click={updateBicycle} class="bg-warning font-weight-bold">Editar</Button></td>
+        </tr>
+      </tbody>
+    </table>
+    
       
       
 
@@ -219,3 +265,5 @@
 {result}
         </pre>
     {/if}
+  </div>
+    </body>

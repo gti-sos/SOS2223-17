@@ -931,39 +931,47 @@ var datos_auxilio = [
       
       
     
-app.post(BASE_API_URL + "/andalusian-bicycle-plans", (req, res) => {
-  const inputPost = req.body;
-
-  const requiredFields = ['province', 'municipality', 'population', 'all_displacement', 'walking', 'car_driver', 'accompanying_car', 'motorcycle', 'bicycle', 'public_transport', 'other_transportation', 'year', 'motorized_percentage'];
-
-  const missingFields = requiredFields.filter(field => !inputPost.hasOwnProperty(field));
-
-  if (missingFields.length > 0) {
-    const errorMessage = `Missing fields: ${missingFields.join(', ')}`;
-    console.log(errorMessage);
-    return res.status(400).send(errorMessage);
-  }
-
-  const query = { province: inputPost.province, year: inputPost.year };
-
-  db.find(query, (err, docs) => {
-    if (err) {
-      return res.status(500).json({ error: 'Internal server error' });
-    }
-    if (docs.length > 0) {
-      return res.status(409).json({ message: 'HTTP 409 CONFLICT: The contact already exists.' });
-    } else {
-      db.insert(inputPost, (err, newDoc) => {
+    app.post(BASE_API_URL + "/andalusian-bicycle-plans", (req, res) => {
+      const inputPost = req.body;
+    
+      const requiredFields = ['province', 'municipality', 'population', 'all_displacement', 'walking', 'car_driver', 'accompanying_car', 'motorcycle', 'bicycle', 'public_transport', 'other_transportation', 'year', 'motorized_percentage'];
+    
+      const missingFields = requiredFields.filter(field => !inputPost.hasOwnProperty(field) || inputPost[field] === "");
+    
+      if (missingFields.length > 0) {
+        const errorMessage = `Missing or empty fields: ${missingFields.join(', ')}`;
+        console.log(errorMessage);
+        return res.status(400).json({ message: errorMessage });
+      }
+    
+      const query = { province: inputPost.province, year: inputPost.year };
+    
+      db.find(query, (err, docs) => {
         if (err) {
           return res.status(500).json({ error: 'Internal server error' });
         }
-        return res.status(201).json({ message: 'HTTP 201 CREATED' });
+        if (docs.length > 0) {
+          return res.status(409).json({ message: 'HTTP 409 CONFLICT: Data with same province and year already exists.' });
+        } else {
+          // Add null verification here
+          if (!Object.values(inputPost).some(value => value === null)) {
+            db.insert(inputPost, (err, newDoc) => {
+              if (err) {
+                return res.status(500).json({ error: 'Internal server error' });
+              }
+              return res.status(201).json({ message: 'HTTP 201 CREATED' });
+            });
+          } else {
+            return res.status(400).json({ message: 'Null values are not allowed' });
+          }
+        }
       });
-    }
-  });
-  
-  console.log("New POST to /andalusian-bicycle-plans");
-});
+    
+      console.log("New POST to /andalusian-bicycle-plans");
+    });
+    
+    
+    
 
 
     
@@ -1003,6 +1011,10 @@ app.post(BASE_API_URL + "/andalusian-bicycle-plans", (req, res) => {
           return res.sendStatus(400);
         }
       } else if (req.body.id !== expectedId) {
+        return res.sendStatus(400);
+      }
+
+      if(Object.values(req.body).some(val => (typeof val !== 'number' || val <= 0 || val === null))) {
         return res.sendStatus(400);
       }
     
@@ -1076,7 +1088,7 @@ app.post(BASE_API_URL + "/andalusian-bicycle-plans", (req, res) => {
         }
     
         // Validate parameter values
-        const validProvinces = ['sevilla', 'malaga', 'cadiz', 'huelva', 'cordoba', 'jaen', 'almeria'];
+        const validProvinces = ['sevilla', 'malaga', 'cadiz', 'huelva', 'cordoba', 'jaen', 'almeria', 'granada'];
         if (!validProvinces.includes(province.toLowerCase())) {
             return response.status(404).json({ error: 'Invalid province' });
         }
