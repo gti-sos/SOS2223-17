@@ -1014,9 +1014,7 @@ var datos_auxilio = [
         return res.sendStatus(400);
       }
 
-      if(Object.values(req.body).some(val => (typeof val !== 'number' || val <= 0 || val === null))) {
-        return res.sendStatus(400);
-      }
+      
     
       const query = { province, year: parseInt(year) };
       const update = { $set: { ...req.body, province, year: parseInt(year) } };
@@ -1087,11 +1085,11 @@ var datos_auxilio = [
             return response.status(400).json({ error: 'Missing route parameters' });
         }
     
-        // Validate parameter values
-        const validProvinces = ['sevilla', 'malaga', 'cadiz', 'huelva', 'cordoba', 'jaen', 'almeria', 'granada'];
-        if (!validProvinces.includes(province.toLowerCase())) {
-            return response.status(404).json({ error: 'Invalid province' });
-        }
+        // // Validate parameter values
+        // const validProvinces = ['sevilla', 'malaga', 'cadiz', 'huelva', 'cordoba', 'jaen', 'almeria', 'granada'];
+        // if (!validProvinces.includes(province.toLowerCase())) {
+        //     return response.status(404).json({ error: 'Invalid province' });
+        // }
     
         if (isNaN(year) || year < 2000 || year > 2023) {
             return response.status(400).json({ error: 'Invalid year' });
