@@ -146,7 +146,7 @@
         }else{
           msgVisible = true;
           color = "danger";
-          checkMSG = "No se completaron alguno/s de los campos requeridos";
+          checkMSG = "No se completaron alguno/s de los campos requeridos, comprueba que los campos numericos sean mayores que 0";
         } 
     } catch (error) {
         console.error(error);

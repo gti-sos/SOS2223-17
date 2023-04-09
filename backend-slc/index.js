@@ -943,6 +943,13 @@ var datos_auxilio = [
         console.log(errorMessage);
         return res.status(400).json({ message: errorMessage });
       }
+
+      const numericFields = ['municipality', 'population', 'all_displacement', 'walking', 'car_driver', 'accompanying_car', 'motorcycle', 'bicycle', 'public_transport', 'other_transportation', 'motorized_percentage'];
+      for (const field of numericFields) {
+        if (typeof req.body[field] === 'number' && (req.body[field] === 0 || req.body[field] === null)) {
+          return res.sendStatus(400);
+        }
+      }
     
       const query = { province: inputPost.province, year: inputPost.year };
     
@@ -1004,6 +1011,14 @@ var datos_auxilio = [
     
       if(parseInt(year) <= 2013){
         return res.sendStatus(400);
+      }
+
+
+      const numericFields = ['municipality', 'population', 'all_displacement', 'walking', 'car_driver', 'accompanying_car', 'motorcycle', 'bicycle', 'public_transport', 'other_transportation', 'motorized_percentage'];
+      for (const field of numericFields) {
+        if (typeof req.body[field] === 'number' && (req.body[field] === 0 || req.body[field] === null)) {
+          return res.sendStatus(400);
+        }
       }
     
       if (req.params.province && req.params.year) {
