@@ -1060,15 +1060,23 @@ var datos_auxilio = [
       
       
       app.delete(BASE_API_URL + '/andalusian-bicycle-plans', (req, res) => {
-        db.remove({}, { multi: true }, (err, numRemoved) => {
+        db.count({}, (err, count) => {
           if (err) {
             return res.status(500).json({ error: 'Internal server error' });
           }
-          return res.status(200).end();
+          if (count === 0) {
+            return res.status(400).json({ error: 'No documents to delete' });
+          }
+          db.remove({}, { multi: true }, (err, numRemoved) => {
+            if (err) {
+              return res.status(500).json({ error: 'Internal server error' });
+            }
+            return res.status(200).end();
+          });
+          console.log('All data deleted from /andalusian-bicycle-plans');
         });
-      
-        console.log('All data deleted from /andalusian-bicycle-plans');
       });
+      
       
     
       
