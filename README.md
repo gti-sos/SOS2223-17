@@ -23,6 +23,16 @@ APIs:
 
 https://sos2223-17.ew.r.appspot.com/api/v1/andalusian-bicycle-plans/docs (developed by Salim Chaieri Chafai)
 
+https://sos2223-17.ew.r.appspot.com/api/v2/andalusian-bicycle-plans/docs (developed by Salim Chaieri Chafai)
+
 https://sos2223-17.ew.r.appspot.com/api/v1/self-employed-stats/docs (developed by Jose Germinal Garrucho Orozco)
 
 https://sos2223-17.ew.r.appspot.com/api/v1/emergency-call-stats/docs (developed by Santiago Pineda Andrade)
+
+Frontends:
+
+https://sos2223-17.ew.r.appspot.com/andalusian-bicycle-plans (developed by Salim Chaieri Chafai)
+
+https://sos2223-17.ew.r.appspot.com/self-employed-stats (developed by Jose Germinal Garrucho Orozco)
+
+https://sos2223-17.ew.r.appspot.com/emergency-call-stats (developed by Santiago Pineda Andrade
