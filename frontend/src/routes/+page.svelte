@@ -46,7 +46,7 @@
         <h2>Frontends</h2>
         <ul>
             <li><a href="https://sos2223-17.ew.r.appspot.com/andalusian-bicycle-plans">/andalusian-bicycle-plans</a>(developed by<a href="https://github.com/salcha2">Salim Chaieri Chafai</a>)</li>
-            <li><a href=https://sos2223-17.ew.r.appspot.com/self-employed-stats>/self-employed-stats</a>(developed by<a href="https://github.com/Joseg0">Jose Germinal Garrucho Orozco</a>)</li>
+            <li><a href="https://sos2223-17.ew.r.appspot.com/self-employed-stats">/self-employed-stats </a>(developed by<a href="https://github.com/Joseg0">Jose Germinal Garrucho Orozco</a>)</li>
             <li><a href="https://sos2223-17.ew.r.appspot.com/emergency-call-stats">/emergency-call-stats</a>(developed by<a href="https://github.com/sanpinand">Santiago Pineda Andrade</a>)</li>
         </ul>
     </section>
