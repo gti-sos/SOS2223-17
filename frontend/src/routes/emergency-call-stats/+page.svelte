@@ -1,4 +1,4 @@
-<script lang = "ts">
+<!-- <script lang = "ts">
   //@ts-nocheck
         import { onMount } from 'svelte';
         import { dev } from '$app/environment';
@@ -145,4 +145,4 @@
     
   </style>
   
-</body>
+</body> -->
