@@ -95,6 +95,7 @@
 	<nav>
 	    <a href="/">Home</a>
 	    <a href="/andalusian-bicycle-plans">Bicycles</a>
+		<a href="/self-employed-stats">Self employers</a>
 	</nav>
 
 	
