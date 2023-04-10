@@ -43,6 +43,15 @@
             <li><a href="https://sos2223-17.ew.r.appspot.com/api/v1/emergency-call-stats/docs">/emergency-call-stats/docs</a>(developed by<a href="https://github.com/sanpinand">Santiago Pineda Andrade</a>)</li>
         </ul>
 
+        <h2>APIs publicas</h2>
+        <ul>
+            <li><a href="https://sos2223-17.ew.r.appspot.com/api/v1/andalusian-bicycle-plans">/andalusian-bicycle-plans/api/v1/docs</a>(developed by<a href="https://github.com/salcha2">Salim Chaieri Chafai</a>)</li>
+            <li><a href="https://sos2223-17.ew.r.appspot.com/api/v2/andalusian-bicycle-plans">/andalusian-bicycle-plans/api/v2/docs</a>(developed by<a href="https://github.com/salcha2">Salim Chaieri Chafai</a>)</li>
+
+            <!-- <li><a href="https://sos2223-17.ew.r.appspot.com/api/v1/self-employed-stats/docs"(developed by<a href="https://github.com/Joseg0">Jose Germinal Garrucho Orozco</a>)</li> -->
+            <li><a href="https://sos2223-17.ew.r.appspot.com/api/v1/emergency-call-stats">/emergency-call-stats/docs</a>(developed by<a href="https://github.com/sanpinand">Santiago Pineda Andrade</a>)</li>
+        </ul>
+
         <h2>Frontend</h2>
         <ul>
             <li><a href="https://sos2223-17.ew.r.appspot.com/andalusian-bicycle-plans">/andalusian-bicycle-plans</a>(developed by<a href="https://github.com/salcha2">Salim Chaieri Chafai</a>)</li>
