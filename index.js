@@ -7,7 +7,7 @@ import { loadBackend_salcha2 } from "./backend-slc/index.js";
 
 import { loadBackend_josgaroro1_v2 } from "./backend/v2/index-josgaroro1.js";
 
-import { loadBackend_sanpinand } from "./backend/index-sanpinand-v2.js";
+// import { loadBackend_sanpinand } from "./backend/index-sanpinand-v2.js";
 
 
 import { handler } from "./frontend/build/handler.js";
@@ -56,7 +56,7 @@ const API_DOC_PORTAL_salim = "https://documenter.getpostman.com/view/25746364/2s
 //codigo sanpinand/////////////////////////////////////////////////////////////
 
 //var backend_spa = require("./backend");
-loadBackend_sanpinand(app);
+// loadBackend_sanpinand(app);
 
 
 
