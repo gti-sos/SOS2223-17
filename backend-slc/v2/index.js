@@ -933,6 +933,15 @@ var datos_auxilio = [
     
     app.post(BASE_API_URL + "/andalusian-bicycle-plans", (req, res) => {
       const inputPost = req.body;
+
+
+    if (inputPost.hasOwnProperty('id')) {
+      const errorMessage = `Property 'id' is not allowed in POST requests`;
+      console.log(errorMessage);
+      return res.status(400).json({ message: errorMessage });
+    }
+    
+      
     
       const requiredFields = ['province', 'municipality', 'population', 'all_displacement', 'walking', 'car_driver', 'accompanying_car', 'motorcycle', 'bicycle', 'public_transport', 'other_transportation', 'year', 'motorized_percentage'];
     
@@ -943,7 +952,7 @@ var datos_auxilio = [
         console.log(errorMessage);
         return res.status(400).json({ message: errorMessage });
       }
-
+    
       const numericFields = ['municipality', 'population', 'all_displacement', 'walking', 'car_driver', 'accompanying_car', 'motorcycle', 'bicycle', 'public_transport', 'other_transportation', 'motorized_percentage'];
       for (const field of numericFields) {
         if (typeof req.body[field] === 'number' && (req.body[field] === 0 || req.body[field] === null)) {
@@ -976,6 +985,7 @@ var datos_auxilio = [
     
       console.log("New POST to /andalusian-bicycle-plans");
     });
+    
     
     
     

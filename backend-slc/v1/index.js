@@ -10,11 +10,11 @@ const API_DOC_PORTAL_salim = "https://documenter.getpostman.com/view/25746364/2s
 const API_DOC_PORTAL_salim1 = "https://sos2223-17-381423.ew.r.appspot.com/"
 
 
-var Datastore = require('nedb');
+import Datastore from 'nedb';
 var db = new Datastore();
 
 
-module.exports = (app) =>{
+function loadBackend_salcha2_2(app){
 
     //codigo salim /////////////////////////////////////////////////////////////
 
@@ -1074,9 +1074,12 @@ app.post(BASE_API_URL + "/andalusian-bicycle-plans",validateId, (req, res) => {
 
 
 
-    exports 
+
 
 
 
 }
 
+
+
+export {loadBackend_salcha2_2} 
