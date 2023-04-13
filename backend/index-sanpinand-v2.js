@@ -207,7 +207,7 @@ function loadBackend_sanpinand(app){
 
     //Redirect a la lista de Postman
     app.get(BASE_API_URL+SANTIAGO+"/docs", (request,response) => {
-      response.redirect("https://documenter.getpostman.com/view/25995736/2s93RQSDxy");
+      response.redirect("https://documenter.getpostman.com/view/25995736/2s93XwxiYr");
   });
 
   function validateId(request, response, next) {
@@ -414,7 +414,7 @@ function loadBackend_sanpinand(app){
 
       app.get(BASE_API_URL + SANTIAGO, (request, response) => {
         console.log("New GET to emergency-call-stats");
-        const limit = parseInt(request.query.limit) || 10;
+        const limit = parseInt(request.query.limit) || 50;
         const offset = parseInt(request.query.offset) || 0;
 
         var parametros = request.query;//obtenemos la consulta campo1=valor1&campo2=valor2...
