@@ -6,7 +6,7 @@ Team :
 
 Salim Chaieri Chafai
 
-Jose Germinal Garrucho Orozco
+Jose Germinal Garrucho Orozco : self-employed-stats
 
 Santiago Pineda Andrade
 
