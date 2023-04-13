@@ -13,7 +13,7 @@
         <h2>Team</h2>
         <ul>
             <li><a href="https://github.com/salcha2">Salim Chaieri Chafai</a></li>
-            <li><a href="https://github.com/Joseg0">Jose Germinal Garrucho Orozco</a></li>
+            <li><a href="https://github.com/Joseg0">Jose Germinal Garrucho Orozco: self-employed-stats</a></li>
             <li><a href="https://github.com/sanpinand">Santiago Pineda Andrade</a></li>
         </ul>
 

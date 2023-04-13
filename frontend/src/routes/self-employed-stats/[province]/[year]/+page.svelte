@@ -9,7 +9,7 @@
         getFile();
     });
 
-    let province = $page.params.territory;
+    let province = $page.params.province;
     let year = $page.params.year;
     let API = "/api/v2/self-employed-stats/" + province + "/" + year;
 
@@ -109,18 +109,22 @@
 </script>
 
 <main>
-
-    <h1 style="text-align:cente"> Autónomo concreto</h1>
+    {#if message != ""}
+        <Alert color={c}>{message}</Alert>
+    {/if}
+    <div class="elementos">
+    <h1> Estadística autónomo concreto</h1>
+    <hr>
     <Table>
         <thead>
             <tr>
-                <th>Genre</th>
-                <th>Live_with</th>
-                <th>Territory</th>
-                <th>Employee</th>
-                <th>Value</th>
-                <th>Year</th>
-                <th>Action</th>
+                <th>Género</th>
+                <th>Convive con</th>
+                <th>Territorio</th>
+                <th>Empleado/s</th>
+                <th>Valor</th>
+                <th>Año</th>
+                <th>Acción</th>
             </tr>
         </thead>
         <tbody>
@@ -132,33 +136,46 @@
                 <td><input bind:value={updatedValue}></td>
                 <td>{updatedYear}</td>
                 <td>
-                    <Button color="info" on:click={updateData}>Actualizar dato</Button>
+                    <Button color="info" on:click={updateData}>Editar dato</Button>
                 </td>
             </tr>
         </tbody>
     </Table>
 
-    <div class="elementos">
+    <div>
         <ul>
             <li>
-                Genre:{updatedGenre}
+                Género: {updatedGenre}
             </li>
             <li>
-                Live_with{updatedLive_with}
+                Convive con: {updatedLive_with}
             </li>
             <li>
-                Territory: {updatedProvince}
+                Provincia: {updatedProvince}
             </li>
             <li>
-                Employee: {updatedEmployee}
+                Empleado/s: {updatedEmployee}
             </li>
             <li>
-                Value:{updatedValue}
+                Valor: {updatedValue}
             </li>
             <li>
-                Year: {updatedYear}
+                Año: {updatedYear}
             </li>
         </ul>
     </div>
     <Button id="borrar" color="danger" on:click={deleteFile(updatedProvince,updatedYear)}>Borrar dato concreto</Button>
+    </div>
 </main>
+
+<style>
+    h1 {
+        font-weight: bold;
+        text-align: center;
+        color: #333;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-weight: normal;
+
+      }
+</style>
