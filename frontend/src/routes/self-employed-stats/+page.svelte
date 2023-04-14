@@ -52,21 +52,13 @@
             },
             body: JSON.stringify({
                 genre: newFileGenre,
-                live_with: parseInt(newFileLive_with),
+                live_with: newFileLive_with,
                 territory: newFileTerritory,
-                employee: parseInt(newFileEmployee),
-                value: parseInt(newFileValue),
-                year: parseInt(newFileYear),
+                employee: newFileEmployee,
+                value: newFileValue,
+                year: newFileYear,
             }),
         });
-        try {
-            const data = await res.json();
-            result = JSON.stringify(data, null, 2);
-            dato = data;
-            
-        } catch (error) {
-            console.log(`Error parsing result: ${error}`);
-        }
         const status = await res.status;
         resultStatus = status;
         if (status==201) {
