@@ -27,7 +27,7 @@ function loadBackend_sanpinand(app){
         year: 2019
     },
     {
-        province: "Cordoba",
+        province: "Córdoba",
         month: "january",
         phone_call_activation_organization: 997,
         telematic_activation_organization: 5174,
@@ -91,7 +91,7 @@ function loadBackend_sanpinand(app){
         year: 2019
     },
     {
-        province: "Cordoba",
+        province: "Córdoba",
         month: "february",
         phone_call_activation_organization: 988,
         telematic_activation_organization: 4564,
@@ -155,7 +155,7 @@ function loadBackend_sanpinand(app){
         year: 2019
     },
     {
-        province: "Cordoba",
+        province: "Córdoba",
         month: "march",
         phone_call_activation_organization: 1184,
         telematic_activation_organization: 5121,

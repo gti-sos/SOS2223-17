@@ -131,7 +131,7 @@
       {message}
     {/if}
   </Alert>
-
+<sub>(*) Elementos identificativos únicos</sub>
   <Table hover>
     <colgroup>
         <col span="2" />
@@ -139,8 +139,8 @@
       </colgroup>
       <thead>
         <tr>
-          <th rowspan="2">Provincia</th>
-          <th rowspan="2">Mes</th>
+          <th rowspan="2">Provincia*</th>
+          <th rowspan="2">Mes*</th>
           <th colspan="2" id ="col">Num. de activaciones a organizaciones
           </th>
           <th rowspan="2">Número de llamadas</th>
