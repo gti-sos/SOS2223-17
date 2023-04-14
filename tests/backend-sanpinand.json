@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "cddbfca7-fb4c-4077-899a-5dbec9db4fc7",
-		"name": "localhost collection",
+		"_postman_id": "24f4b788-ce6d-45f9-a3f6-2314ffff6e8b",
+		"name": "localhost collection /v2",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "25995736"
 	},
@@ -19,7 +19,7 @@
 							"\r",
 							"pm.test(\"Object posted exist\", function () {\r",
 							"    pm.sendRequest({\r",
-							"        url: `http://localhost:8080/api/v1/emergency-call-stats/Málaga/january`,\r",
+							"        url: `http://localhost:8080/api/v2/emergency-call-stats/Málaga/january`,\r",
 							"        method: \"GET\",\r",
 							"    }, function (err, res) {\r",
 							"        var jsonData = res.json();\r",
@@ -47,13 +47,13 @@
 					}
 				},
 				"url": {
-					"raw": "{{URLBASE}}/api/v1/emergency-call-stats",
+					"raw": "{{URLBASE}}/api/v2/emergency-call-stats",
 					"host": [
 						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"emergency-call-stats"
 					]
 				}
@@ -73,7 +73,7 @@
 							"\r",
 							"pm.test(\"Object posted exist\", function () {\r",
 							"    pm.sendRequest({\r",
-							"        url: \"http://localhost:8080/api/v1/emergency-call-stats/Huelva/january\",\r",
+							"        url: \"http://localhost:8080/api/v2/emergency-call-stats/Huelva/january\",\r",
 							"        method: \"GET\",\r",
 							"    }, function (err, res) {\r",
 							"        var jsonData = res.json();\r",
@@ -101,13 +101,13 @@
 					}
 				},
 				"url": {
-					"raw": "{{URLBASE}}/api/v1/emergency-call-stats",
+					"raw": "{{URLBASE}}/api/v2/emergency-call-stats",
 					"host": [
 						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"emergency-call-stats"
 					]
 				}
@@ -127,7 +127,7 @@
 							"\r",
 							"pm.test(\"Object posted exist\", function () {\r",
 							"    pm.sendRequest({\r",
-							"        url: \"http://localhost:8080/api/v1/emergency-call-stats/Sevilla/january\",\r",
+							"        url: \"http://localhost:8080/api/v2/emergency-call-stats/Sevilla/january\",\r",
 							"        method: \"GET\",\r",
 							"    }, function (err, res) {\r",
 							"        var jsonData = res.json();\r",
@@ -155,13 +155,13 @@
 					}
 				},
 				"url": {
-					"raw": "{{URLBASE}}/api/v1/emergency-call-stats",
+					"raw": "{{URLBASE}}/api/v2/emergency-call-stats",
 					"host": [
 						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"emergency-call-stats"
 					]
 				}
@@ -181,7 +181,7 @@
 							"\r",
 							"pm.test(\"Object posted exist\", function () {\r",
 							"    pm.sendRequest({\r",
-							"        url: \"http://localhost:8080/api/v1/emergency-call-stats/Sevilla/april\",\r",
+							"        url: \"http://localhost:8080/api/v2/emergency-call-stats/Sevilla/april\",\r",
 							"        method: \"GET\",\r",
 							"    }, function (err, res) {\r",
 							"        var jsonData = res.json();\r",
@@ -209,13 +209,13 @@
 					}
 				},
 				"url": {
-					"raw": "{{URLBASE}}/api/v1/emergency-call-stats",
+					"raw": "{{URLBASE}}/api/v2/emergency-call-stats",
 					"host": [
 						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"emergency-call-stats"
 					]
 				}
@@ -235,7 +235,7 @@
 							"\r",
 							"pm.test(\"Object posted already exist\", function () {\r",
 							"    pm.sendRequest({\r",
-							"        url: \"http://localhost:8080/api/v1/emergency-call-stats/Málaga/january\",\r",
+							"        url: \"http://localhost:8080/api/v2/emergency-call-stats/Málaga/january\",\r",
 							"        method: \"GET\",\r",
 							"    }, function (err, res) {\r",
 							"        var jsonData = res.json();\r",
@@ -263,13 +263,13 @@
 					}
 				},
 				"url": {
-					"raw": "{{URLBASE}}/api/v1/emergency-call-stats",
+					"raw": "{{URLBASE}}/api/v2/emergency-call-stats",
 					"host": [
 						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"emergency-call-stats"
 					]
 				}
@@ -308,13 +308,13 @@
 					}
 				},
 				"url": {
-					"raw": "{{URLBASE}}/api/v1/emergency-call-stats/Sevilla/january",
+					"raw": "{{URLBASE}}/api/v2/emergency-call-stats/Sevilla/january",
 					"host": [
 						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"emergency-call-stats",
 						"Sevilla",
 						"january"
@@ -355,13 +355,13 @@
 					}
 				},
 				"url": {
-					"raw": "{{URLBASE}}/api/v1/emergency-call-stats",
+					"raw": "{{URLBASE}}/api/v2/emergency-call-stats",
 					"host": [
 						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"emergency-call-stats"
 					]
 				}
@@ -398,13 +398,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{URLBASE}}/api/v1/emergency-call-stats/Málaga/january",
+					"raw": "{{URLBASE}}/api/v2/emergency-call-stats/Málaga/january",
 					"host": [
 						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"emergency-call-stats",
 						"Málaga",
 						"january"
@@ -451,13 +451,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{URLBASE}}/api/v1/emergency-call-stats/Sevilla",
+					"raw": "{{URLBASE}}/api/v2/emergency-call-stats/Sevilla",
 					"host": [
 						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"emergency-call-stats",
 						"Sevilla"
 					]
@@ -477,7 +477,7 @@
 							"});\r",
 							"pm.test(\"Object updated correctly\", function () {\r",
 							"    pm.sendRequest({\r",
-							"        url: \"http://localhost:8080/api/v1/emergency-call-stats/Málaga/january\",\r",
+							"        url: \"http://localhost:8080/api/v2/emergency-call-stats/Málaga/january\",\r",
 							"        method: \"GET\",\r",
 							"    }, function (err, res) {\r",
 							"        var jsonData = res.json();\r",
@@ -509,13 +509,13 @@
 					}
 				},
 				"url": {
-					"raw": "{{URLBASE}}/api/v1/emergency-call-stats/Málaga/january",
+					"raw": "{{URLBASE}}/api/v2/emergency-call-stats/Málaga/january",
 					"host": [
 						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"emergency-call-stats",
 						"Málaga",
 						"january"
@@ -536,7 +536,7 @@
 							"});\r",
 							"pm.test(\"URL Object not updated\", function () {\r",
 							"    pm.sendRequest({\r",
-							"        url: \"http://localhost:8080/api/v1/emergency-call-stats/Sevilla/january\",\r",
+							"        url: \"http://localhost:8080/api/v2/emergency-call-stats/Sevilla/january\",\r",
 							"        method: \"GET\",\r",
 							"    }, function (err, res) {\r",
 							"        var jsonData = res.json();\r",
@@ -552,7 +552,7 @@
 							"});\r",
 							"pm.test(\"BODY Object not updated\", function () {\r",
 							"    pm.sendRequest({\r",
-							"        url: \"http://localhost:8080/api/v1/emergency-call-stats/Sevilla/april\",\r",
+							"        url: \"http://localhost:8080/api/v2/emergency-call-stats/Sevilla/april\",\r",
 							"        method: \"GET\",\r",
 							"    }, function (err, res) {\r",
 							"        var jsonData = res.json();\r",
@@ -584,13 +584,13 @@
 					}
 				},
 				"url": {
-					"raw": "{{URLBASE}}/api/v1/emergency-call-stats/Sevilla/january",
+					"raw": "{{URLBASE}}/api/v2/emergency-call-stats/Sevilla/january",
 					"host": [
 						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"emergency-call-stats",
 						"Sevilla",
 						"january"
@@ -611,7 +611,7 @@
 							"});\r",
 							"pm.test(\"Object not updated\", function () {\r",
 							"    pm.sendRequest({\r",
-							"        url: \"http://localhost:8080/api/v1/emergency-call-stats/Málaga/january\",\r",
+							"        url: \"http://localhost:8080/api/v2/emergency-call-stats/Málaga/january\",\r",
 							"        method: \"GET\",\r",
 							"    }, function (err, res) {\r",
 							"        var jsonData = res.json();\r",
@@ -643,13 +643,13 @@
 					}
 				},
 				"url": {
-					"raw": "{{URLBASE}}/api/v1/emergency-call-stats",
+					"raw": "{{URLBASE}}/api/v2/emergency-call-stats",
 					"host": [
 						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"emergency-call-stats"
 					]
 				}
@@ -668,7 +668,7 @@
 							"});\r",
 							"pm.test(\"Object deleted doesnt exist\", function () {\r",
 							"    pm.sendRequest({\r",
-							"        url: \"http://localhost:8080/api/v1/emergency-call-stats/Málaga/january\",\r",
+							"        url: \"http://localhost:8080/api/v2/emergency-call-stats/Málaga/january\",\r",
 							"        method: \"GET\",\r",
 							"    }, function (err, res) {\r",
 							"        pm.expect(err).to.be.null;\r",
@@ -684,13 +684,13 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "{{URLBASE}}/api/v1/emergency-call-stats/Málaga/january",
+					"raw": "{{URLBASE}}/api/v2/emergency-call-stats/Málaga/january",
 					"host": [
 						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"emergency-call-stats",
 						"Málaga",
 						"january"
@@ -712,7 +712,7 @@
 							"\r",
 							"pm.test(\"Deleted all years = 1234\", function () {\r",
 							"    pm.sendRequest({\r",
-							"        url: \"http://localhost:8080/api/v1/emergency-call-stats/1234\",\r",
+							"        url: \"http://localhost:8080/api/v2/emergency-call-stats/1234\",\r",
 							"        method: \"GET\",\r",
 							"    }, function (err, res) {\r",
 							"        pm.expect(err).to.be.null;\r",
@@ -728,13 +728,13 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "{{URLBASE}}/api/v1/emergency-call-stats/1234",
+					"raw": "{{URLBASE}}/api/v2/emergency-call-stats/1234",
 					"host": [
 						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"emergency-call-stats",
 						"1234"
 					]
@@ -766,13 +766,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{URLBASE}}/api/v1/emergency-call-stats/1234",
+					"raw": "{{URLBASE}}/api/v2/emergency-call-stats/1234",
 					"host": [
 						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"emergency-call-stats",
 						"1234"
 					]
