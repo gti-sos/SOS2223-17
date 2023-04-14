@@ -414,7 +414,7 @@ function loadBackend_sanpinand_v2(app){
 
       app.get(BASE_API_URL + SANTIAGO, (request, response) => {
         console.log("New GET to emergency-call-stats");
-        const limit = parseInt(request.query.limit) || 50;
+        const limit = parseInt(request.query.limit) || 10;
         const offset = parseInt(request.query.offset) || 0;
 
         var parametros = request.query;//obtenemos la consulta campo1=valor1&campo2=valor2...

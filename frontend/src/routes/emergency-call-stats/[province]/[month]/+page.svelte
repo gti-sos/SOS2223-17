@@ -83,14 +83,14 @@
                 color = "success";
                 message = "Nueva entrada actualizada con exito";
                 getCall();
-              } else if(status == 400){
+              } else if(status == 404){
                 flag = true;
                 color = "danger";
-                message = "Datos de entrada no válidos: compruebe las tíldes y mayúsculas en campo provincias y los campos númericos";
-              }else if(status == 404){
+                message = "Datos de entrada no encontrados";
+              }else if(status == 400){
                 flag = true;
                 color = "danger";
-                message = "Entrada no encontrada";
+                message = "Datos de entrada no válidos: compruebe las mayúsculas, tíldes y los campos númericos";
               }else if(status == 500){
                 flag = true;
                 color = "danger";
