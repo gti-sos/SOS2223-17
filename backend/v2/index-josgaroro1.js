@@ -443,9 +443,8 @@ function  loadBackend_josgaroro1_v2(app) {
             !inputPost.value || !inputPost.year){
             res.sendStatus(400).send("HTTP 400 BAD REQUEST");
         }
-        else if (datosFichero.find(autonomo => (autonomo.value === inputPost.value)&(autonomo.year === inputPost.year)&
-                (autonomo.genre === inputPost.genre)&(autonomo.territory === inputPost.territory)&
-                (autonomo.live_with === inputPost.live_with)&(autonomo.employee === inputPost.employee))){
+        else if (datosFichero.find(autonomo => (autonomo.year === inputPost.year)&
+                (autonomo.territory === inputPost.territory))){
             res.sendStatus(409).send("HTTP 409 CONFLICT");
         }else{
             db.insert(inputPost);
