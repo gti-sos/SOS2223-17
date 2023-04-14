@@ -87,6 +87,86 @@ function  loadBackend_josgaroro1_v2(app) {
             "value": 8050, 
             "year": 2019
         },
+        {
+            "genre": "Mujeres", 
+            "live_with": 1, 
+            "territory": "Almería", 
+            "employee": 9, 
+            "value": 3375, 
+            "year": 2016
+        },
+        {
+            "genre": "Mujeres", 
+            "live_with": 1, 
+            "territory": "Cádiz", 
+            "employee": 7, 
+            "value": 3375, 
+            "year": 2016
+        },
+        {
+            "genre": "Mujeres", 
+            "live_with": 1, 
+            "territory": "Córdoba", 
+            "employee": 7, 
+            "value": 1700, 
+            "year": 2016
+        },
+        {
+            "genre": "Mujeres", 
+            "live_with": 1, 
+            "territory": "Granada", 
+            "employee": 7, 
+            "value": 4475, 
+            "year": 2016
+        },
+        {
+            "genre": "Mujeres", 
+            "live_with": 1, 
+            "territory": "Huelva", 
+            "employee": 7, 
+            "value": 1550, 
+            "year": 2014
+        },
+        {
+            "genre": "Mujeres", 
+            "live_with": 1, 
+            "territory": "Jaén", 
+            "employee": 7, 
+            "value": 1525, 
+            "year": 2018
+        },
+        {
+            "genre": "Mujeres", 
+            "live_with": 1, 
+            "territory": "Málaga", 
+            "employee": 7, 
+            "value": 7225, 
+            "year": 2019
+        },
+        {
+            "genre": "Mujeres", 
+            "live_with": 1, 
+            "territory": "Sevilla", 
+            "employee": 7, 
+            "value": 4400, 
+            "year": 2017
+        },
+        {
+            "genre": "Mujeres", 
+            "live_with": 1, 
+            "territory": "Cádiz", 
+            "employee": 7, 
+            "value": 27850, 
+            "year": 2015
+        },
+        {
+            "genre": "Mujeres", 
+            "live_with": 1, 
+            "territory": "Almería", 
+            "employee": 5, 
+            "value": 5700, 
+            "year": 2017
+        },
     ];
 
     db.insert(datosFichero);
