@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "2566cb85-7fc6-4067-94e3-696407fcb7f2",
-		"name": "F07",
+		"_postman_id": "d370d926-c62f-4fce-bbbd-649be570feed",
+		"name": "DO2",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "26051644"
 	},
@@ -25,13 +25,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{URLBASE}}/api/v1/self-employed-stats",
+					"raw": "{{URLBASE}}/api/v2/self-employed-stats",
 					"host": [
 						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"self-employed-stats"
 					]
 				}
@@ -57,13 +57,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{URLBASE}}/api/v1/self-employed-stats?territory=Sevilla",
+					"raw": "{{URLBASE}}/api/v2/self-employed-stats?territory=Sevilla",
 					"host": [
 						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"self-employed-stats"
 					],
 					"query": [
@@ -95,13 +95,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{URLBASE}}/api/v1/self-employed-stats?territory=Dublin",
+					"raw": "{{URLBASE}}/api/v2/self-employed-stats?territory=Dublin",
 					"host": [
 						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"self-employed-stats"
 					],
 					"query": [
@@ -137,13 +137,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{URLBASE}}/api/v1/self-employed-stats?offset=1&limit=1",
+					"raw": "{{URLBASE}}/api/v2/self-employed-stats?offset=1&limit=1",
 					"host": [
 						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"self-employed-stats"
 					],
 					"query": [
@@ -179,13 +179,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{URLBASE}}/api/v1/self-employed-stats/Almería/2019",
+					"raw": "{{URLBASE}}/api/v2/self-employed-stats/Almería/2019",
 					"host": [
 						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"self-employed-stats",
 						"Almería",
 						"2019"
@@ -222,13 +222,13 @@
 					}
 				},
 				"url": {
-					"raw": "{{URLBASE}}/api/v1/self-employed-stats",
+					"raw": "{{URLBASE}}/api/v2/self-employed-stats",
 					"host": [
 						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"self-employed-stats"
 					]
 				}
@@ -263,13 +263,13 @@
 					}
 				},
 				"url": {
-					"raw": "{{URLBASE}}/api/v1/self-employed-stats",
+					"raw": "{{URLBASE}}/api/v2/self-employed-stats",
 					"host": [
 						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"self-employed-stats"
 					]
 				}
@@ -295,13 +295,13 @@
 				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "{{URLBASE}}/api/v1/self-employed-stats/Almería/2018",
+					"raw": "{{URLBASE}}/api/v2/self-employed-stats/Almería/2018",
 					"host": [
 						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"self-employed-stats",
 						"Almería",
 						"2018"
@@ -329,13 +329,13 @@
 				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "{{URLBASE}}/api/v1/self-employed-stats/Sevilla",
+					"raw": "{{URLBASE}}/api/v2/self-employed-stats/Sevilla",
 					"host": [
 						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"self-employed-stats",
 						"Sevilla"
 					]
@@ -371,13 +371,13 @@
 					}
 				},
 				"url": {
-					"raw": "{{URLBASE}}/api/v1/self-employed-stats",
+					"raw": "{{URLBASE}}/api/v2/self-employed-stats",
 					"host": [
 						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"self-employed-stats"
 					]
 				}
@@ -407,13 +407,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{URLBASE}}/api/v1/self-employed-stats",
+					"raw": "{{URLBASE}}/api/v2/self-employed-stats",
 					"host": [
 						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"self-employed-stats"
 					]
 				}
@@ -439,13 +439,13 @@
 				"method": "PUT",
 				"header": [],
 				"url": {
-					"raw": "{{URLBASE}}/api/v1/self-employed-stats",
+					"raw": "{{URLBASE}}/api/v2/self-employed-stats",
 					"host": [
 						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"self-employed-stats"
 					]
 				}
@@ -480,13 +480,13 @@
 					}
 				},
 				"url": {
-					"raw": "{{URLBASE}}/api/v1/self-employed-stats/Sevilla/2018",
+					"raw": "{{URLBASE}}/api/v2/self-employed-stats/Sevilla/2018",
 					"host": [
 						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"self-employed-stats",
 						"Sevilla",
 						"2018"
@@ -496,14 +496,14 @@
 			"response": []
 		},
 		{
-			"name": "201-/self-employed-stats/Sevilla/2020",
+			"name": "200-/self-employed-stats/Sevilla/2020",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Status code is 201\", function () {\r",
-							"    pm.response.to.have.status(201);\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -523,13 +523,13 @@
 					}
 				},
 				"url": {
-					"raw": "{{URLBASE}}/api/v1/self-employed-stats/Sevilla/2020",
+					"raw": "{{URLBASE}}/api/v2/self-employed-stats/Sevilla/2020",
 					"host": [
 						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"self-employed-stats",
 						"Sevilla",
 						"2020"
@@ -557,13 +557,13 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "{{URLBASE}}/api/v1/self-employed-stats/Sevilla/2020",
+					"raw": "{{URLBASE}}/api/v2/self-employed-stats/Sevilla/2020",
 					"host": [
 						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"self-employed-stats",
 						"Sevilla",
 						"2020"

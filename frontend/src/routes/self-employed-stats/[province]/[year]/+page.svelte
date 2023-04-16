@@ -14,7 +14,7 @@
     let API = "/api/v2/self-employed-stats/" + province + "/" + year;
 
     if (dev){
-        API = "http://localhost:8080" + API;
+        API = "https://sos2223-17.appspot.com" + API;
     }
 
     let dato = [];
@@ -45,7 +45,7 @@
         const status = await res.status;
         resultStatus = status;
         if (status == 500) {
-            message = "Error 500, Error interno";
+            message = "Error interno";
             c = "danger";
         }
     }
@@ -66,24 +66,24 @@
             },
             body: JSON.stringify({
                 genre: updatedGenre,
-                live_with: updatedLive_with,
+                live_with: parseInt(updatedLive_with),
                 territory: updatedProvince,
-                employee: updatedEmployee,
-                value: updatedValue,
+                employee: parseInt(updatedEmployee),
+                value: parseInt(updatedValue),
                 year: updatedYear,
             }),
         });
         const status = await res.status;
         resultStatus = status;
         if (status == 200) {
-            message = "Éxito";
+            message = "Éxito al editar";
             c = "success";
             getFile();
         }else if (status == 400) {
-            message = "Error 400, campos incompletos";
+            message = "Campos incompletos";
             c = "warning";
         } else if (status == 500) {
-            message = "Error 500, Error servidor";
+            message = "Error servidor";
             c = "danger";
         }
     }

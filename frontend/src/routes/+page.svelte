@@ -45,6 +45,9 @@
             <!-- <li><a href="https://sos2223-17.ew.r.appspot.com/api/v1/self-employed-stats/docs"(developed by<a href="https://github.com/Joseg0">Jose Germinal Garrucho Orozco</a>)</li> -->
             <li><a href="https://sos2223-17.ew.r.appspot.com/api/v1/emergency-call-stats/docs">/api/v1/emergency-call-stats/docs</a>(developed by<a href="https://github.com/sanpinand">Santiago Pineda Andrade</a>)</li>
             <li> <a href="https://sos2223-17.ew.r.appspot.com/api/v2/emergency-call-stats/docs">/api/v2/emergency-call-stats/docs</a>(developed by<a href="https://github.com/sanpinand">Santiago Pineda Andrade</a>)</li>
+            
+            <li><a href="https://sos2223-17.ew.r.appspot.com/api/v1/self-employed-stats/docs">/api/v1/self-employed-stats/docs</a>(developed by<a href="https://github.com/Joseg0">Jose Garrucho Orozco</a>)</li>
+            <li><a href="https://sos2223-17.ew.r.appspot.com/api/v2/self-employed-stats/docs">/api/v2/self-employed-stats/docs</a>(developed by<a href="https://github.com/Joseg0">Jose Garrucho Orozco</a>)</li>
         </ul>
 
         <h2>APIs</h2>

@@ -39,16 +39,9 @@
         let newContact = {};
 
         let updatedBicycleProvince = province;
-        let updatedBicycleMunicipality = 'municipality';
         let updatedBicyclePopulation = 'population';
-        let updatedBicycleAllDispacement = 'all_displacement';
         let updatedBicycleWalking = 'walking';
-        let updatedBicycleCarDriver = 'car_driver';
-        let updatedBicycleAccompaningCar = 'accompanying_car';
-        let updatedBicycleMotorcycle = 'motorcycle';
         let updatedBicycleBicycle = 'bicycle';
-        let updatedBicyclePublicTransport = 'public_transport';
-        let updatedBicycleOtherTransport = 'other_transportation';
         let updatedBicycleYear = year;
         let updatedBicycleMotorPercentage = 'motorized_percentage';
 
@@ -70,16 +63,9 @@
                 const data = await res.json();
                 result = JSON.stringify(data,null,2);
                 updatedBicycleProvince = data.province;
-                updatedBicycleMunicipality = data.municipality;
                 updatedBicyclePopulation = data.population;
-                updatedBicycleAllDispacement = data.all_displacement;
                 updatedBicycleWalking = data.walking;
-                updatedBicycleCarDriver = data.car_driver;
-                updatedBicycleAccompaningCar = data.accompanying_car;
-                updatedBicycleMotorcycle = data.motorcycle;
                 updatedBicycleBicycle = data.bicycle;
-                updatedBicyclePublicTransport = data.public_transport;
-                updatedBicycleOtherTransport = data.other_transportation;
                 updatedBicycleYear = data.year;
                 updatedBicycleMotorPercentage = data.motorized_percentage;
                 
@@ -100,16 +86,9 @@
             },
             body:JSON.stringify({
                 province: updatedBicycleProvince,
-                municipality: Number(updatedBicycleMunicipality),
                 population: Number(updatedBicyclePopulation),
-                all_displacement: Number(updatedBicycleAllDispacement),
                 walking: Number(updatedBicycleWalking),
-                car_driver: Number(updatedBicycleCarDriver),
-                accompanying_car: Number(updatedBicycleAccompaningCar),
-                motorcycle: Number(updatedBicycleMotorcycle),
                 bicycle: Number(updatedBicycleBicycle),
-                public_transport: Number(updatedBicyclePublicTransport),
-                other_transportation: Number(updatedBicycleOtherTransport),
                 year: Number(updatedBicycleYear),
                 motorized_percentage: Number(updatedBicycleMotorPercentage)
             })
@@ -212,35 +191,21 @@ margin: 0 20px; /* Cambia el valor de 20px según tus necesidades */
     <table class="table table-bordered table-striped table-hover">
       <thead>
         <tr>
-          <th width="115px">Prov.</th>
-          <th>Mun.</th>
-          <th width="89px">Pob.</th>
-          <th width="89px">Desp.</th>
-          <th>Walk.</th>
-          <th>Car</th>
-          <th>Acc. Car</th>
-          <th>Moto</th>
-          <th>Bike</th>
-          <th>Pub. Transp.</th>
-          <th>Oth. Transp.</th>
-          <th width="79px">Año</th>
-          <th width="40px">Motoriz.</th>
-          <th>Action</th>
+          <th width="150px">Prov.</th>
+          <th width="150px">Pob.</th>
+          <th width="150px">Km. Caminados</th>
+          <th width="150px">km. Bike</th>
+          <th width="150px">Año</th>
+          <th width="150px">Motoriz.%</th>
+          <th width="100px">Action</th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <td>{updatedBicycleProvince}</td>
-          <td><input type="text" bind:value={updatedBicycleMunicipality} class="form-control"></td>
           <td><input type="text" bind:value={updatedBicyclePopulation} class="form-control"></td>
-          <td><input type="text" bind:value={updatedBicycleAllDispacement} class="form-control"></td>
           <td><input type="text" bind:value={updatedBicycleWalking} class="form-control"></td>
-          <td><input type="text" bind:value={updatedBicycleCarDriver} class="form-control"></td>
-          <td><input type="text" bind:value={updatedBicycleAccompaningCar} class="form-control"></td>
-          <td><input type="text" bind:value={updatedBicycleMotorcycle} class="form-control"></td>
           <td><input type="text" bind:value={updatedBicycleBicycle} class="form-control"></td>
-          <td><input type="text" bind:value={updatedBicyclePublicTransport} class="form-control"></td>
-          <td><input type="text" bind:value={updatedBicycleOtherTransport} class="form-control"></td>
           <td>{updatedBicycleYear}</td>
           <td><input type="text" bind:value={updatedBicycleMotorPercentage} class="form-control"></td>
           <td><Button on:click={updateBicycle} class="bg-warning font-weight-bold">Editar</Button></td>
