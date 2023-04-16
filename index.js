@@ -9,6 +9,7 @@ import {loadBackend_salcha2 } from "./backend-slc/v2/index.js";
 import {loadBackend_salcha2_2 } from "./backend-slc/v1/index.js";
 
 import { loadBackend_josgaroro1_v2 } from "./backend/v2/index-josgaroro1.js";
+import { loadBackend_josgaroro1 } from "./backend/index-josgaroro1.js"
 
 import { loadBackend_sanpinand } from "./backend/index-sanpinand-v1.js";
 
@@ -52,7 +53,7 @@ const port = process.env.PORT || 8080;
 app.use(cors());
 
 
-
+loadBackend_josgaroro1(app);
 loadBackend_josgaroro1_v2(app);
 
 

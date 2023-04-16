@@ -11,7 +11,7 @@
     let API = "/api/v2/self-employed-stats";
 
     if(dev){
-        API = 'http://localhost:8080' + API;
+        API = 'https://sos2223-17.appspot.com' + API;
     }
 
     let datos = [];
@@ -22,6 +22,10 @@
     let newFileValue = "";
     let newFileYear = "";
 
+    let limit = 10;
+    let offset = 0;
+    let pag = `?limit=${limit}&offset=${offset}`;
+
     let result = "";
     let resultStatus = "";
     let message = "";
@@ -29,7 +33,7 @@
 
     async function getFiles() {
         resultStatus = result = "";
-        const res = await fetch(API, {
+        const res = await fetch(API + pag, {
             method: "GET",
         });
         try {
@@ -52,11 +56,11 @@
             },
             body: JSON.stringify({
                 genre: newFileGenre,
-                live_with: newFileLive_with,
+                live_with: parseInt(newFileLive_with),
                 territory: newFileTerritory,
-                employee: newFileEmployee,
-                value: newFileValue,
-                year: newFileYear,
+                employee: parseInt(newFileEmployee),
+                value: parseInt(newFileValue),
+                year: parseInt(newFileYear),
             }),
         });
         const status = await res.status;
@@ -65,14 +69,14 @@
             message = "Fila creada";
             getFiles();
         }else if(status==409){
-            message="El dato ya existe (error: 409)"
+            message="El dato ya existe"
             c="danger";
         }
         else if(status==400){
-            message="Completa los campos (error: 400)"
+            message="Completa los campos"
             c="warning";
         }else if(status == 500){
-            message="Error del servidor (error: 500)"
+            message="Error del servidor"
             c="danger";
         }
     }
@@ -86,12 +90,42 @@
         resultStatus = status;
         if (status==200) {
             location.reload();
-            window.alert("Everything is deleted");
+            window.alert("Borrado todos los elementos");
         }
     }
 
+    async function previousPage() {
+        offset = offset - limit;
+        if(offset<0){
+            message = "Estás en el principio";
+            c = "warning";
+            offset = offset + limit;
+        }
+        else {
+            pag = `?limit=${limit}&offset=${offset}`;
+            getFiles();
+        }
+    }
+
+    async function nextPage() {
+        //offset = 0;
+        offset = offset + limit;
+        if(offset>datos.length){
+            message = "Has llegado al final";
+            c = "warning";
+            offset = offset - limit;
+        }
+        else{
+            pag = `?limit=${limit}&offset=${offset}`;
+            getFiles();            
+        }        
+    }
+
     async function view(territory,year) {
-        window.location.href = "http://localhost:5173/self-employed-stats/"+territory + "/" + year;
+        window.location.href = "http://localhost:5173/self-employed-stats/" + territory + "/" + year;
+    }
+    async function searchPage() {
+        window.location.href = "http://localhost:5173/self-employed-stats/search";
     }
 
 </script>
@@ -99,7 +133,7 @@
 <main>
     <h1>Estadísticas de autónomos</h1>
     <div class="justify-content-center">
-        <Table>
+        <Table bordered>
             <thead>
                 <tr>
                     <th>Género</th>
@@ -128,7 +162,13 @@
             </tbody>
         </Table>
     </div>
-    
+
+    <div id="buttons">
+        <Button color="dark" on:click={previousPage}>Anterior</Button>
+        <Button color="dark" on:click={nextPage}>Siguiente</Button>
+    </div>
+
+    <hr>
     <h4>Añade un dato</h4>
     <div class="createData">
         <input placeholder="Género" bind:value={newFileGenre} />
@@ -139,9 +179,13 @@
         <input placeholder="Año" bind:value={newFileYear} />
         <Button color="warning" on:click={createFile}>Crear dato</Button>
     </div>
-
+    <hr>
+    <div id="search">
+    <h4>Busca por un campo determinado</h4>
+    <Button color="secondary" on:click={searchPage}>Ir a búscqueda</Button>
+    </div>
     {#if message != ""}
-        <Alert color={c}>{message}</Alert>
+        <Alert color={c} dismissible>{message}</Alert>
     {/if}
     <div id="delete-all">
         <hr>
@@ -171,6 +215,12 @@
 
       }
       #delete-all{
+        text-align: center;
+      }
+      #search{
+        text-align: center;
+      }
+      #buttons{
         text-align: center;
       }
 </style>
