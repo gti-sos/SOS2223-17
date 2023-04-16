@@ -173,14 +173,14 @@ function  loadBackend_josgaroro1_v2(app) {
 
     //GET //////////////////////////////////////////////////
     app.get(BASE_API_URL+"/self-employed-stats/docs", (request,response) => {
-        response.redirect("https://documenter.getpostman.com/view/26051644/2s93RNyacK");
+        response.redirect("https://documenter.getpostman.com/view/26051644/2s93XyU3uo");
     });
 
     app.get(BASE_API_URL + "/self-employed-stats", (request, response) => {
 
         console.log("New GET to self-employed-stats");
-        const limit = parseInt(request.query.limit) || 10;
-        const offset = parseInt(request.query.offset) || 0;
+        const limit = parseInt(request.query.limit); //|| 20;
+        const offset = parseInt(request.query.offset); //|| 0;
         var genre = request.query.genre;
         var live_with = request.query.live_with;
         var territory = request.query.territory;
@@ -236,10 +236,10 @@ function  loadBackend_josgaroro1_v2(app) {
             if (datos==0){
                 console.log(`Data not found /self-emplyed-stats: ${err}`);
                 response.status(404).send("Data not found");
-            }else if(datos.length==1){
+            }/*else if(datos.length==1){
                 delete datos[0]._id;
                 response.json(datos[0]);
-            }else{
+            }*/else{
                 response.json(datos.map((d)=>{
                     delete d._id;
                     return d;
@@ -252,10 +252,10 @@ function  loadBackend_josgaroro1_v2(app) {
             if (datos==0){
                 console.log(`Data not found /self-emplyed-stats: ${err}`);
                 response.status(404).send("Data not found");
-            }else if(datos.length==1){
+            }/*else if(datos.length==1){
                 delete datos[0]._id;
                 response.json(datos[0]);
-            }else{
+            }*/else{
                 response.json(datos.map((d)=>{
                     delete d._id;
                     return d;
@@ -268,10 +268,10 @@ function  loadBackend_josgaroro1_v2(app) {
             if (datos==0){
                 console.log(`Data not found /self-emplyed-stats: ${err}`);
                 response.status(404).send("Data not found");
-            }else if(datos.length==1){
+            }/*else if(datos.length==1){
                 delete datos[0]._id;
                 response.json(datos[0]);
-            }else{
+            }*/else{
                 response.json(datos.map((d)=>{
                     delete d._id;
                     return d;
@@ -284,10 +284,10 @@ function  loadBackend_josgaroro1_v2(app) {
             if (datos==0){
                 console.log(`Data not found /self-emplyed-stats: ${err}`);
                 response.status(404).send("Data not found");
-            }else if(datos.length==1){
+            }/*else if(datos.length==1){
                 delete datos[0]._id;
                 response.json(datos[0]);
-            }else{
+            }*/else{
                 response.json(datos.map((d)=>{
                     delete d._id;
                     return d;
@@ -300,10 +300,10 @@ function  loadBackend_josgaroro1_v2(app) {
             if (datos==0){
                 console.log(`Data not found /self-emplyed-stats: ${err}`);
                 response.status(404).send("Data not found");
-            }else if(datos.length==1){
+            }/*else if(datos.length==1){
                 delete datos[0]._id;
                 response.json(datos[0]);
-            }else{
+            }*/else{
                 response.json(datos.map((d)=>{
                     delete d._id;
                     return d;
@@ -316,10 +316,10 @@ function  loadBackend_josgaroro1_v2(app) {
             if (datos==0){
                 console.log(`Data not found /self-emplyed-stats: ${err}`);
                 response.status(404).send("Data not found");
-            }else if(datos.length==1){
+            }/*else if(datos.length==1){
                 delete datos[0]._id;
                 response.json(datos[0]);
-            }else{
+            }*/else{
                 response.json(datos.map((d)=>{
                     delete d._id;
                     return d;
@@ -517,20 +517,41 @@ function  loadBackend_josgaroro1_v2(app) {
     
     
     //POST //////////////////////////////////////////////////
-    app.post(BASE_API_URL+"/self-employed-stats",(req,res)=>{
-        var inputPost = req.body;
-        if(!inputPost.genre || !inputPost.live_with || !inputPost.territory || !inputPost.employee || 
-            !inputPost.value || !inputPost.year){
-            res.sendStatus(400).send("HTTP 400 BAD REQUEST");
+    app.post(BASE_API_URL+"/self-employed-stats", (request,response) => {
+        var newFile = request.body;
+
+        if(!newFile.genre || !newFile.live_with || !newFile.territory || !newFile.employee || !newFile.value ||
+            !newFile.year){
+            console.log(`Error fields`);
+            response.status(400).send("Bad Request");
         }
-        else if (datosFichero.find(autonomo => (autonomo.year === inputPost.year)&
-                (autonomo.territory === inputPost.territory))){
-            res.sendStatus(409).send("HTTP 409 CONFLICT");
-        }else{
-            db.insert(inputPost);
-            res.sendStatus(201).send("HTTP 201 CREATED" );
-        }
-        console.log("New POST to /self-employed")
+        else{
+            db.find({territory: newFile.territory, year:newFile.year}, function(err, data){
+                if(err){
+                    console.log(`Error posting /self-employed-stats: ${err}`);
+                    response.sendStatus(500);
+                }
+                else{
+                    if(data.length!=0){
+                        response.status(409).send("This resource already exists");
+                    }
+                    else{
+                        db.insert(newFile, function(err, data){
+                            if(err){
+                                console.log(`Error posting /self-employed-stats: ${err}`);
+                                response.sendStatus(500);
+                            }
+                            else{
+                                console.log(`newFile = ${JSON.stringify(newFile,null,2)}`);
+                                console.log("New POST to /self-employed-stats");
+                                response.status(201).send("Created");
+                            }
+                        });
+                    }
+                }
+            });
+            
+        }        
     });
     
     app.post(BASE_API_URL+"/self-employed-stats/:territory", (req,res)=>{
@@ -579,8 +600,9 @@ function  loadBackend_josgaroro1_v2(app) {
                     }
                     else{
                         console.log(`Resources updated: ${data}`);
-                        response.sendStatus(201);}
+                        response.sendStatus(200);
                     }
+                }
             });
         }
             

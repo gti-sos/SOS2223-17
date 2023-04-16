@@ -498,10 +498,11 @@ function  loadBackend_josgaroro1(app) {
                         console.log("Data not found");
                         response.sendStatus(404);
                     }
-                    else{
+                    else if(data==1){
                         console.log(`Resources updated: ${data}`);
-                        response.sendStatus(201);}
+                        response.sendStatus(200);
                     }
+                }
             });
         }
             

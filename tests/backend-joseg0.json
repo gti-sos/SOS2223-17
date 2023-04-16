@@ -1,7 +1,12 @@
 {
 	"info": {
+<<<<<<< HEAD
 		"_postman_id": "4b8e48d5-acbc-4fd1-865a-e7b982d30279",
 		"name": "F07",
+=======
+		"_postman_id": "d370d926-c62f-4fce-bbbd-649be570feed",
+		"name": "DO2",
+>>>>>>> c761fc43641482364781256bb585dcdf989902b9
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "25746364"
 	},
@@ -496,14 +501,14 @@
 			"response": []
 		},
 		{
-			"name": "201-/self-employed-stats/Sevilla/2020",
+			"name": "200-/self-employed-stats/Sevilla/2020",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Status code is 201\", function () {\r",
-							"    pm.response.to.have.status(201);\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
 							"});"
 						],
 						"type": "text/javascript"

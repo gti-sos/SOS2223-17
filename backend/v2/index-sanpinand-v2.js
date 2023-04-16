@@ -428,14 +428,14 @@ function loadBackend_sanpinand_v2(app){
 
         claves.forEach(clave =>{
             if (clave === 'from') {
-                //creamos el filtro con la clave time y añadimo con el valor el comparador >=
+                //creamos el filtro con la clave year y añadimo con el valor el comparador >=
                 filtros['year'] = { $gte: parseInt(parametros[clave]) };
             } else if (clave === 'to') {
                 if (filtros['year']) {
                 //añadimos al objeto ya creado el comparador menor que y el valor a comparar <=
                   filtros['year']['$lte'] = parseInt(parametros[clave]);
             } else {
-                //creamos el filtro con la clave time y añadimo con el valor el comparador <=
+                //creamos el filtro con la clave year y añadimo con el valor el comparador <=
                   filtros['year'] = { $lte: parseInt(parametros[clave]) };
 
             } }else if(!isNaN(parametros[clave])){//Si el valor es un numero lo parseamos
