@@ -1,9 +1,57 @@
 <script>
     // @ts-nocheck
     
-        import { onMount } from 'svelte';
+        import { onMount, onDestroy  } from 'svelte';
+        import { Pagination, PaginationItem, PaginationLink } from 'sveltestrap';
+
         import { dev } from '$app/environment';
         import { Alert,Column, Button, Table } from 'sveltestrap';
+
+          // Define la función setPage que actualiza la página actual
+  function setPage(pageNumber) {
+    page = pageNumber;
+  }
+
+  // Define la función getPages que calcula el número total de páginas
+  function getPages(totalItems, itemsPerPage) {
+    return Math.ceil(totalItems / itemsPerPage);
+  }
+
+  function goToPage(page) {
+  currentPage = page;
+  const offset = (currentPage - 1) * itemsPerPage;
+  const url = `http://localhost:8080/api/v2/andalusian-bicycle-plans?offset=${offset}&limit=${itemsPerPage}`;
+  fetch(url)
+    .then(response => response.json())
+    .then(data => {
+      bicyclePlans = data;
+    })
+    .catch(error => {
+      console.error('Error fetching bicycle plans:', error);
+    })
+    .finally(() => {
+      updateUrl();
+    });
+}
+
+
+
+
+ 
+
+
+  let offset = 0;
+  let limit = 10;
+
+  let currentPage = 1;
+  const itemsPerPage = 10;
+
+  const pageSize = 10;
+
+  const apiUrl = `http://localhost:8080/api/v2/andalusian-bicycle-plans?offset=${(currentPage - 1) * pageSize}&limit=${pageSize}`;
+
+
+
         
     let search = false; // se ha buscado
 
@@ -21,11 +69,11 @@
 
         let color="success";
 
-        let province,year;
+        let province,year,from,to, population_over, walking_over, bicycle_over, motorized_percentage_over;
 
-        let offset = 0; // offset actual
+      //  let offset = 0; // offset actual
 
-        let busqueda = {}; // objeto tras la busqueda
+        let busqueda = []; // objeto tras la busqueda
 
 
 
@@ -39,16 +87,9 @@
         //let newContact = {};
 
         let newBicycleProvince = 'province';
-        let newBicycleMunicipality = 'municipality';
         let newBicyclePopulation = 'population';
-        let newBicycleAllDispacement = 'all_displacement';
         let newBicycleWalking = 'walking';
-        let newBicycleCarDriver = 'car_driver';
-        let newBicycleAccompaningCar = 'accompanying_car';
-        let newBicycleMotorcycle = 'motorcycle';
         let newBicycleBicycle = 'bicycle';
-        let newBicyclePublicTransport = 'public_transport';
-        let newBicycleOtherTransport = 'other_transportation';
         let newBicycleYear = 'year';
         let newBicycleMotorPercentage = 'motorized_percentage';
 
@@ -60,6 +101,11 @@
     
         let result = "";
         let resultStatus = "";
+
+        async function loadContacts() {
+    const response = await fetch(apiUrl);
+    contacts = await response.json();
+  }
     
         async function getBicycles () {
             resultStatus = result = "";
@@ -80,7 +126,7 @@
         async function createBicycle() {
     resultStatus = result = "";
 
-    const requiredFields = ['newBicycleProvince', 'newBicycleMunicipality', 'newBicyclePopulation', 'newBicycleAllDispacement', 'newBicycleWalking', 'newBicycleCarDriver', 'newBicycleAccompaningCar', 'newBicycleMotorcycle', 'newBicycleBicycle', 'newBicyclePublicTransport', 'newBicycleOtherTransport', 'newBicycleYear', 'newBicycleMotorPercentage'];
+    const requiredFields = ['newBicycleProvince', 'newBicyclePopulation',  'newBicycleWalking', 'newBicycleBicycle', 'newBicycleYear', 'newBicycleMotorPercentage'];
 
     const missingFields = requiredFields.filter(field => !eval(field));
 
@@ -112,16 +158,9 @@
             },
             body: JSON.stringify({
                 province: newBicycleProvince,
-                municipality: Number(newBicycleMunicipality),
                 population: Number(newBicyclePopulation),
-                all_displacement: Number(newBicycleAllDispacement),
                 walking: Number(newBicycleWalking),
-                car_driver: Number(newBicycleCarDriver),
-                accompanying_car: Number(newBicycleAccompaningCar),
-                motorcycle: Number(newBicycleMotorcycle),
                 bicycle: Number(newBicycleBicycle),
-                public_transport: Number(newBicyclePublicTransport),
-                other_transportation: Number(newBicycleOtherTransport),
                 year: Number(newBicycleYear),
                 motorized_percentage: Number(newBicycleMotorPercentage)
             })
@@ -146,7 +185,7 @@
         }else{
           msgVisible = true;
           color = "danger";
-          checkMSG = "No se completaron alguno/s de los campos requeridos, comprueba que los campos numericos sean mayores que 0";
+          checkMSG = "No se completaron alguno/s de los campos requeridos, comprueba que los sean numericos y mayores que 0";
         } 
     } catch (error) {
         console.error(error);
@@ -220,28 +259,75 @@
   getBicycles();
 }
 
-async function searchContact(province,year){
-		offset = 0;
-		const res = await fetch(API+"/" + province + "/" + year);
+async function searchContact(province, year, from, to, population_over, motorized_percentage_over, walking_over, bicycle_over) {
+    busqueda = [];
+    let url = `${API}`;
+    let query_params = [];
 
-		if(res.ok){
-			console.log("Buscando data... ");
-			search = true;
-			const json =  await res.json();
-			busqueda = json;
-			console.log(busqueda);
-			console.log(search);
-			msgVisible = true;
-			color = "success";
-			checkMSG = `Busqueda realizada con exito`;
-		}
-		else {
-			msgVisible = true;
-			color = "danger";
-			checkMSG = `No se encontro el pais ${province} con los datos del anyo ${year}`;
-		}
+    if (province) {
+      query_params.push(`province=${province}`);
+    }
 
-	}
+    if (year) {
+      query_params.push(`year=${year}`);
+    }
+    
+
+     
+
+     if(bicycle_over){
+      query_params.push(`bicycle_over=${bicycle_over}`);
+     }
+
+     if(motorized_percentage_over){
+      query_params.push(`motorized_percentage_over=${motorized_percentage_over}`);
+     }
+
+     if(population_over){
+      query_params.push(`population_over=${population_over}`);
+     }
+
+     if(walking_over){
+      query_params.push(`walking_over=${walking_over}`);
+     }     
+     
+
+    if (from !== undefined && to !== undefined) {
+      if (from <= to) {
+        query_params.push(`from=${from}`);
+        query_params.push(`to=${to}`);
+      } else {
+        msgVisible = true;
+        color = "danger";
+        checkMSG = `El año de inicio debe ser menor o igual al año de fin`;
+        return;
+      }
+    }
+
+    if (query_params.length > 0) {
+      url += `?${query_params.join("&")}`;
+    }
+
+    const res = await fetch(url);
+
+    if (res.ok) {
+      console.log("Buscando datos...");
+      search = true;
+      const json = await res.json();
+      busqueda = json;
+      console.log(busqueda);
+      console.log(search);
+      msgVisible = true;
+      color = "success";
+      checkMSG = `Busqueda realizada con exito`;
+    } else {
+      msgVisible = true;
+      color = "danger";
+      checkMSG = `No se encontraron resultados para los parametros ingresados`;
+    }
+  }
+
+
 
 
 
@@ -257,6 +343,46 @@ async function searchContact(province,year){
     <h1> Bicicletas</h1>
     
     <style>
+   .table-custom {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  text-align: center;
+}
+
+.table-custom th {
+  background-color: #f2f2f2;
+  border: 1px solid #ddd;
+  padding: 8px;
+  white-space: nowrap;
+}
+
+.table-custom td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  white-space: nowrap;
+}
+
+.table-custom input {
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.btn-search {
+  background-color: #007bff;
+  border: none;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+
+
+
       table {
         border-collapse: collapse;
         width: 100%;
@@ -302,14 +428,44 @@ async function searchContact(province,year){
     {checkMSG}
   {/if}
 </Alert>
-<Table bordered class="w-50 text-center mx-auto">
+<Table bordered class="w-50 text-center mx-auto table-custom table table-bordered table-striped table-hover">
   <thead>
     <tr class="bg-light">
       <th>
         Provincia
       </th>
       <th>
-        Año
+        Año (%XXXX)
+      </th>
+      <th>
+        Desde el Año
+      </th>
+      <th>
+        Hasta el Año
+      </th>
+
+      
+
+      
+
+      <th>
+        Poblacion
+        mayor de
+      </th>
+
+      <th>
+        Km (bicicleta)
+        mayor de
+      </th>
+
+      <th>
+        Km (caminando)
+        mayor de
+      </th>
+
+      <th>
+        % Pob. mot
+        mayor de
       </th>
     </tr>
     <tr>
@@ -320,150 +476,134 @@ async function searchContact(province,year){
         <input bind:value="{year}">
       </td>
       <td>
-        <Button outline color="primary" on:click="{searchContact(province,year)}">Buscar</Button>
+        <input bind:value="{from}">
+      </td>
+      <td>
+        <input bind:value="{to}">
+      </td>
+      
+
+      
+
+      <td>
+        <input bind:value="{population_over}">
+      </td>
+
+      <td>
+        <input bind:value="{bicycle_over}">
+      </td>
+
+      <td>
+        <input bind:value="{walking_over}">
+      </td>
+
+      <td>
+        <input bind:value="{motorized_percentage_over}">
       </td>
     </tr>
-    
-    
   </thead>
 </Table>
+<th style="text-align: center;">
+  <Button outline color="primary" on:click="{() => searchContact(province, year, from, to, population_over, motorized_percentage_over, bicycle_over, walking_over)}">Buscar</Button>
+</th> 
+
 {#if search}
-  <Table bordered class="w-50 mx-auto">
-    <tr>
-      <th>
-        Provincia
-      </th>
-      <th>
-        Municipio
-      </th>
-      <th>
-        Poblacion
-      </th>
-      <th>
-        Despazamiento
-      </th>
-      <th>
-        Km caminados
-      </th>
-      <th>
-        Gasolina coche
-      </th>
-      <th>
-        Acompañante. coche
-      </th>
-      <th>
-        Gasolina motor
-      </th>
-      <th>
-        Km bicicleta
-      </th>
-      <th>
-        Transporte publico
-      </th>
-      <th>
-        Otro trasporte
-      </th>
-      <th>
-        Año
-      </th>
-      <th>
-        Porcentaje motorizado
-      </th>
-    </tr>
-    <tr>
-      <td>
-        {busqueda.province}
-      </td>
-      <td>
-        {busqueda.municipality}
-      </td>
-      <td>
-        {busqueda.population}
-      </td>
-      <td>
-        {busqueda.all_displacement}
-      </td>
-      <td>
-        {busqueda.walking}
-      </td>
-      <td>
-        {busqueda.car_driver}
-      </td>
-      <td>
-        {busqueda.accompanying_car}
-      </td>
-      <td>
-        {busqueda.motorcycle}
-      </td>
-      <td>
-        {busqueda.bicycle}
-      </td>
-      <td>
-        {busqueda.public_transport}
-      </td>
-      <td>
-        {busqueda.other_transportation}
-      </td>
-      <td>
-        {busqueda.year}
-      </td>
-      <td>
-        {busqueda.motorized_percentage}
-      </td>
-    </tr>
-  </Table>
+  {#if busqueda}
+    <Table  bordered class="table-custom">
+      <thead>
+        <tr>
+          <th>
+            Provincia
+          </th>
+
+          <th>
+            Poblacion
+          </th>
+
+          <th>
+            Km caminados
+          </th>
+
+          <th>
+            Km bicicleta
+          </th>
+
+          <th>
+            Año
+          </th>
+
+          <th>
+            Porcentaje motorizado
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {#each busqueda as item}
+          <tr>
+            <td>
+              {item.province}
+            </td>
+
+            <td>
+              {item.population}
+            </td>
+
+            <td>
+              {item.walking}
+            </td>
+
+            <td>
+              {item.bicycle}
+            </td>
+
+            <td>
+              {item.year}
+            </td>
+
+            <td>
+              {item.motorized_percentage}
+            </td>
+          </tr>
+        {/each}
+      </tbody>
+    </Table>
+  {:else}
+    <p>No se encontraron resultados para la búsqueda.</p>
+  {/if}
 {/if}
+
+
+
 
       
     <table class="table table-bordered table-striped table-hover">
         <thead>
           <tr>
-            <th width="115px">Prov.</th>
-            <th>Mun.</th>
-            <th width="89px">Pob.</th>
-            <th width="89px">Desp.</th>
-            <th>Km. Caminados</th>
-            <th>Car</th>
-            <th>Km. Coche</th>
-            <th>km. Moto</th>
-            <th>km. Bike</th>
-            <th>Transp. Publ</th>
-            <th>Otr. Transp.</th>
-            <th width="79px">Año</th>
-            <th width="40px">Motoriz.%</th>
-            <th>Action</th>
+            <th width="150px">Prov.</th>
+            <th width="150px">Pob.</th>
+            <th width="150px">Km. Caminados</th>
+            <th width="150px">km. Bike</th>
+            <th width="150px">Año</th>
+            <th width="150px">Motoriz.%</th>
+            <th width="100px">Action</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td><input type="text" bind:value={newBicycleProvince} class="form-control"></td>
-            <td><input type="text" bind:value={newBicycleMunicipality} class="form-control"></td>
             <td><input type="text" bind:value={newBicyclePopulation} class="form-control"></td>
-            <td><input type="text" bind:value={newBicycleAllDispacement} class="form-control"></td>
             <td><input type="text" bind:value={newBicycleWalking} class="form-control"></td>
-            <td><input type="text" bind:value={newBicycleCarDriver} class="form-control"></td>
-            <td><input type="text" bind:value={newBicycleAccompaningCar} class="form-control"></td>
-            <td><input type="text" bind:value={newBicycleMotorcycle} class="form-control"></td>
             <td><input type="text" bind:value={newBicycleBicycle} class="form-control"></td>
-            <td><input type="text" bind:value={newBicyclePublicTransport} class="form-control"></td>
-            <td><input type="text" bind:value={newBicycleOtherTransport} class="form-control"></td>
             <td><input type="text" bind:value={newBicycleYear} class="form-control"></td>
             <td><input type="text" bind:value={newBicycleMotorPercentage} class="form-control"></td>
             <td><Button on:click={createBicycle} class="btn btn-success">Crear</Button></td>
           </tr>
-          {#each contacts as contact}
-            <tr>
+          {#each contacts.slice((currentPage-1)*itemsPerPage, currentPage*itemsPerPage) as contact}
+          <tr>
               <td><a href="/andalusian-bicycle-plans/{contact.province}/{contact.year}">{contact.province}</a></td>
-              <td>{contact.municipality}</td>
               <td>{contact.population}</td>
-              <td>{contact.all_displacement}</td>
               <td>{contact.walking}</td>
-              <td>{contact.car_driver}</td>
-              <td>{contact.accompanying_car}</td>
-              <td>{contact.motorcycle}</td>
               <td>{contact.bicycle}</td>
-              <td>{contact.public_transport}</td>
-              <td>{contact.other_transportation}</td>
               <td>{contact.year}</td>
               <td>{contact.motorized_percentage}</td>
               <td><Button on:click={deleteContact(contact.province, contact.year)} class="btn btn-danger">Borrar</Button></td>
@@ -471,9 +611,32 @@ async function searchContact(province,year){
           {/each}
         </tbody>
       </table>
+
+      
       
       <Button on:click={deleteAllContacts} class="btn btn-danger">Borrar todo</Button>
 
+
+      <Pagination size="lg" ariaLabel="Page navigation example">
+        <PaginationItem>
+          <PaginationLink first on:click={() => goToPage(1)} href="#" />
+        </PaginationItem>
+        <PaginationItem>
+          <PaginationLink previous on:click={() => goToPage(currentPage-1)} href="#" />
+        </PaginationItem>
+        {#each Array.from({ length: Math.ceil(contacts.length/itemsPerPage) }, (_, i) => i+1) as page}
+          <PaginationItem>
+            <PaginationLink on:click={() => goToPage(page)} href="#">{page}</PaginationLink>
+          </PaginationItem>
+        {/each}
+        <PaginationItem>
+          <PaginationLink next on:click={() => goToPage(currentPage+1)} href="#" />
+        </PaginationItem>
+        <PaginationItem>
+          <PaginationLink last on:click={() => goToPage(Math.ceil(contacts.length/itemsPerPage))} href="#" />
+        </PaginationItem>
+      </Pagination>
+      
 
       
       
