@@ -1,5 +1,5 @@
 
-const BASE_API_URL = "/api/v1";
+const BASE_API_URL = "/api/v2";
 const SANTIAGO = "/emergency-call-stats"
 
 import Datastore from 'nedb';
@@ -8,7 +8,7 @@ var db = new Datastore();
 
 
 
-function loadBackend_sanpinand(app){
+function loadBackend_sanpinand_v2(app){
 
     var datosLlamadas = [{
         province: "Almería",
@@ -205,9 +205,9 @@ function loadBackend_sanpinand(app){
 
     ];
 
-    //Redirect a la lista de Postman
+   // Redirect a la lista de Postman
     app.get(BASE_API_URL+SANTIAGO+"/docs", (request,response) => {
-      response.redirect("https://documenter.getpostman.com/view/25995736/2s93RQSDxy");
+      response.redirect("https://documenter.getpostman.com/view/25995736/2s93XwxiYr");
   });
 
   function validateId(request, response, next) {
@@ -511,6 +511,6 @@ function loadBackend_sanpinand(app){
         });
       }
       });
-}
+};
 
-export {loadBackend_sanpinand};
+export {loadBackend_sanpinand_v2};

@@ -1,11 +1,12 @@
-<!-- <script lang = "ts">
+<script lang = "ts">
   //@ts-nocheck
         import { onMount } from 'svelte';
         import { dev } from '$app/environment';
         import { Alert,Column, Button, Table } from 'sveltestrap';
-        import { text } from 'svelte/internal';
     
     let API = '/api/v2/emergency-call-stats';
+
+    //Propiedades de los objetos Json
     
     let dataCalls = [];
     let newProvince = 'provincia';
@@ -15,8 +16,16 @@
     let newNumber = 'numero de llamadas';
     let newYear = 'año';
 
+    //Prop. Resultados de las llamdas
+
     let result = "";
     let resultStatus = "";
+
+    //Prop. de las alertas 
+
+    let flag = false;
+    let message = "";
+    let color = "";
    
 
 
@@ -27,6 +36,7 @@
     onMount(async()=>{
         getCalls();
     });
+    //Obtener el conjunto de llamadas
     async function getCalls () {
             resultStatus = result = "";
             const res = await fetch(API, {
@@ -42,6 +52,38 @@
             const status = await res.status;
             resultStatus = status;
         }
+        //Borrar todos los recursos
+        async function deleteAllCall () {
+            resultStatus = result = "";
+            const res = await fetch(API, {
+                method: 'DELETE'
+            });
+            
+            const status = await res.status;
+            resultStatus = status;
+            if(status==200){
+              flag = true;
+              color = "success";
+              message = "Todos los datos borrados con exito";
+              getCalls();
+            } 
+        }
+        //Borrar un recurso en concreto
+        async function deleteCall (province,month) {
+            resultStatus = result = "";
+            const res = await fetch(API + "/"+province + "/"+ month, {
+                method: 'DELETE'
+            });
+            
+            const status = await res.status;
+            resultStatus = status;
+            if(status==200){
+              flag = true;
+              color = "success";
+              message = "Entrada borrada con exito";
+              getCalls();
+            } 
+        }
         //Crear una nueva entrada
       async function createCall () {
             resultStatus = result = "";
@@ -53,25 +95,43 @@
                 body:JSON.stringify({
                   province: newProvince,
                   month: newMonth,
-                  phone_call_activation_organization: Number(newTelefonica),
-                  telematic_activation_organization : Number(newTelematica),
-                  emergency_call: Number(newNumber),
-                  year: Number(newYear)
+                  phone_call_activation_organization: newTelefonica,
+                  telematic_activation_organization : newTelematica,
+                  emergency_call: newNumber,
+                  year: newYear
                 })
             }); 
             const status = await res.status;
             resultStatus = status;
             if(status==201){
-                  getCalls();
+              flag = true;
+              color = "success";
+              message = "Nueva entrada creada con exito";
+              getCalls();
+            } else if(status == 400){
+              flag = true;
+              color = "danger";
+              message = "Datos de entrada no válidos: compruebe las tíldes y mayúsculas en campo provincias y los campos númericos";
+            }else if(status == 409){
+              flag = true;
+              color = "danger";
+              message = "Datos de entrada duplicados";
+            }else if(status == 500){
+              flag = true;
+              color = "danger";
+              message = "Error de servidor: intentelo más tarde";
             }
-               
-            
         }
    
   </script>
   
  <body>
-
+  <Alert color={color} isOpen={flag} toggle={() => (flag = false)}>
+    {#if message!=""}
+      {message}
+    {/if}
+  </Alert>
+<sub>(*) Elementos identificativos únicos</sub>
   <Table hover>
     <colgroup>
         <col span="2" />
@@ -79,8 +139,8 @@
       </colgroup>
       <thead>
         <tr>
-          <th rowspan="2">Provincia</th>
-          <th rowspan="2">Mes</th>
+          <th rowspan="2">Provincia*</th>
+          <th rowspan="2">Mes*</th>
           <th colspan="2" id ="col">Num. de activaciones a organizaciones
           </th>
           <th rowspan="2">Número de llamadas</th>
@@ -100,7 +160,7 @@
             <td><input  bind:value = {newTelematica}></td>
             <td><input  bind:value = {newNumber}></td>
             <td><input  bind:value = {newYear}></td>
-            <td><Button  on:click = {createCall}>Crear</Button></td>
+            <td><Button color="primary" on:click = {createCall}>Crear</Button></td>
           </tr>
         {#each dataCalls as call}
           <tr>
@@ -110,11 +170,18 @@
             <td headers="activacion-telematica">{call.telematic_activation_organization}</td>
             <td>{call.emergency_call}</td>
             <td>{call.year}</td>
+            <td><a href = "/emergency-call-stats/{call.province}/{call.month}"><Button color="info">Edit</Button></a>
+              <Button color="danger"  on:click = {deleteCall(call.province, call.month)}>Borrar</Button></td>
           </tr>
         {/each}
       </tbody>
+      <Button color="danger" on:click = {deleteAllCall}>Borrar Todo</Button>
   </Table>
   <style>
+    td Button{
+      width :70px;
+
+    }
    Table {
         border-collapse: collapse;
         font-family: Arial, sans-serif;
@@ -145,4 +212,4 @@
     
   </style>
   
-</body> -->
+</body>

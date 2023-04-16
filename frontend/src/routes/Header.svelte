@@ -95,8 +95,8 @@
 	<nav>
 	    <a href="/">Home</a>
 	    <a href="/andalusian-bicycle-plans">Bicycles</a>
+		<a href= "/emergency-call-stats">Sanpinand-API</a>
 		<a href="/self-employed-stats">Autónomos</a>
-
 	</nav>
 
 	
