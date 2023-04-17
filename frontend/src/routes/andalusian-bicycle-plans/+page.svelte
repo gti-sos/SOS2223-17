@@ -6,7 +6,7 @@
 
         import { dev } from '$app/environment';
         import { Alert,Column, Button, Table } from 'sveltestrap';
-        import { Router,Link } from 'svelte-routing';
+        //import { Router,Link } from 'svelte-routing';
 
 
           // Define la función setPage que actualiza la página actual
@@ -656,15 +656,7 @@ async function searchContact(province, year, from, to, population_over, motorize
 
       
       
-    {#if resultStatus != ""}
-        <p>
-            Result:
-        </p>
-        <pre>
-{resultStatus}
-{result}
-        </pre>
-    {/if}
+    
 
     </div>
     </body>
