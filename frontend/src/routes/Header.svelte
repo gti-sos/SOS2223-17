@@ -89,13 +89,13 @@
 
 <body>
 	<header>
-		<h1>SOS223-17 Project information</h1>
+		<h1>SOS223-17 Información del proyecto</h1>
 	</header>
 
 	<nav>
-	    <a href="/">Home</a>
-	    <a href="/andalusian-bicycle-plans">Bicycles</a>
-		<a href= "/emergency-call-stats">Sanpinand-API</a>
+	    <a href="/">Inicio</a>
+	    <a href="/andalusian-bicycle-plans">Bicicletas</a>
+		<a href= "/emergency-call-stats">Llamadas emergencia</a>
 		<a href="/self-employed-stats">Autónomos</a>
 	</nav>
 
