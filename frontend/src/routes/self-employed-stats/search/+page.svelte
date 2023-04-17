@@ -34,7 +34,7 @@
         resultStatus = result = "";
         if(territory!="" && year!=""){
             parseInt(year);
-            q = `/${territory}/${year}`;
+            q = `?territory=${territory}&year=${year}`;
         } else{
             if(employee!="" && genre==="" && value==="" && live_with==="" && territory==="" && year===""){
                 parseInt(employee);
