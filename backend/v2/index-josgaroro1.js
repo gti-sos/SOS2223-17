@@ -228,7 +228,23 @@ function  loadBackend_josgaroro1_v2(app) {
             response.sendStatus(500);
         } else if (datos.length==0){
             response.sendStatus(404);
-        } else if (genre != null){//Busqueda por genre
+        } else if(territory!=null && year!=null){
+            var datos = datos.filter((reg)=>{
+                return (reg.territory == territory && reg.year == year );
+            });
+
+            if (datos==0){
+                console.log(`Data not found /self-emplyed-stats: ${err}`);
+                response.status(404).send("Data not found");
+            }/*else if(datos.length==1){
+                delete datos[0]._id;
+                response.json(datos[0]);
+            }*/else{
+                response.json(datos.map((d)=>{
+                    delete d._id;
+                    return d;
+                }));}
+        }else if (genre != null){//Busqueda por genre
             var datos = datos.filter((reg)=>{
                 return (reg.genre == genre);
             });
