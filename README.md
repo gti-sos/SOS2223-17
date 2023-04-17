@@ -29,6 +29,7 @@ https://sos2223-17.ew.r.appspot.com/api/v1/self-employed-stats/docs (developed b
 https://sos2223-17.ew.r.appspot.com/api/v2/self-employed-stats/docs (developed by Jose Germinal Garrucho Orozco)
 
 https://sos2223-17.ew.r.appspot.com/api/v1/emergency-call-stats/docs (developed by Santiago Pineda Andrade)
+https://sos2223-17.ew.r.appspot.com/api/v2/emergency-call-stats/docs (developed by Santiago Pineda Andrade)
 
 Frontends:
 
