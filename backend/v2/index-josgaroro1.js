@@ -504,7 +504,7 @@ function  loadBackend_josgaroro1_v2(app) {
                 if(data.length!=0){
                     console.log(`data returned ${data.length}`);
                     delete data[0]._id;
-                    response.json(data[0]);
+                    response.json(data);
                 }
                 else{
                     console.log(`Data not found /self-employed-stats/${name}/${anyo}: ${err}`);
