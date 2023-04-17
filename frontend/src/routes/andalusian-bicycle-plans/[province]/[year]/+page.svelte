@@ -221,14 +221,6 @@ margin: 0 20px; /* Cambia el valor de 20px según tus necesidades */
     {/if}
 
       
-    {#if resultStatus != ""}
-        <p>
-            Result:
-        </p>
-        <pre>
-{resultStatus}
-{result}
-        </pre>
-    {/if}
+    
   </div>
     </body>
