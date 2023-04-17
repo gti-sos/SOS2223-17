@@ -8,10 +8,12 @@
         getFiles();
     });
 
+    //let BASEURL = 'http://localhost:8080';
+    let BASEURL = 'https://sos2223-17.appspot.com';
     let API = "/api/v2/self-employed-stats";
 
     if(dev){
-        API = 'https://sos2223-17.appspot.com' + API;
+        API = BASEURL + API;
     }
 
     let datos = [];
@@ -122,10 +124,10 @@
     }
 
     async function view(territory,year) {
-        window.location.href = "http://localhost:5173/self-employed-stats/" + territory + "/" + year;
+        window.location.href = "https://sos2223-17.appspot.com/self-employed-stats/" + territory + "/" + year;
     }
     async function searchPage() {
-        window.location.href = "http://localhost:5173/self-employed-stats/search";
+        window.location.href = "https://sos2223-17.appspot.com/self-employed-stats/search";
     }
 
 </script>
