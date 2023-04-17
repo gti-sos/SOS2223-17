@@ -59,6 +59,9 @@
 
             <li><a href="https://sos2223-17.ew.r.appspot.com/api/v1/emergency-call-stats">api/v1/emergency-call-stats</a>(developed by<a href="https://github.com/sanpinand">Santiago Pineda Andrade</a>)</li>
             <li><a href="https://sos2223-17.ew.r.appspot.com/api/v2/emergency-call-stats">api/v2/emergency-call-stats</a>(developed by<a href="https://github.com/sanpinand">Santiago Pineda Andrade</a>)</li>
+            
+            <li><a href="https://sos2223-17.ew.r.appspot.com/api/v1/self-employed-stats">api/v1/self-employed-stats</a>(developed by<a href="https://github.com/Joseg0">Jose Garrucho Orozco</a>)</li>
+            <li><a href="https://sos2223-17.ew.r.appspot.com/api/v2/self-employed-stats">api/v2/self-employed-stats</a>(developed by<a href="https://github.com/Joseg0">Jose Garrucho Oorozco</a>)</li>
         </ul>
 
         <h2>Frontend: Interfaz de usuario</h2>
