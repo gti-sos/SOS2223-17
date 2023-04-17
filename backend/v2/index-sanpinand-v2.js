@@ -349,7 +349,10 @@ function loadBackend_sanpinand_v2(app){
         var meses = ["january", "february", "march", "april", "may", "june",
                                "july", "august", "september", "october", "november", "december"];
         //checkear que esta todos los campos implementados correctamente
-        if (!(mes==body.month) || !(provincia==body.province)) {
+        const tam = Object.keys(request.body).length;
+        if (tam != 6) {
+          response.sendStatus(400);
+        }else if (!(mes==body.month) || !(provincia==body.province)) {
           response.sendStatus(400);
         } else if (!body.province ||!provinciasAndalucia.includes(body.province)) {
           response.sendStatus(400);
@@ -474,10 +477,13 @@ function loadBackend_sanpinand_v2(app){
         var provinciasAndalucia = ['Almería', 'Cádiz', 'Córdoba', 'Granada', 'Huelva', 'Jaén', 'Málaga', 'Sevilla'];
         var meses = ["january", "february", "march", "april", "may", "june",
                                "july", "august", "september", "october", "november", "december"];
-      
+
         const body = request.body;
+        const tam = Object.keys(request.body).length;
        //Comprobar que todos los campos estan presentes y verificar sus valores
-        if (!body.province ||!provinciasAndalucia.includes(body.province)) {
+       if (tam != 6) {
+        response.sendStatus(400);
+      }else if (!body.province ||!provinciasAndalucia.includes(body.province)) {
           response.sendStatus(400);
         }else if (!body.month || !meses.includes(body.month.toLowerCase())) {
           response.sendStatus(400);
