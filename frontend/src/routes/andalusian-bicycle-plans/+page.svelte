@@ -6,6 +6,8 @@
 
         import { dev } from '$app/environment';
         import { Alert,Column, Button, Table } from 'sveltestrap';
+        import { Router,Link } from 'svelte-routing';
+
 
           // Define la función setPage que actualiza la página actual
   function setPage(pageNumber) {
@@ -17,6 +19,20 @@
     return Math.ceil(totalItems / itemsPerPage);
   }
 
+  function getTotalPages() {
+  return Math.ceil(busqueda.length / itemsPerPage);
+  }
+
+  function updateUrl() {
+    const url = new URL(window.location);
+    url.searchParams.set("page", currentPage);
+    url.searchParams.set("totalPages", getTotalPages);
+    window.history.pushState({}, '', url);
+}
+
+
+
+
   function goToPage(page) {
   currentPage = page;
   const offset = (currentPage - 1) * itemsPerPage;
@@ -24,7 +40,7 @@
   fetch(url)
     .then(response => response.json())
     .then(data => {
-      bicyclePlans = data;
+      busqueda = data;
     })
     .catch(error => {
       console.error('Error fetching bicycle plans:', error);
