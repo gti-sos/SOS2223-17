@@ -122,10 +122,10 @@
     }
 
     async function view(territory,year) {
-        window.location.href = "http://localhost:5173/self-employed-stats/" + territory + "/" + year;
+        window.location.href = "https://sos2223-17.appspot.com/self-employed-stats/" + territory + "/" + year;
     }
     async function searchPage() {
-        window.location.href = "http://localhost:5173/self-employed-stats/search";
+        window.location.href = "https://sos2223-17.appspot.com/search";
     }
 
 </script>

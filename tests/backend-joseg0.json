@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "4b8e48d5-acbc-4fd1-865a-e7b982d30279",
-		"name": "F07",
+		"_postman_id": "d370d926-c62f-4fce-bbbd-649be570feed",
+		"name": "DO2",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "25746364"
+		"_exporter_id": "26051644"
 	},
 	"item": [
 		{
@@ -490,6 +490,49 @@
 						"self-employed-stats",
 						"Sevilla",
 						"2018"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "200-/self-employed-stats/Sevilla/2020",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"genre\": \"Mujeres\",\r\n        \"live_with\": 1,\r\n        \"territory\": \"Sevilla\",\r\n        \"employee\": 33,\r\n        \"value\": 1011,\r\n        \"year\": 2020\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URLBASE}}/api/v2/self-employed-stats/Sevilla/2020",
+					"host": [
+						"{{URLBASE}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"self-employed-stats",
+						"Sevilla",
+						"2020"
 					]
 				}
 			},
