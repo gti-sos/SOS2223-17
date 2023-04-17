@@ -11,10 +11,12 @@
 
     let province = $page.params.province;
     let year = $page.params.year;
+    //let BASEURL = 'http://localhost:8080';
+    let BASEURL = 'https://sos2223-17.appspot.com';
     let API = "/api/v2/self-employed-stats/" + province + "/" + year;
 
     if (dev){
-        API = "https://sos2223-17.appspot.com" + API;
+        API = BASEURL + API;
     }
 
     let dato = [];

@@ -4,10 +4,11 @@
     import { onMount } from "svelte";
     import { dev } from "$app/environment";
 
-
+    //let BASEURL = 'http://localhost:8080';
+    let BASEURL = 'https://sos2223-17.appspot.com';
     let API = "/api/v2/self-employed-stats"
     if(dev){
-        API = 'https://sos2223-17.appspot.com' + API;
+        API = BASEURL + API;
     }
 
     let datos = [];
@@ -71,7 +72,6 @@
         const status = await res.status;
         resultStatus = status;
         if(status == 200){
-            datos=[];
             message = "Dato encontrado";
             c="success";
         }
@@ -96,8 +96,11 @@
         }
         const status = await res.status;
         resultStatus = status;
-        
-        if(status == 404){
+        if(status == 200){
+            message = "Dato encontrado";
+            c="success";
+        }
+        else if(status == 404){
             datos=[];
             message = "No existe este dato";
             c="warning";
