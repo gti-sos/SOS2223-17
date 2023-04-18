@@ -241,7 +241,7 @@
         <th colspan="2" id="col">Num. de activaciones a organizaciones </th>
         <th rowspan="2">Número de llamadas</th>
         <th rowspan="2">Año</th>
-        <th rowspan="2">Action</th>
+        <th rowspan="2">Accion</th>
       </tr>
       <tr>
         <th id="activacion-telefonica">Vía telefónica</th>
