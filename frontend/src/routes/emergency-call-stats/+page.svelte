@@ -209,7 +209,7 @@
           <td>{call.year}</td>
           <td
             ><a href="/emergency-call-stats/{call.province}/{call.month}"
-              ><Button color="info">Edit</Button></a
+              ><Button color="info">Editar</Button></a
             >
             <Button
               color="danger"
