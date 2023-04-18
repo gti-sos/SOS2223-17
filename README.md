@@ -4,11 +4,11 @@
 
 Team :
 
-Salim Chaieri Chafai
+Salim Chaieri Chafai: andalusian-bicycle-plans
 
 Jose Germinal Garrucho Orozco : self-employed-stats
 
-Santiago Pineda Andrade
+Santiago Pineda Andrade: emergency-call-stats
 
 Project description:
 

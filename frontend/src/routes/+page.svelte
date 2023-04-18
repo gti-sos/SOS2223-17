@@ -52,10 +52,9 @@
 
         <h2>APIs</h2>
         <ul>
-            <li><a href="https://sos2223-17.ew.r.appspot.com/api/v1/andalusian-bicycle-plans">/api/v1/docs/andalusian-bicycle-plans</a>(realizado por<a href="https://github.com/salcha2">Salim Chaieri Chafai</a>)</li>
-            <li><a href="https://sos2223-17.ew.r.appspot.com/api/v2/andalusian-bicycle-plans">/api/v2/docs/andalusian-bicycle-plans</a>(realizado por<a href="https://github.com/salcha2">Salim Chaieri Chafai</a>)</li>
+            <li><a href="https://sos2223-17.ew.r.appspot.com/api/v1/andalusian-bicycle-plans">/api/v1/andalusian-bicycle-plans</a>(realizado por<a href="https://github.com/salcha2">Salim Chaieri Chafai</a>)</li>
+            <li><a href="https://sos2223-17.ew.r.appspot.com/api/v2/andalusian-bicycle-plans">/api/v2/andalusian-bicycle-plans</a>(realizado por<a href="https://github.com/salcha2">Salim Chaieri Chafai</a>)</li>
 
-            <!-- <li><a href="https://sos2223-17.ew.r.appspot.com/api/v1/self-employed-stats/docs"(realizado por<a href="https://github.com/Joseg0">Jose Germinal Garrucho Orozco</a>)</li> -->
 
             <li><a href="https://sos2223-17.ew.r.appspot.com/api/v1/emergency-call-stats">api/v1/emergency-call-stats</a>(realizado por<a href="https://github.com/sanpinand">Santiago Pineda Andrade</a>)</li>
             <li><a href="https://sos2223-17.ew.r.appspot.com/api/v2/emergency-call-stats">api/v2/emergency-call-stats</a>(realizado por<a href="https://github.com/sanpinand">Santiago Pineda Andrade</a>)</li>
