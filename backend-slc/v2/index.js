@@ -21,7 +21,6 @@ function loadBackend_salcha2(app) {
 
 
 
-
 var datos_auxilio = 
   [  
     {    "province": "Almeria",    "population": 508657,    "walking": 32.1,    "bicycle": 2.2,    "year": 2015,    "motorized_percentage": 53.1  }, 
@@ -146,7 +145,7 @@ db.insert(datos_auxilio);
       let limitValue = limit ? Number(limit) : 0;
       let offsetValue = offset ? Number(offset) : 0;
     
-      let queryResult = db.findOne(query, { _id: 0 });
+      let queryResult = db.find(query, { _id: 0 });
     
       if (limitValue > 0) {
         queryResult = queryResult.limit(limitValue);
@@ -163,7 +162,6 @@ db.insert(datos_auxilio);
         return res.json(docs);
       });
     });
-    
     
     
     
