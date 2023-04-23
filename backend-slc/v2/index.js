@@ -159,7 +159,12 @@ db.insert(datos_auxilio);
         if (err) {
           return res.status(500).json({ error: 'Internal server error' });
         }
-        return res.json(docs);
+        if (docs.length === 1) {
+          return res.json(docs[0]);
+        } else {
+          return res.json(docs);
+        }
+        
       });
     });
     

@@ -102,12 +102,12 @@ const apiUrl = `http://localhost:8080/api/v2/andalusian-bicycle-plans?offset=${(
 
       //let newContact = {};
 
-      let newBicycleProvince = 'province';
-      let newBicyclePopulation = 'population';
-      let newBicycleWalking = 'walking';
-      let newBicycleBicycle = 'bicycle';
-      let newBicycleYear = 'year';
-      let newBicycleMotorPercentage = 'motorized_percentage';
+      let newBicycleProvince = '';
+      let newBicyclePopulation = '';
+      let newBicycleWalking = '';
+      let newBicycleBicycle = '';
+      let newBicycleYear = '';
+      let newBicycleMotorPercentage = '';
 
 
 
@@ -279,35 +279,27 @@ async function searchContact(province, year, from, to, population_over, motorize
   busqueda = [];
   let url = `${API}`;
   let query_params = [];
-
   if (province) {
     query_params.push(`province=${province}`);
   }
-
   if (year) {
     query_params.push(`year=${year}`);
   }
   
-
    
-
    if(bicycle_over){
     query_params.push(`bicycle_over=${bicycle_over}`);
    }
-
    if(motorized_percentage_over){
     query_params.push(`motorized_percentage_over=${motorized_percentage_over}`);
    }
-
    if(population_over){
     query_params.push(`population_over=${population_over}`);
    }
-
    if(walking_over){
     query_params.push(`walking_over=${walking_over}`);
    }     
    
-
   if (from !== undefined && to !== undefined) {
     if (from <= to) {
       query_params.push(`from=${from}`);
@@ -319,13 +311,10 @@ async function searchContact(province, year, from, to, population_over, motorize
       return;
     }
   }
-
   if (query_params.length > 0) {
     url += `?${query_params.join("&")}`;
   }
-
   const res = await fetch(url);
-
   if (res.ok) {
     console.log("Buscando datos...");
     search = true;
@@ -351,7 +340,6 @@ async function searchContact(province, year, from, to, population_over, motorize
 
 
 
-
   
   </script>
   <body>
@@ -359,83 +347,88 @@ async function searchContact(province, year, from, to, population_over, motorize
   <h1> Bicicletas</h1>
   
   <style>
- .table-custom {
-width: 100%;
-border-collapse: collapse;
-font-size: 14px;
-text-align: center;
-}
+  /* Tabla Personalizada */
+  .table-custom {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    text-align: center;
+  }
 
-.table-custom th {
-background-color: #f2f2f2;
-border: 1px solid #ddd;
-padding: 8px;
-white-space: nowrap;
-}
+  .table-custom th {
+    background-color: #f2f2f2;
+    border: 1px solid #ddd;
+    padding: 8px;
+    white-space: nowrap;
+  }
 
-.table-custom td {
-border: 1px solid #ddd;
-padding: 8px;
-white-space: nowrap;
-}
+  .table-custom td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    white-space: nowrap;
+  }
 
-.table-custom input {
-width: 100%;
-padding: 5px;
-border: 1px solid #ddd;
-border-radius: 5px;
-box-sizing: border-box;
-}
+  .table-custom input {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
 
-.btn-search {
-background-color: #007bff;
-border: none;
-color: #fff;
-padding: 5px 10px;
-border-radius: 5px;
-cursor: pointer;
-}
+  .btn-search {
+    background-color: #007bff;
+    border: none;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  /* Tabla Básica */
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    text-align: left;
+  }
+
+  th,
+  td {
+    padding: 10px;
+    border: 1px solid #ddd;
+  }
+
+  th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+  }
+
+  tr:hover {
+    background-color: #f5f5f5;
+  }
+
+  /* Contenedor de la página */
+  .page-container {
+    margin: 0 50px; /* aplicar margen de 50px en los laterales */
+  }
+
+  /* Encabezado de nivel 1 */
+  h1 {
+    font-size: 36px;
+    font-weight: bold;
+    text-align: center;
+    color: #333;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: normal;
+  }
+</style>
 
 
 
 
-    table {
-      border-collapse: collapse;
-      width: 100%;
-      font-family: Arial, sans-serif;
-      font-size: 14px;
-      text-align: left;
-    }
-    
-    th, td {
-      padding: 10px;
-      border: 1px solid #ddd;
-    }
-    
-    th {
-      background-color: #f2f2f2;
-      font-weight: bold;
-    }
-    
-    tr:hover {
-      background-color: #f5f5f5;
-    }
-    
-    .page-container {
-      margin: 0 50px; /* aplicar margen de 50px en los laterales */
-    }
-
-    h1 {
-      font-size: 36px;
-      font-weight: bold;
-      text-align: center;
-      color: #333;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      font-weight: normal;
-
-    }     
-  </style>
 
 
 
@@ -523,70 +516,79 @@ cursor: pointer;
 <Button outline color="primary" on:click="{() => searchContact(province, year, from, to, population_over, motorized_percentage_over, bicycle_over, walking_over)}">Buscar</Button>
 </th> 
 
+
+
+
 {#if search}
-{#if busqueda}
-  <Table  bordered class="table-custom">
-    <thead>
-      <tr>
-        <th>
-          Provincia
-        </th>
-
-        <th>
-          Poblacion
-        </th>
-
-        <th>
-          Km caminados
-        </th>
-
-        <th>
-          Km bicicleta
-        </th>
-
-        <th>
-          Año
-        </th>
-
-        <th>
-          Porcentaje motorizado
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      {#each busqueda as item}
+  {#if busqueda.length > 0}
+    <Table bordered class="table-custom">
+      <thead>
         <tr>
-          <td>
-            {item.province}
-          </td>
-
-          <td>
-            {item.population}
-          </td>
-
-          <td>
-            {item.walking}
-          </td>
-
-          <td>
-            {item.bicycle}
-          </td>
-
-          <td>
-            {item.year}
-          </td>
-
-          <td>
-            {item.motorized_percentage}
-          </td>
+          <th>Provincia</th>
+          <th>Población</th>
+          <th>Km caminados</th>
+          <th>Km bicicleta</th>
+          <th>Año</th>
+          <th>Porcentaje motorizado</th>
         </tr>
-      {/each}
-    </tbody>
-  </Table>
-{:else}
-  <p>No se encontraron resultados para la búsqueda.</p>
+      </thead>
+      <tbody>
+        {#if busqueda.constructor === Array}
+          {#each busqueda as item}
+            <tr>
+              <td>{item.province}</td>
+              <td>{item.population}</td>
+              <td>{item.walking}</td>
+              <td>{item.bicycle}</td>
+              <td>{item.year}</td>
+              <td>{item.motorized_percentage}</td>
+            </tr>
+          {/each}
+        {/if}
+        {#if busqueda.constructor === Object}
+          <tr>
+            <td>{busqueda.province}</td>
+            <td>{busqueda.population}</td>
+            <td>{busqueda.walking}</td>
+            <td>{busqueda.bicycle}</td>
+            <td>{busqueda.year}</td>
+            <td>{busqueda.motorized_percentage}</td>
+          </tr>
+        {/if}
+      </tbody>
+    </Table>
+  {:else if busqueda.constructor === Object}
+    <Table bordered class="table-custom">
+      <thead>
+        <tr>
+          <th>Provincia</th>
+          <th>Población</th>
+          <th>Km caminados</th>
+          <th>Km bicicleta</th>
+          <th>Año</th>
+          <th>Porcentaje motorizado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{busqueda.province}</td>
+          <td>{busqueda.population}</td>
+          <td>{busqueda.walking}</td>
+          <td>{busqueda.bicycle}</td>
+          <td>{busqueda.year}</td>
+          <td>{busqueda.motorized_percentage}</td>
+        </tr>
+      </tbody>
+    </Table>
+  {:else}
+    <p>No se encontraron resultados para la búsqueda.</p>
+  {/if}
 {/if}
-{/if}
+
+
+
+
+
 
 
 
@@ -606,12 +608,12 @@ cursor: pointer;
       </thead>
       <tbody>
         <tr>
-          <td><input type="text" bind:value={newBicycleProvince} class="form-control"></td>
-          <td><input type="text" bind:value={newBicyclePopulation} class="form-control"></td>
-          <td><input type="text" bind:value={newBicycleWalking} class="form-control"></td>
-          <td><input type="text" bind:value={newBicycleBicycle} class="form-control"></td>
-          <td><input type="text" bind:value={newBicycleYear} class="form-control"></td>
-          <td><input type="text" bind:value={newBicycleMotorPercentage} class="form-control"></td>
+          <td><input placeholder="Provincia" bind:value={newBicycleProvince} ></td>
+          <td><input placeholder="Poblacion" bind:value={newBicyclePopulation} ></td>
+          <td><input placeholder="km caminados" bind:value={newBicycleWalking} ></td>
+          <td><input placeholder="km bicicleta" bind:value={newBicycleBicycle} ></td>
+          <td><input placeholder="Anio" bind:value={newBicycleYear} ></td>
+          <td><input placeholder="% Motorizacion" bind:value={newBicycleMotorPercentage} ></td>
           <td><Button on:click={createBicycle} class="btn btn-success">Crear</Button></td>
         </tr>
         {#each contacts.slice((currentPage-1)*itemsPerPage, currentPage*itemsPerPage) as contact}
