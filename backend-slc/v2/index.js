@@ -10,6 +10,7 @@ const API_DOC_PORTAL_salim = "https://documenter.getpostman.com/view/25746364/2s
 const API_DOC_PORTAL_salim1 = "https://sos2223-17-381423.ew.r.appspot.com/"
 
 
+import { response } from 'express';
 import Datastore from 'nedb';
 var db = new Datastore();
 
@@ -46,7 +47,7 @@ var datos_auxilio =
     {    "province": "Huelva",    "population": 520505,    "walking": 27.1,    "bicycle": 1.7,    "year": 2017,    "motorized_percentage": 60.5  },  
     {    "province": "Jaen",    "population": 670872,    "walking": 30.2,    "bicycle": 1.6,    "year": 2017,    "motorized_percentage": 56.7  }, 
     {    "province": "Malaga",    "population": 1661788,    "walking": 28.9,    "bicycle": 1.8,    "year": 2017,    "motorized_percentage": 58.5  }, 
-    {    "province": "Sevilla",    "population": 1950213,    "walking": 25.1,    "bicycle": 1.5,    "year": 2017,    "motorized_percentage": 63.4  }
+    {    "province": "Sevilla",    "population": 19502,    "walking": 25.1,    "bicycle": 1.5,    "year": 2017,    "motorized_percentage": 63.4  }
   ]
 
 
@@ -491,6 +492,29 @@ for (const field of numericFields) {
           }
       })
   });
+
+  app.get(BASE_API_URL + "/data", (req,res)=>{
+    console.log('New GET to /data')
+
+    function getRandomInt(min, max) {
+      return Math.floor(Math.random() * (max - min) + min);
+    }
+    
+    function v(){
+      return getRandomInt(1,100);
+    }
+
+    var data = new Array();
+    
+    for (var i=0; i<10; i++){
+      data.push(v());
+    }
+
+    res.json(data);
+
+  });
+
+
 }
 
 
