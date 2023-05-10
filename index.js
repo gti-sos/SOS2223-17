@@ -22,35 +22,30 @@ import { handler } from "./frontend/build/handler.js";
 import Datastore from 'nedb';
 
 
-//var backendJose = require("./backend/index-josgaroro1");
 var db = new Datastore();
 
 
 const app = express(); //constructor
 
-//app.use("/" , express.static("./public"))
-
 
 
 app.use(express.json());
 
-
-
-
-
-//backendJose(app);
-
-
-
-
-
-
-
-
-
 const port = process.env.PORT || 8080;
 
 app.use(cors());
+
+//proxy Santiago
+
+app.get("/proxy13", async (request, response) => {
+    try {
+      // Llamada a la API externa
+      const response = await axios.get("https://sos2223-13.appspot.com/api/v2/employment");
+      response.json(response.data);
+    } catch (error) {
+        response.status(500).json({ error: "Error en el proxy" });
+    }
+  });
 
 
 loadBackend_josgaroro1(app);
@@ -68,7 +63,6 @@ loadBackend_sanpinand_v2(app);
 
 
 
-//(app);
 
 
 
@@ -76,7 +70,6 @@ loadBackend_sanpinand_v2(app);
 //codigo salim /////////////////////////////////////////////////////////////
 
 
-//var backend_slc = require("./backend-slc");
 loadBackend_salcha2(app);
 
 loadBackend_salcha2_2(app);
