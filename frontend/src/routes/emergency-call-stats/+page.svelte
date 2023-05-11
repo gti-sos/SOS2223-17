@@ -3,6 +3,7 @@
   import { onMount } from "svelte";
   import { dev } from "$app/environment";
   import { Alert, Column, Button, Table } from "sveltestrap";
+  
 
   let API = "/api/v2/emergency-call-stats";
 
@@ -33,7 +34,7 @@
   let queary = `?limit=${limit}&offset=${offset}`;
  
 
-  if (dev) API = "https://sos2223-17.appspot.com" + API;
+  if (dev) API = "http://localhost:8080" + API;
 
   onMount(async () => {
     getCalls();
@@ -49,6 +50,7 @@
       const data = await res.json();
       result = JSON.stringify(data, null, 2);
       dataCalls = data;
+      console.log(dataCalls.length);
     } catch (error) {
       console.log(`Error parsing result: ${error}`);
     }
@@ -68,19 +70,21 @@
     }
 
     async function nextPage() {
-        offset = offset + limit;
-        if(offset>dataCalls.length){
-            offset = offset - limit;
-            flag = true;
-            color = "warning";
-            message = "última pagina";
+        
+        if(dataCalls.length<10){
+          flag =true;
+          color = "warning";
+          message = "última pagina";
+          getCalls();
+
         }
         else{
-          
+          offset = offset + limit;
           queary = `?limit=${limit}&offset=${offset}`;
-            getCalls();            
-        }        
+          getCalls();
+                
     }
+  }
 
   //Borrar todos los recursos
   async function deleteAllCall() {
@@ -163,8 +167,8 @@
     {/if}
   </Alert>
   <a href="/emergency-call-stats/searching"
-              ><Button color="info">Ir a Busquedas</Button></a
-            >
+    ><Button color="info">Ir a Busquedas</Button></a
+  >
   <sub>(*) Elementos identificativos únicos</sub>
   <Table hover>
     <colgroup>
@@ -219,15 +223,14 @@
         </tr>
       {/each}
     </tbody>
-    <Button color="danger" on:click={deleteAllCall}>Borrar Todo</Button> <br/>  <br/>
-   
+    <Button color="danger" on:click={deleteAllCall}>Borrar Todo</Button> <br />
+    <br />
   </Table>
-
 
   <div id="buttons">
     <Button color="light" on:click={previousPage}>Anterior</Button>
     <Button color="light" on:click={nextPage}>Siguiente</Button>
-</div>
+  </div>
   <style>
     td Button {
       width: 70px;
