@@ -262,21 +262,7 @@ var datos_Salim = [
         "motorized_percentage":64.1
     },
     
-    {
-        "province":"Alameda",
-        "municipality":11,
-        "population":398765,
-        "all_displacement":1099878,
-        "walking":32.1,
-        "car_driver":48.2,
-        "accompanying_car":10.6,
-        "motorcycle":3.1,
-        "bicycle":1.5,
-        "public_transport":4.8,
-        "other_transportation":0.6,
-        "year":2017,
-        "motorized_percentage":60.8
-    },
+    
     {
         "province":"Cadiz",
         "municipality":15,
@@ -633,21 +619,7 @@ var datos_auxilio = [
         "motorized_percentage":64.1
     },
     
-    {
-        "province":"Alameda",
-        "municipality":11,
-        "population":398765,
-        "all_displacement":1099878,
-        "walking":32.1,
-        "car_driver":48.2,
-        "accompanying_car":10.6,
-        "motorcycle":3.1,
-        "bicycle":1.5,
-        "public_transport":4.8,
-        "other_transportation":0.6,
-        "year":2017,
-        "motorized_percentage":60.8
-    },
+    
     {
         "province":"Cadiz",
         "municipality":15,

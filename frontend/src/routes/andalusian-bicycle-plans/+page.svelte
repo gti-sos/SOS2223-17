@@ -215,25 +215,6 @@ const apiUrl = `http://localhost:8080/api/v2/andalusian-bicycle-plans?offset=${(
 
 
 
-
-
-      //  async function deleteContact(contactName, contactYear) {
-      //     let resultStatus = "";
-      //     const res = await fetch(API + "?province=" + contactName + "&year=" + contactYear, {
-      //     method: 'DELETE'
-      //   });
-
-      //   const status = await res.status;
-      //   resultStatus = status;
-
-      //   if (status == 200) {
-      //       console.log("El contacto se eliminó correctamente");
-      //   } else {
-      //     console.log("Se produjo un error al eliminar el contacto");
-      //   }
-      // }
-
-
       async function deleteContact(provinceDelete,yearDelete){
 try {
   console.log("Deleting single contact... ");
