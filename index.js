@@ -1,6 +1,12 @@
 import express from "express";
 
+import request from "request";
+
 import cors from "cors";
+
+
+
+import axios from 'axios';
 
 
 import {loadBackend_salcha2 } from "./backend-slc/v2/index.js";
@@ -35,17 +41,7 @@ const port = process.env.PORT || 8080;
 
 app.use(cors());
 
-//proxy Santiago
 
-app.get("/proxy13", async (request, response) => {
-    try {
-      // Llamada a la API externa
-      const response = await axios.get("https://sos2223-13.appspot.com/api/v2/employment");
-      response.json(response.data);
-    } catch (error) {
-        response.status(500).json({ error: "Error en el proxy" });
-    }
-  });
 
 
 loadBackend_josgaroro1(app);
@@ -55,6 +51,21 @@ loadBackend_josgaroro1_v2(app);
 const API_DOC_PORTAL_salim = "https://documenter.getpostman.com/view/25746364/2s93JxsMEP"
 
 //codigo sanpinand/////////////////////////////////////////////////////////////
+//proxy Santiago///////////////////
+var prox = "/proxyspa"
+var api_ext = "https://sos2223-13.appspot.com/api/v2/employment"
+
+app.use(prox, async (request, response) => {
+  try {
+    // Llamada a la API externa
+    const responseApi = await axios.get(api_ext+request.url);
+
+    response.json(responseApi.data);
+
+  } catch (error) {
+      response.status(500).json({ error: "Error en el proxy" });
+  }
+});
 
 loadBackend_sanpinand(app);
 

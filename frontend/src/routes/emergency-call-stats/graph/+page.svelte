@@ -3,7 +3,7 @@
     import { onMount } from "svelte";
     import Highcharts from "highcharts/highcharts";
     import { dev } from "$app/environment";
-    import { Alert, Column, Button, Table } from "sveltestrap";
+  
 
     let API = "/api/v2/emergency-call-stats";
 
