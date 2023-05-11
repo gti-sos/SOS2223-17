@@ -61,14 +61,17 @@
  */
  async function loadChart(graphData) {
   const options = Highcharts.getOptions();
+  // Tell TypeScript that the `dark-unica` option is valid
+  const darkUnica = options.chart && options.chart.style && options.chart.style.name === 'dark-unica' ? options.chart.style : undefined;
   Highcharts.chart('container', {
     chart: {
       type: 'bubble',
       plotBorderWidth: 1,
+      style: darkUnica
     },
     title: {
       text: 'Highcharts bubbles with radial gradient fill',
-      align: 'left'
+      align: 'left',
     },
     xAxis: {
       gridLineWidth: 1,
