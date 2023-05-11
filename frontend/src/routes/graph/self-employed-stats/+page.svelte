@@ -5,9 +5,11 @@
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <script src="https://code.jscharting.com/latest/jscharting.js"></script>
 </svelte:head>
 
 <script>
+
     //@ts-nocheck
     import {onMount} from 'svelte';
     import { dev } from '$app/environment';
@@ -20,7 +22,6 @@
     let data = [];
     let result = "";
     let resultStatus = "";
-
     async function getData(){
         resultStatus = result = "";
         const res = await fetch(API, {
@@ -30,15 +31,15 @@
             const dataReceived = await res.json();
             result = JSON.stringify(dataReceived,null,2);
             data = dataReceived;
-            loadChart(data);
+            loadHChart(data);
+            loadJSCharting();
         }catch(error){
             console.log(`Error parsing result: ${error}`);
         }
         const status = await res.status;
         resultStatus = status.toString();
     }
-
-    async function loadChart(graphData){
+    async function loadHChart(graphData){
         //sumatorio del campo 'value' por cada provincia andaluza
         let sevilla = graphData.reduce((acumulador, elemento) => { if (elemento.territory === "Sevilla") { return acumulador + elemento.value; } return acumulador; }, 0);
         let huelva = graphData.reduce((acumulador, elemento) => { if (elemento.territory === "Huelva") { return acumulador + elemento.value; } return acumulador; }, 0);
@@ -55,11 +56,11 @@
         },
         title: {
             align: 'center',
-            text: 'Browser market shares. January, 2022'
+            text: 'Datos recogidos entre los años 2016-2020'
         },
         subtitle: {
             align: 'center',
-            text: 'Fuente GitHub: <a href="https://github.com/gti-sos/SOS2223-17" target="_blank">gti-sos/SOS2223-17</a>'
+            text: 'Repositorio GitHub: <a href="https://github.com/gti-sos/SOS2223-17" target="_blank">gti-sos/SOS2223-17</a>'
         },
         accessibility: {
             announceNewData: {
@@ -73,7 +74,6 @@
             title: {
                 text: 'Valor total alcanzado por los autónomos'
             }
-
         },
         legend: {
             enabled: false
@@ -87,12 +87,10 @@
                 }
             }
         },
-
         tooltip: {
             headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
             pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b>del total<br/>'
         },
-
         series: [
             {
                 name:"autonomos",
@@ -127,18 +125,60 @@
                         y: granada/total*100
                     }
                 ]
-
             }
         ],
     });
     }
+
+    async function loadJSCharting(){
+        var chart = JSC.chart('chartDiv', {
+        debug: true,
+        legend_position: 'inside left bottom',
+        defaultSeries: { type: 'pie', pointSelection: true },
+        defaultPoint_label: {
+          text: '<b>%name</b>',
+          placement: 'auto',
+          autoHide: false
+        },
+        toolbar_items: {
+          Mode: {
+            margin: 10,
+            type: 'select',
+            events_change: setMode,
+            items: 'enum_placement'
+          },
+          'Auto Hide': { type: 'checkbox', events_change: setAutoHide }
+        },
+        title_label_text: 'Countries GDP',
+        yAxis: { label_text: 'GDP', formatString: 'n' },
+        series: [
+          {
+            name: 'Countries',
+            points: [
+              { name: 'United States', y: 5452500 },
+              { name: 'Canada', y: 786052 },
+              { name: 'United Kingdom', y: 477338 },
+              { name: 'Mexico', y: 155313 }
+            ]
+          }
+        ]
+      });
+    }
+    function setMode(val) {
+        chart.options({ defaultPoint: { label: { placement: val } } });
+    }
+
+    function setAutoHide(val) {
+        chart.options({ defaultPoint: { label: { autoHide: val } } });
+    }
+
+  
     
     onMount(async () => {
         getData();
     });
-    
-
 </script>
+
 <main>
     <h1 style="text-align:center">Gráfico Autónomos</h1>
 
@@ -150,4 +190,7 @@
             autónomas en la comunidad.
         </p>
     </figure>
+
+    <h1 style="text-align:center">Gráfico Circular</h1>
+    <div id="chartDiv" style="max-width: 430px;height: 370px;margin: 0px auto;"></div>
 </main>
