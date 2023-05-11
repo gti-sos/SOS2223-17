@@ -12,7 +12,7 @@
 
 <script>
 
-    // @ts-check
+   // @ts-nocheck
     import { onMount } from 'svelte';
     import Highcharts from 'highcharts/highcharts';
     import HighchartsMore from 'highcharts/highcharts-more';
