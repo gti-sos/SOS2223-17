@@ -1,0 +1,58 @@
+﻿User,Description,Duration
+Josgaroro1,#11 Hacer media en JS con los datos-F03,01:15:13
+Josgaroro1,#14 Log up en POSTMAN-F03,01:16:07
+Josgaroro1,#15 Sincronizar en local SOS2223-17,01:16:38
+Josgaroro1,#19 Desplegar URL en gcloud del repositorio-F04,01:01:25
+Josgaroro1,#20 Modificar el archivo index.js-F04,01:08:00
+Josgaroro1,#21 En el proyecto SOS2223-17 crear 3 issues-F04,00:56:00
+Josgaroro1,#31 Fuente de datos en la nube gcloud-F05,01:00:31
+Josgaroro1,#32 Cargar datos iniciales al hacer GET-F05,01:01:16
+Josgaroro1,#33 Crear en POSTMAN unas colecciones que prueben la API-F05,01:00:16
+Josgaroro1,#39 Utilizar nedb en los métodos vistos,01:01:49
+Josgaroro1,#40 Ver los datos por cada campo,01:10:00
+Josgaroro1,#41 Documentación en POSTMAN,00:50:16
+Josgaroro1,#43 Devolver Objeto o Array según el GET,00:30:06
+Josgaroro1,#44 La clave primaria debe tener URLs para PUT/GET/DELETE,00:20:23
+Josgaroro1,#45 Crear un script de test,02:10:53
+Josgaroro1,#59 Botones de funcionalidades,03:00:13
+Josgaroro1,#6 Issue para feedback,00:11:42
+Josgaroro1,#60 Utilidades para el cliente,00:10:19
+Josgaroro1,#61 Nota informativa,00:10:11
+Josgaroro1,design,00:00:09
+SALIM CHAIERI CHAFAI,#10 Have a file called “index-YYY.js” in the SOS2223-XX repository that contains the code for a nodejs application,04:15:00
+SALIM CHAIERI CHAFAI,#12 Register information in the common repository of the subject,00:16:01
+SALIM CHAIERI CHAFAI,#13 Have created an account in the POSTMAN tool,00:15:21
+SALIM CHAIERI CHAFAI,#16 Create at least 3 issues in the SOS2223-17 repository,04:40:21
+SALIM CHAIERI CHAFAI,#17 Replicate the algorithm from the file named “index-YYY.js”,01:22:31
+SALIM CHAIERI CHAFAI,#18 Register information in the common repository of the subject,00:18:50
+SALIM CHAIERI CHAFAI,#28 Make sure that the name of the resource (FFFFF) must meet the following restrictions:,03:16:36
+SALIM CHAIERI CHAFAI,#29 You must have a functional REST API deployed in Google Cloud,01:02:23
+SALIM CHAIERI CHAFAI,#3 Register information in the common repository of the subject,00:00:11
+SALIM CHAIERI CHAFAI,#30 Have the group repository synchronized,00:18:55
+SALIM CHAIERI CHAFAI,#34 The API must comply with the good practices defined in the laboratories:,00:30:03
+SALIM CHAIERI CHAFAI,#38 searches for all fields of the resource,02:01:24
+SALIM CHAIERI CHAFAI,#5 Register information in the common repository of the subject,00:10:23
+SALIM CHAIERI CHAFAI,#50 Extender la colección de llamadas de POSTMAN,01:17:38
+SALIM CHAIERI CHAFAI,#51 Se debe tener el script de lanzamiento de test con newman,01:19:54
+SALIM CHAIERI CHAFAI,#52 Los identificadores de recursos que están compuestos por varias propiedades,01:40:07
+SALIM CHAIERI CHAFAI,#56 Se debe tener una vista correctamente configurada en http://sos2223-XX.appspot.com/,01:01:51
+SALIM CHAIERI CHAFAI,#57 Un back-end basado en API REST que tenga todas las funcionalidades que se solicitaron en el D01.,01:04:02
+SALIM CHAIERI CHAFAI,#58 Front-end Svelte que permita todas las funcionalidades básicas de gestión de la información realizando peticiones a la API REST,01:00:58
+SALIM CHAIERI CHAFAI,Register information in the common repository of the subject Register information in the common repository of the subject,00:01:15
+Santiago Pineda Andrade,#1 Update readme with real data,00:00:05
+Santiago Pineda Andrade,#2 Task F02,00:49:07
+Santiago Pineda Andrade,#22 clonacion y sincronizacion del repositorio común,00:45:29
+Santiago Pineda Andrade,#23 cuenta POSTMAN,00:23:37
+Santiago Pineda Andrade,#24 Crear ruta donde muestre los calculos del algoritmo index,03:08:17
+Santiago Pineda Andrade,#25 Desplegar una API REST funcional,01:46:46
+Santiago Pineda Andrade,#26 Definir la API con las buenas practicas definidas en el laboratorio,02:59:53
+Santiago Pineda Andrade,#35 Implementar la base de datos,05:04:26
+Santiago Pineda Andrade,#36 Añadir busquedas para todos los campos,01:35:15
+Santiago Pineda Andrade,#37 Coleccion de llamadas POSTMAN,05:29:47
+Santiago Pineda Andrade,#47 Extensión de la collección POSTMAN,23:26:24
+Santiago Pineda Andrade,#48 Script de lanzamiento con newman,18:16:41
+Santiago Pineda Andrade,#49 SendStatus 400 sobre JSON no parametrizados correctamente,03:06:37
+Santiago Pineda Andrade,#53 Create the frontend of the API,03:53:55
+Santiago Pineda Andrade,#7 Clonacion del repositorio comun,00:15:24
+Santiago Pineda Andrade,#8 Actualizar la ficha de trabajo,01:10:47
+Santiago Pineda Andrade,#9 crear archivo “index-YYY.js”,01:55:22

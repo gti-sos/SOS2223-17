@@ -33,7 +33,7 @@
   let message = "";
   let color = "";
 
-  if (dev) API = 'https://sos2223-17.appspot.com' + API;
+  if (dev) API = 'http://localhost:8080' + API;
 
   async function getCall() {
     resultStatus = result = "";
@@ -66,10 +66,10 @@
       body: JSON.stringify({
         province: province,
         month: month,
-        phone_call_activation_organization: updateTelefonica,
-        telematic_activation_organization: updateTelematica,
-        emergency_call: updateNumber,
-        year: updateYear,
+        phone_call_activation_organization: Number(updateTelefonica),
+        telematic_activation_organization: Number(updateTelematica),
+        emergency_call: Number(updateNumber),
+        year: Number(updateYear),
       }),
     });
     const status = await res.status;
