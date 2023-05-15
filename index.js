@@ -43,9 +43,9 @@ app.use(cors());
 
 
 
+//proxy Jose
 var paths = "/proxyjgo"
-var apiServerHost = "https://covid-193.p.rapidapi.com/statistics"
-
+var apiServerHost = "https://sos2223-12.appspot.com/api/v2/agroclimatic"
 app.use(paths, function(req, res) {
   var url = apiServerHost + req.url;
   console.log('piped: ' + req.url);
