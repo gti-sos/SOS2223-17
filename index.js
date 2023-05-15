@@ -43,13 +43,14 @@ app.use(cors());
 
 
 
-var proxy_jose = "/rapidAPI"
-var api_ext_jose = "https://covid-193.p.rapidapi.com/statistics"
+var paths = "/proxyjgo"
+var apiServerHost = "https://covid-193.p.rapidapi.com/statistics"
 
-app.use(proxy_jose, function(req,res){
-    var url = api_ext_jose + req.url;
-    req.pipe(request(url)).pipe(res);
-});
+app.use(paths, function(req, res) {
+  var url = apiServerHost + req.url;
+  console.log('piped: ' + req.url);
+  req.pipe(request(url)).pipe(res);
+ });
 loadBackend_josgaroro1(app);
 loadBackend_josgaroro1_v2(app);
 
