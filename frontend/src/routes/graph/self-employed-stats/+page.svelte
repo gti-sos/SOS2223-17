@@ -32,7 +32,8 @@
             result = JSON.stringify(dataReceived,null,2);
             data = dataReceived;
             loadHChart(data);
-            loadJSCharting();
+            data.sort(compare);
+            loadJSCharting(data);
         }catch(error){
             console.log(`Error parsing result: ${error}`);
         }
@@ -129,8 +130,42 @@
         ],
     });
     }
+    function compare(a, b) {
+        return a.territory.localeCompare(b.territory);
+    }
+    function media(gdata){
+        var averages = {};
+        var currentString = "";
+        var sum = 0;
+        var count = 0;
 
-    async function loadJSCharting(){
+        for (var i = 0; i < gdata.length; i++) {
+        var item = gdata[i];
+        if (item.territory !== currentString) {
+            // new string group, save the previous average and reset sum and count
+            if (currentString !== "") {
+            averages[currentString] = sum / count;
+            }
+            currentString = item.territory;
+            sum = 0;
+            count = 0;
+        }
+        // add to the sum and count of the current string group
+        sum += item.employee;
+        count++;
+        }
+
+        // save the last average
+        if (currentString !== "") {
+        averages[currentString] = sum / count;
+        }
+        return averages;
+    }
+
+    async function loadJSCharting(gdata){
+        let res = await media(gdata);
+        //res.sort(compare);
+        console.log(res);
         var chart = JSC.chart('chartDiv', {
         debug: true,
         legend_position: 'inside left bottom',
@@ -149,16 +184,19 @@
           },
           'Auto Hide': { type: 'checkbox', events_change: setAutoHide }
         },
-        title_label_text: 'Countries GDP',
+        title_label_text: 'Media de empleados (con decimales)\n en empresa autónoma por cada provincia andaluza',
         yAxis: { label_text: 'GDP', formatString: 'n' },
         series: [
           {
             name: 'Countries',
             points: [
-              { name: 'United States', y: 5452500 },
-              { name: 'Canada', y: 786052 },
-              { name: 'United Kingdom', y: 477338 },
-              { name: 'Mexico', y: 155313 }
+              { name: "Sevilla", y: res["Sevilla"] },
+              { name: 'Huelva', y: res["Huelva"] },
+              { name: 'Granada', y: res["Granada"] },
+              { name: 'Cádiz', y: res["Cádiz"] },
+              { name: 'Málaga', y: res["Málaga"] },
+              { name: 'Córdoba', y: res["Córdoba"] },
+              { name: 'Jaén', y: res["Jaén"] }
             ]
           }
         ]
@@ -180,7 +218,7 @@
 </script>
 
 <main>
-    <h1 style="text-align:center">Gráfico Autónomos</h1>
+    <h1 style="text-align:center">Gráfico de Barras</h1>
 
     <figure class="highcharts-figure">
         <div id="container"></div>
@@ -190,7 +228,7 @@
             autónomas en la comunidad.
         </p>
     </figure>
-
+    <br>
     <h1 style="text-align:center">Gráfico Circular</h1>
     <div id="chartDiv" style="max-width: 430px;height: 370px;margin: 0px auto;"></div>
 </main>
