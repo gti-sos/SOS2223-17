@@ -36,5 +36,8 @@
     "request": "^2.88.2",
     "svelte": "^3.58.0",
     "svelte-routing": "^1.6.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.33.0"
   }
 }
