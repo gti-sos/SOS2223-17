@@ -1,3 +1,8 @@
+<svelte:head>
+    <title>
+        SOS2223-17
+    </title>
+</svelte:head>
 <body>
     <div class="page-container">
     <style>

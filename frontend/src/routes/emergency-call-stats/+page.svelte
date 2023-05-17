@@ -190,7 +190,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
+      <tr class = "dataCall">
         <td><input bind:value={newProvince} /></td>
         <td><input bind:value={newMonth} /></td>
         <td><input bind:value={newTelefonica} /></td>

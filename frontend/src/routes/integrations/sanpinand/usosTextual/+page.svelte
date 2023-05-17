@@ -6,7 +6,7 @@
 
     let API = "/api/v2/emergency-call-stats";
 
-    let proxy = "http://localhost:8080/proxyspa";
+    let proxy = "https://sos2223-17.appspot.com/proxyspa";
 
     onMount(async () => {
         getDataUse2();

@@ -6,7 +6,7 @@
 
     let API = "/api/v2/emergency-call-stats";
 
-    let proxy = "http://localhost:8080/proxyspa";
+    let proxy = "https://sos2223-17.appspot.com/proxyspa";
     let APISOS =
         "https://sos2223-19.appspot.com/api/v2/occupancy-of-accomodation-in-rural-tourism";
 
@@ -100,8 +100,7 @@
         const data = await getDataSOS();
 
         const data2 = await getData2();
-        console.log(data);
-        console.log(data2);
+       
         const months = [
             "january",
             "february",
@@ -148,7 +147,7 @@
         months.forEach((mes) => {
             // Filtrar los datos por provincia
             const provinceData = data2.filter((d) => d.month === mes);
-            console.log(provinceData);
+           
 
             if (provinceData.length > 0) {
                 arrayAux2.push({
@@ -166,7 +165,7 @@
         meses.forEach((mes) => {
             // Filtrar los datos por provincia
             const provinceData = data.filter((d) => d.month === mes);
-            console.log(provinceData);
+           
             // Agregar la provincia y la media calculada
             if (provinceData.length > 0) {
                 arrayAux.push({
@@ -181,9 +180,6 @@
             }
         });
 
-        console.log(arrayAux);
-        console.log(arrayAux2);
-        //ArrayData
 
         // Unir los dos arrays y obtener la estructura deseada
         const lineChartData = arrayAux.map((element, index) => {
@@ -198,8 +194,7 @@
             };
         });
 
-        // Imprimir el array de datos combinados
-        console.log(lineChartData);
+       
         // Configuración del gráfico
         const config = {
             element: "chart",
@@ -339,7 +334,7 @@
 <svelte:head>
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
-    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
     <link
         rel="stylesheet"

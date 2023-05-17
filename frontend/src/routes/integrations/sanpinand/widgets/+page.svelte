@@ -5,11 +5,11 @@
 
     let API = "/api/v2/emergency-call-stats";
 
-    let proxy = "http://localhost:8080/proxyspa";
+    let proxy = "https://sos2223-17.appspot.com/proxyspa";
     onMount(async () => {
         getDataExterna();
 
-      getDataExterna2();
+        getDataExterna2();
     });
 
     if (dev) API = "http://localhost:8080" + API;
@@ -37,7 +37,7 @@
                     numberCharaters: result.characters.length,
                 });
             }
-            console.log(auxArray2);
+    
             morriSWAPI(auxArray2);
         } catch (error) {
             console.log(`Error parsing result: ${error}`);
@@ -47,8 +47,7 @@
     async function morriSWAPI(dataAPI) {
         let dataSet = [];
         let sum = dataAPI.reduce((acc, film) => acc + film.numberCharaters, 0);
-        console.log(sum);
-        console.log(dataAPI);
+
         for (const film of dataAPI) {
             dataSet.push({
                 label: film.nombre,
