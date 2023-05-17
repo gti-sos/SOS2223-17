@@ -6,7 +6,8 @@
 
     let API = "/api/v2/emergency-call-stats";
 
-    let proxy = "https://sos2223-17.appspot.com/proxyspa";
+    let proxy = "https://sos2223-17.ew.r.appspot.com/proxyspa";
+
     let APISOS =
         "https://sos2223-19.appspot.com/api/v2/occupancy-of-accomodation-in-rural-tourism";
 

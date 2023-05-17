@@ -6,7 +6,6 @@
 
     let API = "/api/v2/emergency-call-stats";
 
-    let proxy = "https://sos2223-17.appspot.com/proxyspa";
 
     onMount(async () => {
         getDataUse2();
@@ -17,7 +16,7 @@
 
     let dataApi = [];
     let APIExterna = "https://pokeapi.co/api/v2/pokemon";
-    let SWAPIExterna = "http://swapi.dev/api/people";
+    let SWAPIExterna = "https://swapi.dev/api/people";
     let usoArray = [];
     let usoArray2 = [];
     let auxArray = [];
@@ -86,23 +85,7 @@
         }
     }
 
-    //Obtener datos de la api externa atraves del proxy
-    async function getDataByProxy() {
-        resultStatus = result = "";
-        const res = await fetch(proxy, {
-            method: "GET",
-        });
-        try {
-            const dataReceived = await res.json();
-            result = JSON.stringify(dataReceived, null, 2);
-            dataApi = dataReceived;
-            return dataApi;
-        } catch (error) {
-            console.log(`Error parsing result: ${error}`);
-        }
-        const status = await res.status;
-        resultStatus = status;
-    }
+   
     
 </script>
 
