@@ -38,6 +38,10 @@
     <a href="/integrations/sanpinand/usosTextual">usos textuales</a>
     <a href="/integrations/sanpinand/widgets">widgets</a>
     <a href="/integrations/sanpinand/integraciones">integraciones</a>
+    <h1>josgaroro1</h1>
+    <a href="/integrations/self-employed-stats/integraciones/proxy">Integracion proxy: APIs sos</a>
+    <a href="/integrations/self-employed-stats/usos">Usos apis ext: grafica y textual</a>
+    <a href="/integrations/self-employed-stats/integraciones/noProxy">Más usos: grafica api ext</a>
 </div>
 </nav>
 
