@@ -8,7 +8,7 @@
 <script>
     import {onMount} from "svelte";
     
-    let apiSOS = "https://sos2223-17.appspot.com/api/v2/proxyjgo";
+    let apiSOS = "https://sos2223-17.appspot.com/proxyjgo";
    
     let apiJose ="https://sos2223-17.appspot.com/api/v2/self-employed-stats";
 
