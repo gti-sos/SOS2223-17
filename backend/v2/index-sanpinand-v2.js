@@ -791,7 +791,7 @@ function loadBackend_sanpinand_v2(app){
             console.log(err);
             response.sendStatus(500);
           } else if(!datos) {
-            console.log("Datos no encontrado")
+            console.log("Datos no encontrado");
             response.sendStatus(404);
           } else {
             console.log(datos);

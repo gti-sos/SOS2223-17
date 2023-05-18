@@ -35,7 +35,6 @@
 
 <nav><div>
     <h1>graphs</h1>
-    <a href="/graph">salcha</a>
     <a href="/graph/spa_graph">sanpinand</a>
     <a href="/graph/self-employed-stats">jorgaroro</a>
 </div>
