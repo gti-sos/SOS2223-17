@@ -4,12 +4,9 @@
 
 <script>
     import { onMount } from "svelte";
-
     let API_17 = "https://sos2223-17.appspot.com/proxyscc";
     let API_R = "https://sos2223-17.appspot.com/api/v2/andalusian-bicycle-plans";
-
     let datos_17_R = [];
-
     async function getData17() {
         const res = await fetch(API_17, {
             method: "GET",
@@ -22,7 +19,6 @@
             console.log(`Error parsing result: ${error}`);
         }
     }
-
     async function getDataR(datos_17_R) {
         const res = await fetch(API_R, {
             method: "GET",
@@ -35,7 +31,6 @@
             console.log(`Error parsing result: ${error}`);
         }
     }
-
     function prepareData(data) {
         let preparedData = [['Provincia y año', 'Población', 'Turistas']];
         for (let i = 0; i < data.length; i++) {
@@ -44,7 +39,6 @@
         }
         return preparedData;
     }
-
     function addMissingData(data, datos_17_R) {
         for (let i = 0; i < data.length; i++) {
             if (data[i]["province"] != "Andalucía") {
@@ -54,7 +48,6 @@
         }
         return datos_17_R;
     }
-
     function loadGC_17_R(datos_17_R) {
         var ctx = document.getElementById('chart').getContext('2d');
         var data = {
@@ -86,11 +79,9 @@
             options: options
         });
     }
-
     onMount(async () => {
         getData17();
     })
-
 </script>
 
 <main>

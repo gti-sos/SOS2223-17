@@ -26,6 +26,8 @@
 	"dependencies": {
 		"axios": "^1.4.0",
 		"chart.js": "^4.3.0",
+		"express-session": "^1.17.3",
+		"fb": "^2.0.0",
 		"highcharts": "^11.0.1",
 		"plotly.js": "^2.23.0",
 		"plotly.js-dist": "^2.23.0",
