@@ -100,6 +100,7 @@
 		<a href="/integrations">Integraciones</a>
 		<a href="/graph">Graficas</a>
 		<a href="/analytics">Grafica conjunta</a>
+		<a href="/about">Videos</a>
 	</nav>
 
 	
