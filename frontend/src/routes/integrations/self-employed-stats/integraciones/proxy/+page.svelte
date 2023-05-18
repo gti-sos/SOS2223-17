@@ -7,7 +7,6 @@
 
 <script>
     import {onMount} from "svelte";
-    import { dev } from '$app/environment';
     
     let apiSOS = "https://sos2223-17.appspot.com/api/v2/proxyjgo";
    
