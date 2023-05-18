@@ -44,10 +44,10 @@ app.use(cors());
 
 
 //proxy Jose
-var paths = "/proxyjgo"
-var apiServerHost = "https://sos2223-12.appspot.com/api/v2/agroclimatic"
-app.use(paths, function(req, res) {
-  var url = apiServerHost + req.url;
+var paths1 = "/proxyjgo"
+var apiServerHost1 = "https://sos2223-12.appspot.com/api/v2/agroclimatic"
+app.use(paths1, function(req, res) {
+  var url = apiServerHost1 + req.url;
   console.log('piped: ' + req.url);
   req.pipe(request(url)).pipe(res);
  });
@@ -86,7 +86,13 @@ loadBackend_sanpinand_v2(app);
 
 
 //codigo salim /////////////////////////////////////////////////////////////
-
+var paths = "/proxyscc"
+var apiServerHost = "https://sos2223-14.appspot.com/api/v2/andalusia-tourism-situation-surveys"
+app.use(paths, function(req, res) {
+  var url = apiServerHost + req.url;
+  console.log('piped: ' + req.url);
+  req.pipe(request(url)).pipe(res);
+ });
 
 loadBackend_salcha2(app);
 

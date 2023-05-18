@@ -6,24 +6,28 @@
 </svelte:head>
 
 <script>
-    import {onMount} from "svelte"
-
-    let dato1=[];
-    let dato2=[];
+    import {onMount} from "svelte";
     
+    let apiSOS = "https://sos2223-17.appspot.com/proxyjgo";
+   
+    let apiJose ="https://sos2223-17.appspot.com/api/v2/self-employed-stats";
+
+    let dato1="";
+    let dato2="";
+
     onMount(async () => {
         loadAll();
     });
 
     async function loadAll(){
-        dato1 = apiPropia();
-        dato2 = apiSOSProxy();
-        loadHChart(gdata1, gdata2);
+        dato1 = await apiPropia();
+        dato2 = await apiSOSProxy();
+        loadHChart(dato1, dato2);
     }
 
     async function apiPropia(){
         let gdata1 = []
-        const url = 'http://localhost:8080/api/v2/self-employed-stats';//url compañero
+        const url = apiJose;//url compañero sos
         const options = {
             method: 'GET'
         };
@@ -31,17 +35,20 @@
         try {
             const response = await fetch(url, options);
             const result = await response.json();
-            console.log(result);
+            //console.log(result);
             gdata1=result.filter(obj=>obj.territory==="Sevilla"); 
         } catch (error) {
             console.error(error);
         }
-        return gdata1.map((objeto) => { return objeto.value; });
+        console.log(gdata1.map((objeto) => { return objeto.employee; }));
+        let res=[];
+        //for (let i = 10; i <= 20; i++) {res.push(i);}
+        return res.concat(gdata1.map((objeto) => { return objeto.employee; }));
     }
 
     async function apiSOSProxy(){
         let gdata2 = [];
-        const url = 'http://localhost:8080/proxyjgo';//url compañero
+        const url = apiSOS;//url compañero
         const options = {
             method: 'GET'
         };
@@ -49,12 +56,15 @@
         try {
             const response = await fetch(url, options);
             const result = await response.json();
-            console.log(result);
+            //console.log(result);
             gdata2 = result.filter(obj=>obj.province==="Sevilla");
         } catch (error) {
             console.error(error);
         }
-        return gdata2.map((objeto) => { return objeto.minimun_temperature; });
+        console.log(gdata2.map((objeto) => { return parseInt(objeto.minimun_temperature); }));
+        let res=[];
+        //for (let i = 10; i <= 20; i++) {res.push(i);}
+        return res.concat(gdata2.map((objeto) => { return parseInt(objeto.minimun_temperature); }));
     }
 
     async function loadHChart(gdata1, gdata2){
@@ -80,7 +90,7 @@
                 }
             },
             accessibility: {
-                rangeDescription: 'Range: 1940 to 2017.'
+                rangeDescription: 'Range: 2017 to 2020.'
             }
         },
         yAxis: {
@@ -89,7 +99,7 @@
             },
             labels: {
                 formatter: function () {
-                    return this.value / 1000 + 'k';
+                    return this.value + 'K';
                 }
             }
         },
@@ -98,7 +108,7 @@
         },
         plotOptions: {
             area: {
-                pointStart: 1940,
+                pointStart: 2015,
                 marker: {
                     enabled: false,
                     symbol: 'circle',
