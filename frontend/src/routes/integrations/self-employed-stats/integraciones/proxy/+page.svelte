@@ -9,8 +9,9 @@
     import {onMount} from "svelte";
     import { dev } from '$app/environment';
     
-    let miApi = "https://sos2223-17.appspot.com/api/v2/self-employed-stats";
-    if (dev) miApi="http://localhost:8080/api/v2/self-employed-stats";
+    let apiSOS = "https://sos2223-17.appspot.com/api/v2/proxyjgo";
+   
+    let apiJose ="https://sos2223-17.appspot.com/api/v2/self-employed-stats";
 
     let dato1="";
     let dato2="";
@@ -27,7 +28,7 @@
 
     async function apiPropia(){
         let gdata1 = []
-        const url = miApi;//url compañero sos
+        const url = apiJose;//url compañero sos
         const options = {
             method: 'GET'
         };
@@ -48,7 +49,7 @@
 
     async function apiSOSProxy(){
         let gdata2 = [];
-        const url = miApi + "/proxyjgo";//url compañero
+        const url = apiSOS;//url compañero
         const options = {
             method: 'GET'
         };

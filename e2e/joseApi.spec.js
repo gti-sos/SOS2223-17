@@ -5,7 +5,7 @@ test('get self-employed stats link', async ({ page }) => {
     await page.goto('https://sos2223-17.appspot.com/self-employed-stats');
   
     // Click the get started link.
-    await page.getByRole('link', { name: 'Estadísticas autonomos' }).click();
+    await page.getByRole('link', { name: 'Autónomos' }).click();
   
     // Expects the URL to contain intro.
     await expect(page).toHaveURL(/.*self-employed-stats/);
