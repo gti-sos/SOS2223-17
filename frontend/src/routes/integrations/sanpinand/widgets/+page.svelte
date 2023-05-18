@@ -36,8 +36,8 @@
                     numberCharaters: result.characters.length,
                 });
             }
-    
-            morriSWAPI(auxArray2);
+            dataApi = auxArray2;
+            morriSWAPI(dataApi);
         } catch (error) {
             console.log(`Error parsing result: ${error}`);
         }
@@ -115,10 +115,6 @@
 </script>
 
 <svelte:head>
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/modules/exporting.js"></script>
-    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
-    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
     <link
         rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css"

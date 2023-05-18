@@ -101,7 +101,7 @@
         const data = await getDataSOS();
 
         const data2 = await getData2();
-       
+
         const months = [
             "january",
             "february",
@@ -148,7 +148,6 @@
         months.forEach((mes) => {
             // Filtrar los datos por provincia
             const provinceData = data2.filter((d) => d.month === mes);
-           
 
             if (provinceData.length > 0) {
                 arrayAux2.push({
@@ -166,7 +165,7 @@
         meses.forEach((mes) => {
             // Filtrar los datos por provincia
             const provinceData = data.filter((d) => d.month === mes);
-           
+
             // Agregar la provincia y la media calculada
             if (provinceData.length > 0) {
                 arrayAux.push({
@@ -181,7 +180,6 @@
             }
         });
 
-
         // Unir los dos arrays y obtener la estructura deseada
         const lineChartData = arrayAux.map((element, index) => {
             const mes = arrayAux2[index].month;
@@ -195,7 +193,6 @@
             };
         });
 
-       
         // Configuración del gráfico
         const config = {
             element: "chart",
@@ -333,10 +330,6 @@
 </script>
 
 <svelte:head>
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/modules/exporting.js"></script>
-    
-    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
     <link
         rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css"

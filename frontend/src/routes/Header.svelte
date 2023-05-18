@@ -97,6 +97,9 @@
 	    <a href="/andalusian-bicycle-plans">Bicicletas</a>
 		<a href= "/emergency-call-stats">Llamadas emergencia</a>
 		<a href="/self-employed-stats">Autónomos</a>
+		<a href="/integrations">Integraciones</a>
+		<a href="/graph">Graficas</a>
+		<a href="/analytics">Grafica conjunta</a>
 	</nav>
 
 	

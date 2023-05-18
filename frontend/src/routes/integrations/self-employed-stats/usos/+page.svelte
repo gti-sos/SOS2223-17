@@ -8,10 +8,11 @@
     import {Table} from "sveltestrap"
     
     onMount(async () => {
-        //datosExt1();
+        datosExt1();
         datosExt2();
     });
 
+    let datos0=[];
     let datos1="";
     let temp2=[]
     let datos2=[];
@@ -35,11 +36,11 @@
             const response = await fetch(url, options);
 	        const result = await response.text();
             console.log(result);
-            datos1=JSON.parse(result);
-            updated = String(datos1["updated"]);
-            alias = String(datos1["alias"]);
-            taxId = String(datos1["taxId"]);
-            founded = String(datos1["founded"]);
+            datos0=JSON.parse(result);
+            updated = String(datos0["updated"]);
+            alias = String(datos0["alias"]);
+            taxId = String(datos0["taxId"]);
+            founded = String(datos0["founded"]);
             console.log(updated);
         } catch (error) {
             console.error(error);
@@ -114,7 +115,8 @@
 </script>
 
 <main>
-    <h4 style="text-align:center">Fuente RapidAPI</h4>
+    <h1 style="text-align:center">USOS</h1>
+    <h4 style="text-align:center">Tabla CNPJA</h4>
     <h6 style="text-align:center">Solo permiten 3 peticiones/minuto por si apriori no se ven los resultados</h6>
     <Table>
         <thead>
@@ -137,6 +139,6 @@
         </tbody>
     </Table>
 
-    <h4>Grafico de Barras</h4>
+    <h4 style="text-align:center">Grafico de Barras</h4>
     <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
 </main>
