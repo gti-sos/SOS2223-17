@@ -155,7 +155,7 @@
                     valor: provinceData[0].emergency_call,
                 });
             } else {
-                arrayAux2s.push({
+                arrayAux2.push({
                     month: mes,
                     valor: 0,
                 });
