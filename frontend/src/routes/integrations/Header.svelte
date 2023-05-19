@@ -42,6 +42,10 @@
     <a href="/integrations/self-employed-stats/integraciones/proxy">Integracion proxy: APIs sos</a>
     <a href="/integrations/self-employed-stats/usos">Usos apis ext: grafica y textual</a>
     <a href="/integrations/self-employed-stats/integraciones/noProxy">Más usos: grafica api ext</a>
+    <h1>salcha2</h1>
+
+    <a href="/integrations/salcha2/Integraciones/proxy">Integracion proxy: APIs sos</a>
+    <a href="/integrations/salcha2/usos/registAPI">Usos apis ext: grafica y textual</a>
 </div>
 </nav>
 

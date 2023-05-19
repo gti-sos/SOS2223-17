@@ -89,10 +89,12 @@ loadBackend_sanpinand_v2(app);
 var paths = "/proxyscc"
 var apiServerHost = "https://sos2223-14.appspot.com/api/v2/andalusia-tourism-situation-surveys"
 app.use(paths, function(req, res) {
+  console.log("c");
   var url = apiServerHost + req.url;
   console.log('piped: ' + req.url);
   req.pipe(request(url)).pipe(res);
  });
+
 
 loadBackend_salcha2(app);
 

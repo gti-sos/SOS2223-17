@@ -201,7 +201,7 @@ margin: 0 20px; /* Cambia el valor de 20px según tus necesidades */
       </tr>
     </thead>
     <tbody>
-      <tr>
+      <tr class="dataCall">
         <td>{updatedBicycleProvince}</td>
         <td><input type="text" bind:value={updatedBicyclePopulation} class="form-control"></td>
         <td><input type="text" bind:value={updatedBicycleWalking} class="form-control"></td>

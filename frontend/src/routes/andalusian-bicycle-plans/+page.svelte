@@ -551,7 +551,7 @@ async function searchContact(province, year, from, to, population_over, motorize
         </tr>
       </thead>
       <tbody>
-        <tr>
+        <tr class="dataCall">
           <td>{busqueda.province}</td>
           <td>{busqueda.population}</td>
           <td>{busqueda.walking}</td>
@@ -588,7 +588,7 @@ async function searchContact(province, year, from, to, population_over, motorize
         </tr>
       </thead>
       <tbody>
-        <tr>
+        <tr class="dataCall">
           <td><input placeholder="Provincia" bind:value={newBicycleProvince} ></td>
           <td><input placeholder="Poblacion" bind:value={newBicyclePopulation} ></td>
           <td><input placeholder="km caminados" bind:value={newBicycleWalking} ></td>

@@ -170,7 +170,6 @@ db.insert(datos_auxilio);
     });
     
     
-  
       
     
     app.post(BASE_API_URL + "/andalusian-bicycle-plans", (req, res) => {
