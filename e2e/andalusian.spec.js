@@ -1,13 +1,12 @@
-// @ts-check
-// import { test, expect } from '@playwright/test';
+//@ts-check
+import { test, expect } from'@playwright/test';
 
-// test('has at least one dataCall', async ({ page }) => {
-//   await page.goto('localhost:8080');
-
-//   await page.getByRole('link', { name: 'bicicletas andaluzas'}).click();
-
-//   await new Promise(resolve => setTimeout(resolve, 1000));
-//   // Expect a title "to contain" a substring.
-//   await expect((await page.locator(".dataCall").all()).length).toBeGreaterThan(0);
-// });
-
+test('get self-employed stats link', async ({ page }) => {
+    await page.goto('https://sos2223-17.appspot.com/andalusian-bicycle-plans');
+  
+    // Click the get started link.
+    await page.getByRole('link', { name: 'Bicicletas' }).click();
+  
+    // Expects the URL to contain intro.
+    await expect(page).toHaveURL(/.*andalusian-bicycle-plans/);
+  });
