@@ -16,10 +16,10 @@
     import HighchartsAccessibility from 'highcharts/modules/accessibility';
     import { dev } from '$app/environment';
 
-    let API = '/api/v2/andalusian-bicycle-plans';
+    let API = '/api/v1/andalusian-bicycle-plans';
 
     if (dev) {
-        API = 'https://sos2223-17.appspot.com' + API;
+        API = 'http://localhost:8080' + API;
     }
 
     let data = [];
@@ -27,21 +27,25 @@
     let resultStatus = "";
 
     async function getData() {
-        resultStatus = result = "";
-        let res;
-        try {
-            res = await fetch(API, {
-                method: 'GET'
-            });
-            const dataReceived = await res.json();
-            result = JSON.stringify(dataReceived, null, 2);
-            data = dataReceived;
-            loadChart(data);
-        } catch (error) {
-            console.log(`Error fetching data: ${error}`);
-        }
-        resultStatus = String(await res.status);
+  try {
+    const response = await fetch(API, {
+      method: 'GET'
+    });
+
+    if (!response.ok) {
+      throw new Error('Error en la solicitud');
     }
+
+    const dataReceived = await response.json();
+    result = JSON.stringify(dataReceived, null, 2);
+    data = dataReceived;
+    loadChart(data);
+  } catch (error) {
+    console.error('Error al obtener los datos:', error);
+    resultStatus = 'Error';
+  }
+}
+
 
     /**
      * @param {any[]} graphData
