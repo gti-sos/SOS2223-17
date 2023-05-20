@@ -53,13 +53,13 @@
         var data = {
             labels: datos_17_R.slice(1).map(d => d[0]),
             datasets: [{
-                label: 'Población',
+                label: 'Turistas',
                 backgroundColor: 'rgba(75, 192, 192, 0.2)',
                 borderColor: 'rgba(75, 192, 192, 1)',
                 borderWidth: 1,
                 data: datos_17_R.slice(1).map(d => d[1])
             }, {
-                label: 'Turistas',
+                label: 'Población',
                 backgroundColor: 'rgba(255, 99, 132, 0.2)',
                 borderColor: 'rgba(255, 99, 132, 1)',
                 borderWidth: 1,

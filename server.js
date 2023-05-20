@@ -29,8 +29,8 @@ app.use(passport.session());
 //Definición de la estrategia de autenticación de Facebook utilizando FacebookStrategy de Passport.js
 
 passport.use(new FacebookStrategy({
-  clientID: '795371695359829',
-  clientSecret: 'f5de5b4af2da1dcd6d182025a77fda62',
+  clientID: '1437258893764864',
+  clientSecret: 'f3a27984ef3175794c6dd376dd74139e',
   callbackURL: 'http://localhost:5000/auth/facebook/callback',
   profileFields: ['id', 'name', 'email']
 }, (accessToken, refreshToken, profile, done) => {

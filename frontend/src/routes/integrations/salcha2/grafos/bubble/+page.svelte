@@ -4,15 +4,10 @@
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
-
-
-
 </svelte:head>
 
-
 <script>
-
-   // @ts-nocheck
+    // @ts-nocheck
     import { onMount } from 'svelte';
     import Highcharts from 'highcharts/highcharts';
     import HighchartsMore from 'highcharts/highcharts-more';
@@ -21,159 +16,127 @@
     import HighchartsAccessibility from 'highcharts/modules/accessibility';
     import { dev } from '$app/environment';
 
-        
     let API = '/api/v2/andalusian-bicycle-plans';
-        
-        if(dev)
-            API = 'http://localhost:8080'+API
 
+    if (dev) {
+        API = 'http://localhost:8080' + API;
+    }
 
-  
-        let data = []
-        let result = "";
-    let resultStatus ="";
+    let data = [];
+    let result = "";
+    let resultStatus = "";
 
-
-        async function getData () {
-            resultStatus = result = "";
-            const res = await fetch(API, {
+    async function getData() {
+        resultStatus = result = "";
+        let res;
+        try {
+            res = await fetch(API, {
                 method: 'GET'
             });
-            try{
-                const dataReceived = await res.json();
-                result = JSON.stringify(dataReceived,null,2);
-                data = dataReceived;
-                loadChart(data);
-            }catch(error){
-                console.log(`Error parsing result: ${error}`);
-            }
-            const status = await res.status;
-            resultStatus = status.toString();	
+            const dataReceived = await res.json();
+            result = JSON.stringify(dataReceived, null, 2);
+            data = dataReceived;
+            loadChart(data);
+        } catch (error) {
+            console.log(`Error fetching data: ${error}`);
         }
+        resultStatus = String(await res.status);
+    }
 
-
-    
-
-    
-    
-/**
- * @param {any[]} graphData
- */
- async function loadChart(graphData) {
-  const options = Highcharts.getOptions();
-  // Tell TypeScript that the `dark-unica` option is valid
-  const darkUnica = options.chart && options.chart.style && options.chart.style.name === 'dark-unica' ? options.chart.style : undefined;
-  Highcharts.chart('container', {
-    chart: {
-      type: 'bubble',
-      plotBorderWidth: 1,
-      style: darkUnica
-    },
-    title: {
-      text: 'Highcharts bubbles with radial gradient fill',
-      align: 'left',
-    },
-    xAxis: {
-      gridLineWidth: 1,
-      accessibility: {
-        rangeDescription: 'Range: 0 to 100.'
-      }
-    },
-    yAxis: {
-      startOnTick: false,
-      endOnTick: false,
-      accessibility: {
-        rangeDescription: 'Range: 0 to 100.'
-      }
-    },
-    series: [{
-      type: 'bubble',
-      data: graphData.map((/** @type {{ motorized_percentage: any; bicycle: any; population: any; walking: any; }} */ obj) => ({
-        x: obj.motorized_percentage,
-        y: obj.bicycle,
-        z: obj.population,
-        marker: {
-          radius: Math.sqrt(obj.population) / 3,
-        }
-      })),
-      marker: {
-        fillColor: {
-          radialGradient: { cx: 0.4, cy: 0.3, r: 0.7 },
-          stops: [
-            [0, 'rgba(255,255,255,0.5)'],
-            [1, Highcharts.color((options.colors || [])[1] || '#000000').setOpacity(0.5).get('rgba').toString()]
-          ]
-        }
-      }
-    }, {
-      type: 'bubble',
-      data: graphData.map((/** @type {{ motorized_percentage: any; bicycle: any; population: any; walking: any; }} */ obj) => ({
-        x: obj.motorized_percentage,
-        y: obj.population,
-        z: obj.bicycle,
-        marker: {
-          radius: obj.walking * 10,
-        }
-      })),
-      marker: {
-        fillColor: {
-          radialGradient: { cx: 0.4, cy: 0.3, r: 0.7 },
-          stops: [
-            [0, 'rgba(255,255,255,0.5)'],
-            [1, Highcharts.color((options.colors || [])[2] || '#000000').setOpacity(0.5).get('rgba').toString()]
-          ]
-        }
-      }
-    }]
-  });
-} 
-
-
-
-
-
-
-
-    
-
-
-
-
-        onMount(async () => {
-            HighchartsMore(Highcharts);
-            HighchartsExporting(Highcharts);
-            HighchartsExportData(Highcharts);
-            HighchartsAccessibility(Highcharts);
-            getData();
+    /**
+     * @param {any[]} graphData
+     */
+    function loadChart(graphData) {
+        const options = Highcharts.getOptions();
+        const darkUnica = options.chart && options.chart.style && options.chart.style.name === 'dark-unica' ? options.chart.style : undefined;
+        Highcharts.chart('container', {
+            chart: {
+                type: 'bubble',
+                plotBorderWidth: 1,
+                style: darkUnica
+            },
+            title: {
+                text: 'Highcharts bubbles with radial gradient fill',
+                align: 'left',
+            },
+            xAxis: {
+              title: {
+                text: 'Porcentaje de Uso de Vehículos Motorizados',
+              },
+                gridLineWidth: 1,
+                accessibility: {
+                    rangeDescription: 'Range: 0 to 100.'
+                }
+            },
+            yAxis: {
+                title: {
+        text: 'Uso de Bicicletas',
+      },
+                startOnTick: false,
+                endOnTick: false,
+                accessibility: {
+                    rangeDescription: 'Range: 0 to 100.'
+                }
+            },
+            series: [{
+                type: 'bubble',
+                data: graphData.map((obj) => ({
+                    x: obj.motorized_percentage,
+                    y: obj.bicycle,
+                    z: obj.population,
+                    marker: {
+                        radius: Math.sqrt(obj.population) / 3,
+                    }
+                })),
+                marker: {
+                    fillColor: {
+                        radialGradient: { cx: 0.4, cy: 0.3, r: 0.7 },
+                        stops: [
+                            [0, 'rgba(255,255,255,0.5)'],
+                            [1, Highcharts.color((options.colors || [])[1] || '#000000').setOpacity(0.5).get('rgba').toString()]
+                        ]
+                    }
+                }
+            }, {
+                type: 'bubble',
+                data: graphData.map((obj) => ({
+                    x: obj.motorized_percentage,
+                    y: obj.population,
+                    z: obj.bicycle,
+                    marker: {
+                        radius: obj.walking * 10,
+                    }
+                })),
+                marker: {
+                    fillColor: {
+                        radialGradient: { cx: 0.4, cy: 0.3, r: 0.7 },
+                        stops: [
+                            [0, 'rgba(255,255,255,0.5)'],
+                            [1, Highcharts.color((options.colors || [])[2] || '#000000').setOpacity(0.5).get('rgba').toString()]
+                        ]
+                    }
+                }
+            }]
         });
+    }
 
-
-
-
-
-
+    onMount(async () => {
+        HighchartsMore(Highcharts);
+        HighchartsExporting(Highcharts);
+        HighchartsExportData(Highcharts);
+        HighchartsAccessibility(Highcharts);
+        await getData();
+    });
 </script>
 
-
 <main>
-    <h1>Graph</h1>
+    <h1>Gráfico de Burbujas</h1>
     <figure class="highcharts-figure">
         <div id="container"></div>
         <p class="highcharts-description">
-            Bubble chart demonstrating a decorative 3D rendering effect using
-            gradient fills on the bubbles.
+          Gráfico de burbujas que muestra la relación entre el porcentaje de uso de vehículos motorizados y el uso de bicicletas.
         </p>
     </figure>
 
-    {#if resultStatus != ""}
-    <p>
-        Result:
-    </p>
-    <pre>
-{resultStatus}
-{result}
-    </pre>
-{/if}
-
+   
 </main>
-
