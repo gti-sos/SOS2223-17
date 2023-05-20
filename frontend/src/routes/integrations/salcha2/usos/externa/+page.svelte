@@ -1,7 +1,3 @@
-<svelte:head>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-</svelte:head>
-
 <script>
     import { onMount } from 'svelte';
     import Chart from 'chart.js/auto';
@@ -30,7 +26,7 @@
         const data = repositories.map((repo) => repo.stars);
 
         new Chart(ctx, {
-            type: 'doughnut',
+            type: 'polarArea',
             data: {
                 labels: labels,
                 datasets: [{
@@ -48,23 +44,19 @@
                 }]
             },
             options: {
-                responsive: true,
-                maintainAspectRatio: false
+                scales: {
+                    r: {
+                        beginAtZero: true
+                    }
+                }
             }
         });
     }
 </script>
 
-<style>
-    main {
-        max-height: 400px;
-        overflow-y: auto;
-    }
-</style>
-
 <main>
     <h1>Gráfico de Repositorios Populares en GitHub</h1>
-    <canvas id="chart" style="width: 400px; height: 300px;"></canvas>
+    <canvas id="chart"></canvas>
 
     <ul>
         {#each repositories as repo}
