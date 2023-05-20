@@ -19,7 +19,7 @@
     let API = '/api/v2/andalusian-bicycle-plans';
 
     if (dev) {
-        API = 'http://localhost:8080' + API;
+        API = 'https://sos2223-17.appspot.com' + API;
     }
 
     let data = [];
