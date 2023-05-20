@@ -30,9 +30,11 @@
 		"express-session": "^1.17.3",
 		"fb": "^2.0.0",
 		"highcharts": "^11.0.1",
+		"oauth": "^0.10.0",
 		"plotly.js": "^2.23.0",
 		"plotly.js-dist": "^2.23.0",
 		"plotly.js-dist-min": "^2.23.0",
+		"simple-oauth2": "^5.0.0",
 		"svelte-preprocess": "^5.0.3",
 		"sveltestrap": "^5.10.0",
 		"sweetalert2": "^11.4.8"
