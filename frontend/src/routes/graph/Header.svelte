@@ -37,6 +37,7 @@
     <h1>graphs</h1>
     <a href="/graph/spa_graph">sanpinand</a>
     <a href="/graph/self-employed-stats">jorgaroro</a>
+    <a href="/graph/scc_graph">salcha2</a>
 </div>
 </nav>
 

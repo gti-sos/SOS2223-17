@@ -46,6 +46,12 @@
 
     <a href="/integrations/salcha2/Integraciones/proxy">Integracion proxy: APIs sos</a>
     <a href="/integrations/salcha2/usos/registAPI">Usos apis ext: grafica y textual</a>
+    <a href="/integrations/salcha2/Integraciones/noProxy">Integracion sin proxy: APIs sos</a>
+    <a href="/integrations/salcha2/usos/externa">Mas usos</a>
+
+
+
+
 </div>
 </nav>
 
