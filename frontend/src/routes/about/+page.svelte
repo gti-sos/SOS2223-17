@@ -7,7 +7,7 @@
     }
 
     async function videoSalim(){
-        window.location.href = "";
+        window.location.href = "https://www.youtube.com/watch?v=kMJiIPklReY";
     }
 
     async function videoSanti(){
