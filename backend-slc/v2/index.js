@@ -1,3 +1,5 @@
+console.log("F");
+
 const BASE_API_URL = "/api/v2";
 
 //const salim = require("./andalusian-bicycles-plans");
@@ -6,6 +8,7 @@ const BASE_API_URL = "/api/v2";
 
 const API_DOC_PORTAL_salim = "https://documenter.getpostman.com/view/25746364/2s93JxsMEP"
 
+console.log("G");
 
 const API_DOC_PORTAL_salim1 = "https://sos2223-17-381423.ew.r.appspot.com/"
 
@@ -13,6 +16,7 @@ const API_DOC_PORTAL_salim1 = "https://sos2223-17-381423.ew.r.appspot.com/"
 import { response } from 'express';
 import Datastore from 'nedb';
 var db = new Datastore();
+console.log("H");
 
 
 function loadBackend_salcha2(app) {
@@ -166,9 +170,12 @@ db.insert(datos_auxilio);
           return res.json(docs);
         }
         
+      console.log("I");
+
       });
     });
-    
+    console.log("J");
+
     
       
     
@@ -176,7 +183,9 @@ db.insert(datos_auxilio);
       const inputPost = req.body;
 
 
-    if (inputPost.hasOwnProperty('id')) {
+      console.log("K");
+
+      if (inputPost.hasOwnProperty('id')) {
       const errorMessage = `Property 'id' is not allowed in POST requests`;
       console.log(errorMessage);
       return res.status(400).json({ message: errorMessage });
@@ -193,22 +202,32 @@ db.insert(datos_auxilio);
         console.log(errorMessage);
         return res.status(400).json({ message: errorMessage });
       }
-    
+      console.log("L");
+
+      console.log("M");
+
       const numericFields = ['population', 'walking', 'bicycle', 'year', 'motorized_percentage'];
       for (const field of numericFields) {
         if (typeof req.body[field] === 'number' && (req.body[field] === 0 || req.body[field] === null)) {
           return res.sendStatus(400);
         }
       }
-    
+      console.log("N");
+
       const query = { province: inputPost.province, year: inputPost.year };
     
+      console.log("O");
+
       db.find(query, (err, docs) => {
         if (err) {
           return res.status(500).json({ error: 'Internal server error' });
         }
         if (docs.length > 0) {
+          console.log("P");
+
           return res.status(409).json({ message: 'HTTP 409 CONFLICT: Data with same province and year already exists.' });
+          console.log("Q");
+
         } else {
           // Add null verification here
           if (!Object.values(inputPost).some(value => value === null)) {
@@ -399,11 +418,13 @@ for (const field of numericFields) {
 
   app.get(BASE_API_URL + "/data", (req,res)=>{
     console.log('New GET to /data')
+    console.log("R");
 
     function getRandomInt(min, max) {
       return Math.floor(Math.random() * (max - min) + min);
     }
-    
+    console.log("H");
+
     function v(){
       return getRandomInt(1,100);
     }

@@ -25,8 +25,10 @@
 	"type": "module",
 	"dependencies": {
 		"@popperjs/core": "^2.11.7",
+		"@types/highcharts": "^7.0.0",
 		"axios": "^1.4.0",
 		"chart.js": "^4.3.0",
+		"chartjs-adapter-moment": "^1.0.1",
 		"express-session": "^1.17.3",
 		"fb": "^2.0.0",
 		"highcharts": "^11.0.1",
@@ -37,6 +39,7 @@
 		"simple-oauth2": "^5.0.0",
 		"svelte-preprocess": "^5.0.3",
 		"sveltestrap": "^5.10.0",
-		"sweetalert2": "^11.4.8"
+		"sweetalert2": "^11.4.8",
+		"xrange": "^2.2.1"
 	}
 }

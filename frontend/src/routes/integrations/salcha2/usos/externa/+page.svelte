@@ -20,6 +20,7 @@
         }
     });
 
+    
     function renderChart() {
         const ctx = document.getElementById('chart').getContext('2d');
         const labels = repositories.map((repo) => repo.name);
@@ -54,9 +55,22 @@
     }
 </script>
 
+<style>
+    .chart-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+</style>
+
 <main>
     <h1>Gráfico de Repositorios Populares en GitHub</h1>
-    <canvas id="chart"></canvas>
+    <div class="chart-container">
+        <div style="width: 500px; height: 500px;">
+            <canvas id="chart"></canvas>
+        </div>
+    </div>
 
     <ul>
         {#each repositories as repo}

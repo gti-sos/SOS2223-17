@@ -48,6 +48,9 @@
     <a href="/integrations/salcha2/usos/registAPI">Usos apis ext: grafica y textual</a>
     <a href="/integrations/salcha2/Integraciones/noProxy">Integracion sin proxy: APIs sos</a>
     <a href="/integrations/salcha2/usos/externa">uso externo github</a>
+    <a href="/integrations/salcha2/usos/externa2">uso api spaceX</a>
+
+    
 
 
 

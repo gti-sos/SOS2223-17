@@ -114,9 +114,20 @@
     })
 </script>
 
+<style>
+    #chart {
+        width: 500px;
+        height: 400px;
+        margin: 0 auto;
+    }
+</style>
+
 <main>
     <h1 align="center">Comparación de Propiedades</h1>
     <br>
     <br>
-    <canvas id="chart" style="width: 800px; height: 600px; margin-left: 50px; margin-bottom: 150px;"></canvas>
+    <div id="chart-container">
+        <canvas id="chart"></canvas>
+    </div>
 </main>
+

@@ -1,10 +1,11 @@
 <svelte:head>
-  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script src="https://code.highcharts.com/highcharts.js"></script>
 </svelte:head>
 
 <script lang="ts">
   import { onMount } from 'svelte';
   import { dev } from '$app/environment';
+  import Highcharts from 'highcharts/highcharts';
 
   let API = '/api/v1/andalusian-bicycle-plans';
 
@@ -26,37 +27,58 @@
   }
 
   function loadChart(data: any[]) {
-    if (typeof google === 'undefined') {
-      console.error('Google Charts library is not loaded');
-      return;
-    }
+    const chartData: Highcharts.SeriesOptionsType[] = data.map(item => ({
+      name: item.province,
+      type: 'area',
+      data: [
+        item.walking,
+        item.car_driver,
+        item.accompanying_car,
+        item.motorcycle,
+        item.bicycle,
+        item.public_transport,
+        item.other_transportation
+      ]
+    }));
 
-    google.charts.setOnLoadCallback(() => {
-      const chartData = [['Provincia', 'Caminando', 'En Bicicleta']];
-      
-      data.forEach(item => {
-        chartData.push([item.province, item.walking, item.bicycle]);
-      });
+    const options: Highcharts.Options = {
+      chart: {
+        type: 'area'
+      },
+      title: {
+        text: 'Comparación de Métodos de Transporte en Provincias de Andalucía'
+      },
+      xAxis: {
+        categories: [
+          'Caminando',
+          'Conducir (Coche)',
+          'Acompañante (Coche)',
+          'Motocicleta',
+          'Bicicleta',
+          'Transporte Público',
+          'Otros Transportes'
+        ]
+      },
+      yAxis: {
+        title: {
+          text: 'Porcentaje de Uso'
+        }
+      },
+      plotOptions: {
+        area: {
+          fillOpacity: 0.5
+        }
+      },
+      series: chartData
+    };
 
-      const options: google.visualization.BubbleChartOptions = {
-        title: 'Comparación de Propiedades en Diferentes Provincias',
-        legend: { position: 'top' },
-        chartArea: { width: '80%', height: '70%' },
-        hAxis: { title: 'Caminando' },
-        vAxis: { title: 'En Bicicleta' },
-        bubble: { textStyle: { fontSize: 11 } }
-      };
-
-      const chartContainer = document.getElementById('chart');
-      if (!chartContainer) return;
-      const chart = new google.visualization.BubbleChart(chartContainer);
-      chart.draw(google.visualization.arrayToDataTable(chartData), options);
-    });
+    const chartContainer = document.getElementById('chart');
+    if (!chartContainer) return;
+    Highcharts.chart(chartContainer, options);
   }
 
   onMount(() => {
-    google.charts.load('current', { 'packages': ['corechart'] });
-    google.charts.setOnLoadCallback(getData);
+    getData();
   });
 </script>
 

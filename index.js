@@ -1,3 +1,4 @@
+console.log("A");
 import express from "express";
 
 import request from "request";
@@ -38,6 +39,8 @@ const app = express(); //constructor
 app.use(express.json());
 
 const port = process.env.PORT || 8080;
+
+console.log("B");
 
 app.use(cors());
 
@@ -105,7 +108,11 @@ loadBackend_salcha2_2(app);
 
 //  antiguo sitio codigo josgaroro1 /////////////////////////////////////////////////////////////////////
 
+console.log("C");
 
+console.log("D");
+
+console.log("E");
 
 app.use(handler);
 
